@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-</head>
-<body>
-    
-</body>
-</html>
-
-<html>
-
-<head>
-
     {% load static %}<!-- Carga de archivos estáticos -->
 
     <!-- Bootstrap -->
@@ -28,10 +18,8 @@
     <!-- Styles -->
     <link href="{% static 'inicio/css/gestion.css' %}" rel="stylesheet">
 </head>
-
 <body>
-
-<!-- Navbar -->
+    <!-- Navbar -->
 
 {% block content %}
 <!--Contenido cambiante-->
@@ -40,10 +28,7 @@
     <!-- Footer -->
 
     <!-- Bootstrap -->
-    <script src="{% static 'proyectoWebApp/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'proyectoWebApp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
+    <script src="{% static 'inicio/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'inicio/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
-
-
 </html>
