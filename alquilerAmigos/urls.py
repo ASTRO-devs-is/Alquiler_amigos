@@ -20,7 +20,7 @@ from django.conf.urls.static import static#importamos estos dos para poder mostr
 from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),#incluye todas las urls de la app creada 
+    path('', include('inicio.urls')),#incluye todas las urls de la app creada 
     path('alquilar/', include('alquilarAmigo.urls')),#incluye todas las urls de la app creada 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#con esta linea de codigo le decimos a django que muestre las imagenes
