@@ -11,7 +11,7 @@
             </div>
             <div style="margin: 10px 10em;">{{ formCateg.categorias }}</div>
             <div style="display: flex;margin: 50px 0px;">
-                <h3>Escoge la fecha:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <h3>{{ formCateg.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
                 <div style="float: right; margin: 0px 50px;">{{ formCateg.fecha }}</div>
             </div>
             <div style="display: flex;margin: 50px 0px;">
@@ -25,12 +25,12 @@
             </div>
             
             <div style="display: flex;margin: 20px 0px;">
-                <h3>Selecciona horario de inicio:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
                 <div style="float: right;margin: 0px 50px;">{{ formCateg.horaInicio }}</div>
             </div>
             
             <div style="display: flex;margin: 20px 0px;">
-                <h3>Selecciona horario de final:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3>
+                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
                 <div style="float: right;margin: 0px 50px;">{{ formCateg.horaFin }}</div>
             </div>
             
