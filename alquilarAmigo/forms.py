@@ -9,9 +9,9 @@ class formularioProgramarCita(forms.Form):
     fecha = forms.DateField(label='Escoge la fecha de tu salida', required=True,
                             widget=forms.DateInput(format="%d-%m-%Y", attrs={"type": "date",'class': 'form-control'}),
                             input_formats=["%d-%m-%Y"])
-    horaInicio = forms.TimeField(label='Escoge la hora de Inicio de tu salida', required=True, 
+    horaInicio = forms.TimeField(label='Escoge la hora de Inicio', required=True, 
                             widget=forms.TimeInput(format="%H-%M", attrs={"type": "time",'class': 'form-control'}),
                             input_formats=["%H-%M"])
-    horaFin = forms.TimeField(label='Escoge la hora de fin de tu salida', required=True, 
+    horaFin = forms.TimeField(label='Escoge la hora de fin', required=True, 
                             widget=forms.TimeInput(format="%H-%M", attrs={"type": "time",'class': 'form-control'}),
                             input_formats=["%H-%M"])
