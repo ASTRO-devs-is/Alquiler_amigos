@@ -7,25 +7,28 @@
         <div class="form-group" >
             {% csrf_token %}
             <div style="display: flex;">
-            <h2 style="color: red;">*&nbsp;&nbsp;</h2><h2>{{ formCateg.categorias.label }}</h2>
+            <h2>{{ formCateg.categorias.label }}:</h2> <h2 style="color: red;">&nbsp;*</h2>
             </div>
             <div style="margin: 10px 10em;">
             {{ formCateg.categorias }}
             </div>
             <div style="display: flex;">
-                <h2 style="color: red;">*&nbsp;&nbsp;</h2><h2>Escoge la fecha:</h2>
+                <h2>Escoge la fecha:</h2> <h2 style="color: red;">&nbsp;*</h2>
             </div>
             <div style="display: flex;">
-                <h2 style="color: red;">*&nbsp;&nbsp;</h2><h2>Escribe la descripcion que deseas de tu salida</h2>
+                <h2>{{ formCateg.cajaTexto.label }}:</h2> <h2 style="color: red;">&nbsp;*</h2>
+            </div>
+            <div style="margin: 10px 10em;">
+                {{ formCateg.cajaTexto }}
+                </div>
+            <div style="display: flex;">
+                <h2>Horarios disponibles:</h2>
             </div>
             <div style="display: flex;">
-                <h2>Horarios disponibles</h2>
+                <h2>Selecciona horario de inicio:</h2> <h2 style="color: red;">&nbsp;*</h2>
             </div>
             <div style="display: flex;">
-                <h2 style="color: red;">*&nbsp;&nbsp;</h2><h2>Selecciona horario de inicio: </h2>
-            </div>
-            <div style="display: flex;">
-                <h2 style="color: red;">*&nbsp;&nbsp;</h2><h2>Selecciona horario de final: </h2>
+                <h2>Selecciona horario de final:</h2> <h2 style="color: red;">&nbsp;*</h2>
             </div>
             
         </div>
