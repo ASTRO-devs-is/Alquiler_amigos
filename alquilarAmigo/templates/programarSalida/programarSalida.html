@@ -4,12 +4,12 @@
 {% block content %}
     <div style="margin: 10px 100px;">
         <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <div class="form-group" >
+        <form class="form-group" method='POST' style="width: 75%; margin: auto">
             {% csrf_token %}
             <div style="display: flex;">
             <h3>{{ formCateg.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
-            <div style="margin: 10px 10em;">{{ formCateg.categorias }}</div>
+            <div style="width: 50%; margin: auto">{{ formCateg.categorias }}</div>
             <div style="display: flex;margin: 50px 0px;">
                 <h3>{{ formCateg.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
                 <div style="float: right; margin: 0px 50px;">{{ formCateg.fecha }}</div>
@@ -33,11 +33,13 @@
                 <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
                 <div style="float: right;margin: 0px 50px;">{{ formCateg.horaFin }}</div>
             </div>
-            
-        </div>
-        <div style="text-align: center;margin: 100px 0px;">
-            <button type="button" class="btn btn-primary" style="margin: 0px 100px;">Programar</button>
-            <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
-        </div>
+        
+            <div style="text-align: center;margin: 100px 0px;">
+                <button type="submit" class="btn btn-primary" style="margin: 0px 50px;">Programar</button>
+                <button type="button" class="btn btn-secondary" style="margin: 0px 50px;">Cancelar</button>
+            </div>
+        </form>
+
+        
     </div>
 {% endblock %}
