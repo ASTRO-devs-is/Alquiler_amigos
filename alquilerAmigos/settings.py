@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'alquilarAmigo',
     'inicio',
     'registrarAmigo',
+    'subir_fotos',
+
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para almacenar archivos multimedia subidos
