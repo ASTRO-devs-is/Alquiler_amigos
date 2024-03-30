@@ -8,33 +8,32 @@
         
         <form class="form-grup">
             <div class="container">
-                <h1>Datos Personales</h1>
+                <h2>Datos Personales</h2>
                 <div class="row">
                     
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
     
                         <div style=" margin: 5px 0px;">
-                            <div style="width: 100px;"><label for="nombre">Nombre <span style="color: red">*</span>: </label></div>
-                            <input type="nombre" id="nombre" required style="width: 80%;"><br>
+                            <div style="width: 100px;"><h4>{{form.nombre.label}}: <span style="color: red">*</span> </h4></div>
+                            <div style="width: 80%;">{{form.nombre}}</div>
                         </div>
                         <div style="margin: 5px 0px;">
-                            <div style="width: 100px;"><label for="telefono">Teléfono:</label></div>
-                            <input type="tel" id="telefono" required style="width: 80%;"><br>
+                            <div style="width: 100px;"><h4>{{form.telefono.label}}:</h4></div>
+                            <div style="width: 80%;">{{form.telefono}}</div>
                         </div>
                         
 
                     </div>
-    
-    
+
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" >
                         <div style="margin: 5px 0px;">
-                            <div style="width: 200px;"><label for="apellido">Apellido <span style="color: red">*</span>:</label></div>
-                            <div style="width: 75%;"><input type="text" id="apellido" required style="width: 107%;"></div>
+                            <div style="width: 200px;"><h4>{{form.apellido.label}}: <span style="color: red">*</span></h4></div>
+                            <div style="width: 80%;">{{form.apellido}}</div>
                         </div>
 
                         <div style="margin: 5px 0px;">
-                            <div style="width: 200px;"><label for="fechaNacimiento">Fecha de Nacimiento <span style="color: red">*</span>:</label></div> 
-                            <div><input type="date" id="fechaNacimiento" required style="width: 30%;"></div>
+                            <div style="width: 200px;"><h4>{{form.fecha.label}}: <span style="color: red">*</span></h4></div> 
+                            <div style="width: 27%;">{{form.fecha}}</div>
                         </div>
 
                     </div>
@@ -42,46 +41,41 @@
                     <div style="padding: 10px 15px;">
                         <div style="margin: 20px 0px;">
                             <div style="display: flex;">
-                                <div style="width: 200px;margin: 0px 0px;margin-right: 90px;" ><label for="pais">País <span style="color: red">*</span>:</label></div>
-                                <div style="width: 200px;margin: 0px 90px;"><label for="ciudad">Ciudad <span style="color: red">*</span>:</label></div> 
-                                <div style="width: 200px;margin: 0px 100px;"><label for="localidad">Localidad <span style="color: red">*</span>:</label></div> 
+                                <div style="width: 200px;margin: 0px 0px;margin-right: 90px;" ><h4>{{form.pais.label}}: <span style="color: red">*</span></h4></div>
+                                <div style="width: 200px;margin: 0px 90px;"><h4>{{form.ciudad.label}}: <span style="color: red">*</span></h4></div> 
+                                <div style="width: 200px;margin: 0px 100px;"><h4>{{form.localidad.label}}: <span style="color: red">*</span></h4></div> 
                             
                             </div>
                             <div style="display: flex;">
-                                <div style="width: 200px; margin: 0px 0px;margin-right: 80px"><input type="text" id="pais" required style="width: 140%;"><br></div>
-                                <div style="width: 200px; margin: 0px 100px;"><input type="text" id="ciudad" required style="width: 150%;"></div>
-                                <div style="width: 200px; margin: 0px 100px;"><input type="text" id="localidad" required></div>
+                                <div style="width: 43%;margin: 0px 0px;margin-right: 0px">{{form.pais}}</div>
+                                <div style="width: 30%;margin: 0px 100px;">{{form.ciudad}}</div>
+                                <div style="width: 30%;margin: 0px 100px;">{{form.localidad}}</div>
+                                
                             </div>    
                         </div> 
-                        <div style="width: 200px;"><label for="email">Email <span style="color: red">*</span>:</label></div>
-                        <input type="email" id="email" required style="width: 50%;"><br>
+                        <div style="width: 200px;"><h4>{{form.email.label}}: <span style="color: red">*</span></h4></div>
+                        <div style="width: 50%;">{{form.email}}</div>
     
-                        <div style="width: 200px;"><label for="tarifa">Tarifa por Hora <span style="color: red">*</span>:</label></div>
-                        <div style="width: 50%;"><h2>{{ formRegistro.tarifa }}</h2></div>
+                        <div style="width: 200px;"><h4>{{form.tarifa.label}}: <span style="color: red">*</span></h4></div>
+                        <div style="width: 50%;"><h2>{{ form.tarifa }}</h2></div>
     
-                        <div style="width: 200px;"><label for="descripcion">Describete:</label></div>
-                        <textarea id="descripcion" required style="width: 90%;"></textarea><br>
+                        <div style="width: 200px;"><h4>{{form.descripcion.label}}: <span style="color: red">*</span></h4></div>
+                        <div style="width: 90%;"><h2>{{ form.descripcion }}</h2></div>
     
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                              He leido y acepto el aviso legal y la Politica de privacidad<span style="color: red">*</span>.</label>
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                              Acepto los terminos y condiciones<span style="color: red">*</span>.</label>
-                            </label>
+                            <h4 class="form-check-h4" for="gridCheck">
+                                He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4>
+                            </h4>
                         </div>
-                        
-                          
-                      
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <h4 class="form-check-h4" for="gridCheck">
+                                Acepto los terminos y condiciones. <span style="color: red">*</span></h4>
+                            </h4>
+                        </div>             
                     </div>
-                
-        
                 </div>
-
             </div>
         </form>
             <div style="margin: 10px 100px;">        
