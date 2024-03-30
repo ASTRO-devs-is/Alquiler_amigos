@@ -6,7 +6,8 @@
         <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>REGISTRAR AMIGO</b></h2></div>
             </div>
         
-        <form class="form-grup">
+        <form class="form-grup" method='POST'>
+            {% csrf_token %}
             <div class="container">
                 <h2>Datos Personales</h2>
                 <div class="row">
@@ -16,10 +17,28 @@
                         <div style=" margin: 5px 0px;">
                             <div style="width: 100px;"><h4>{{form.nombre.label}}: <span style="color: red">*</span> </h4></div>
                             <div style="width: 80%;">{{form.nombre}}</div>
+                            {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'nombre' %}
+                                            <h5>{{ form.nombre.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                         <div style="margin: 5px 0px;">
                             <div style="width: 100px;"><h4>{{form.telefono.label}}:</h4></div>
                             <div style="width: 80%;">{{form.telefono}}</div>
+                            {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'telefono' %}
+                                            <h5>{{ form.telefono.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                         
 
@@ -29,11 +48,29 @@
                         <div style="margin: 5px 0px;">
                             <div style="width: 200px;"><h4>{{form.apellido.label}}: <span style="color: red">*</span></h4></div>
                             <div style="width: 80%;">{{form.apellido}}</div>
+                            {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'apellido' %}
+                                            <h5>{{ form.apellido.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div style="margin: 5px 0px;">
                             <div style="width: 200px;"><h4>{{form.fecha.label}}: <span style="color: red">*</span></h4></div> 
                             <div style="width: 27%;">{{form.fecha}}</div>
+                            {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'fecha' %}
+                                            <h5>{{ form.fecha.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
 
                     </div>
@@ -49,41 +86,116 @@
                             <div style="display: flex;">
                                 <div style="width: 43%;margin: 0px 0px;margin-right: 0px">{{form.pais}}</div>
                                 <div style="width: 30%;margin: 0px 100px;">{{form.ciudad}}</div>
-                                <div style="width: 30%;margin: 0px 100px;">{{form.localidad}}</div>
-                                
-                            </div>    
+                                <div style="width: 30%;margin: 0px 100px;">{{form.localidad}}</div>   
+                            </div>
+                            <div style="display: flex;">
+                                {% if errores %}
+                                    <div style="color: red;width: 250px;margin: 0px 0px;margin-right: 0px">
+                                        {% for error in errores %}
+                                            {% if error == 'pais' %}
+                                                <h5>{{ form.pais.errors }}</h5>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    
+                                {% if errores %}
+                                    <div style="color: red;width: 250px;margin: 0px 100px;">
+                                        {% for error in errores %}
+                                            {% if error == 'ciudad' %}
+                                                <h5>{{ form.ciudad.errors }}</h5>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% if errores %}
+                                    <div style="color: red;width: 250px;margin: 0px 50px;">
+                                        {% for error in errores %}
+                                            {% if error == 'localidad' %}
+                                                <h5>{{ form.localidad.errors }}</h5>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            </div>  
                         </div> 
                         <div style="width: 200px;"><h4>{{form.email.label}}: <span style="color: red">*</span></h4></div>
                         <div style="width: 50%;">{{form.email}}</div>
+                        {% if errores %}
+                            <div style="color: red;">
+                                {% for error in errores %}
+                                    {% if error == 'email' %}
+                                        <h5>{{ form.email.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
     
                         <div style="width: 200px;"><h4>{{form.tarifa.label}}: <span style="color: red">*</span></h4></div>
                         <div style="width: 50%;"><h2>{{ form.tarifa }}</h2></div>
+                        {% if errores %}
+                            <div style="color: red;">
+                                {% for error in errores %}
+                                    {% if error == 'tarifa' %}
+                                        <h5>{{ form.tarifa.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
     
                         <div style="width: 200px;"><h4>{{form.descripcion.label}}: <span style="color: red">*</span></h4></div>
                         <div style="width: 90%;"><h2>{{ form.descripcion }}</h2></div>
-    
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <h4 class="form-check-h4" for="gridCheck">
-                                He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4>
-                            </h4>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <h4 class="form-check-h4" for="gridCheck">
-                                Acepto los terminos y condiciones. <span style="color: red">*</span></h4>
-                            </h4>
-                        </div>             
+                        {% if errores %}
+                            <div style="color: red;">
+                                {% for error in errores %}
+                                    {% if error == 'descripcion' %}
+                                        <h5>{{ form.descripcion.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div style="display: block;">
+                            <div class="form-check-input" style="padding: 10px 15px;margin: 10px;">
+                                <div>{{ form.politica }}</div>
+                                <h4>
+                                    He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4>
+                                </h4>
+                                {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'politica' %}
+                                            <h5>{{ form.politica.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div><br>
+                            <div class="form-check-input" style="padding: 10px 15px;margin: 10px;">
+                                
+                                <div>{{ form.terminos }}</div>
+                                <h4>
+                                    Acepto los terminos y condiciones. <span style="color: red">*</span></h4>
+                                </h4>
+                                {% if errores %}
+                                <div style="color: red;">
+                                    {% for error in errores %}
+                                        {% if error == 'terminos' %}
+                                            <h5>{{ form.terminos.errors }}</h5>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>         
                     </div>
                 </div>
-            </div>
+            </div>       
+                <div style="text-align: center;margin: 100px 0px;">
+                    <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="margin: 0px 100px;">Continuar</button>
+                </div>
         </form>
-            <div style="margin: 10px 100px;">        
-        <div style="text-align: center;margin: 100px 0px;">
-            <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
-            <button type="button" class="btn btn-primary" style="margin: 0px 100px;">Continuar</button>
-        </div>
-
-        </div>
     
 {% endblock %}
