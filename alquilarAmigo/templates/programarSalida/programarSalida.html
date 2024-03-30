@@ -4,40 +4,76 @@
 {% block content %}
     <div style="margin: 10px 100px;">
         <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <div class="form-group" >
+        <form class="form-group" method='POST' style="width: 75%; margin: auto">
             {% csrf_token %}
             <div style="display: flex;">
-            <h3>{{ formCateg.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+            <h3>{{ formSalida.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
-            <div style="margin: 10px 10em;">{{ formCateg.categorias }}</div>
+            <div style="width: 50%; margin: auto">{{ formSalida.categorias }}</div>
             <div style="display: flex;margin: 50px 0px;">
-                <h3>{{ formCateg.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-                <div style="float: right; margin: 0px 50px;">{{ formCateg.fecha }}</div>
+                <h3>{{ formSalida.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <div style="float: right; margin: 0px 50px;">{{ formSalida.fecha }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'fecha' %}
+                            <p>{{ formSalida.fecha.errors }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <div style="display: flex;margin: 50px 0px;">
-                <h3>{{ formCateg.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <h3>{{ formSalida.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
-            <div style="margin: 10px 10em;margin: 50px 0px;">
-                {{ formCateg.cajaTexto }}
-                </div>
+            <div style="margin: 10px 10em;margin: 50px 0px;">{{ formSalida.cajaTexto }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'cajaTexto' %}
+                            {{ formSalida.cajaTexto.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
             <div style="display: flex;margin: 50px 0px;">
                 <h3>Horarios disponibles:</h3>
             </div>
             
             <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formCateg.horaInicio }}</div>
+                <div style="width: 280px;display: flex;"><h3>{{ formSalida.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
+                <div style="float: right;margin: 0px 50px;">{{ formSalida.horaInicio }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'horaInicio' %}
+                            {{ formSalida.horaInicio.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             
             <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formCateg.horaFin }}</div>
+                <div style="width: 280px;display: flex;"><h3>{{ formSalida.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
+                <div style="float: right;margin: 0px 50px;">{{ formSalida.horaFin }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'horaFin' %}
+                            {{ formSalida.horaFin.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            
-        </div>
-        <div style="text-align: center;margin: 100px 0px;">
-            <button type="button" class="btn btn-primary" style="margin: 0px 100px;">Programar</button>
-            <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
-        </div>
+        
+            <div style="text-align: center;margin: 100px 0px;">
+                <button type="submit" class="btn btn-primary" style="margin: 0px 50px;">Programar</button>
+                <button type="button" class="btn btn-secondary" style="margin: 0px 50px;">Cancelar</button>
+            </div>
+        </form>
+
+        
     </div>
 {% endblock %}
