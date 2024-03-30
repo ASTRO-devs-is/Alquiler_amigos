@@ -2,9 +2,10 @@
 {% load static %}
 
 {% block content %}
+
     <div style="margin: 10px 100px;">
         <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <form class="form-group" method='POST' style="width: 90%; margin: auto">
+        <form class="form-group" method='POST' style="width: 75%; margin: auto">
             {% csrf_token %}
             <div style="display: flex;">
             <h3>{{ formSalida.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
@@ -36,8 +37,17 @@
                     {% endfor %}
                     </div>
                 {% endif %}
-            <div style="display: flex;margin: 50px 0px;">
+            <div style="margin: 50px 0px;">
                 <h3>Horarios disponibles:</h3>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    {% for horario in horas %}
+                        <div style="display: flex;">
+                            <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
+                                Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             
             <div style="display: flex;margin: 20px 0px;">

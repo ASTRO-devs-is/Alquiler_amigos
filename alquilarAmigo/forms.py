@@ -60,3 +60,4 @@ class formularioProgramarCita(forms.Form):
         if horaFin < datetime.datetime.now().time():
             raise forms.ValidationError('La hora de fin no puede ser menor a la hora actual')
         return horaFin
+    
