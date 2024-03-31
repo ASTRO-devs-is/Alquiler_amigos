@@ -37,49 +37,9 @@
                     {% endfor %}
                     </div>
                 {% endif %}
-            <div style="margin: 50px 0px;">
-                <h3>Horarios disponibles:</h3>
-                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                    {% for horario in horas %}
-                        <div style="display: flex;">
-                            <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
-                                Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formSalida.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formSalida.horaInicio }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaInicio' %}
-                            {{ formSalida.horaInicio.errors }}
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formSalida.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formSalida.horaFin }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaFin' %}
-                            {{ formSalida.horaFin.errors }}
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
         
             <div style="text-align: center;margin: 100px 0px;">
-                <button type="submit" class="btn btn-primary" style="margin: 0px 50px;">Programar</button>
+                <button type="submit" class="btn btn-primary" style="margin: 0px 50px;">Siguiente</button>
                 <button type="button" class="btn btn-secondary" style="margin: 0px 50px;">Cancelar</button>
             </div>
         </form>
