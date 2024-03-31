@@ -1,0 +1,10 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+{% block title %}
+<title>FOTOS</title>
+{% endblock %}
+{% block content %}
+{% for foto in fotos %}
+    <img src="{{ foto.image.url }}" alt="Foto de perfil">
+{% endfor %}
+{% endblock %}
