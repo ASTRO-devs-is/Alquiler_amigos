@@ -4,6 +4,7 @@ from datetime import timedelta
 from alquilarAmigo.models import Tarifa
 
 tarifa = [(tarifa.tarifa, str(tarifa.tarifa)) for tarifa in Tarifa.objects.all()]
+
 class formularioRegistrarAmigo(forms.Form):
     tarifa = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), 
                                     choices=tarifa, label='Tarifa', required=False)
