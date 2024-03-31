@@ -5,4 +5,5 @@ from django.conf.urls.static import static#importamos estos dos para poder mostr
 
 urlpatterns = [
     path('programar', views.programarSalida, name="ProgramarSalida"), 
+    path('escogerHora/<categoria>/<fecha>/<cajaTexto>/<amigo_id>/<cliente_id>/', views.escogerHora, name="EscogerHora"),
 ]

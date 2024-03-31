@@ -29,7 +29,22 @@ h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h
   background-color: #5F788A;
 }
 
-/*Codigo para el subir Fotos*/
+
+.mostrarHorario{
+  width: 280px;display: flex;
+  background-color: #F26419;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+
+}
+
+.a{  background-color: #55DDE0;}
+.b{  background-color: #F6AE2D;}
+.c{  background-color: #F26419;}
+
 #drop-area {
   border: 2px dashed #ccc;
   padding: 100px 130px;
@@ -142,4 +157,4 @@ body {
   position: relative;
   display: inline-block;
 }
-/*Fin codigo para subir Fotos*/
+
