@@ -30,50 +30,86 @@
 
 <style>
 
-.offcanvas-start { 
-      background-color: #2F4858;
-}
-
-@media (max-width: 768px) {
-      .navbar-nav > li:hover {
-        background-color: #0dcaf0;
-      }
-}
-
-/*colores*/
-.color1 {
-    color: #55DDE0 !important; /* Código hexadecimal celeste azul para titulo offcanvas sidebar */
-}
-
-/* Estilo para los elementos de la lista en el sidebar */
-.nav-link {
-    color: #f0f0f0; /* Color gris en hexadecimal */
-}
-
-/*Estilo para resaltar el elemento activo */
-.nav-item.active .nav-link {
-    font-weight: bold; /* Negrita para el elemento activo */
-    color: #0000ff; /* Color azul en hexadecimal */
-}
-
-/* Personaliza la duración de la transición del offcanvas */
-.offcanvas {
-  transition: transform 1.5s ease; /* Cambia 0.5s por la duración deseada en segundos */
-}
-/* Estilos para todos los iconos */
-  i {
-    font-size: 1.4em; /* Define el tamaño de los iconos */
-    /* Otros estilos opcionales */
-    color: #55DDE0; /* Cambia el color de los iconos */
-    margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
-  }
 
 </style>
 
 <body>
       
     <!-- Menu de navegacion -->
-    {%include "inicio/navBar.html"%}
+    <nav class="navbar navbar-expand-lg " style="background-color: #2F4858;"> <!-- Creacion de menu de navegacion -->
+
+      <div class="container-fluid ">
+          <a href="" class="navbar-brand color1 fw-semibold fs-2">FriendlyHire</a>
+          <!-- boton de navegacion  -->
+          <button
+            class="navbar-toggler text-success"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#menuLateral"
+          >
+          <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- offcanvas contenedor del contenido del sidebar -->
+          <section
+            class="offcanvas offcanvas-start offcanvas-collapse"
+            id="menuLateral"
+            tabindex="-1"
+          >
+            <div class="offcanvas-header" data-bs-theme="dark">
+              <h5 class="offcanvas-title color1 fs-2">FriendlyHire</h5>
+              <button
+                class="btn-close"
+                type="button"
+                aria-label="Close"
+                data-bs-dismiss="offcanvas"
+              ></button>
+            </div>
+
+            <!-- cuerpo de offcanvas-->
+            <div
+              class="offcanvas-body d-flex flex-column justify-content-space-evenly "
+            >
+              <ul class="navbar-nav fs-5 justify-content-evenly">
+
+                  <!-- elementos del sidebar -->
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="{% url 'Inicio' %}" class="nav-link"><i class="fi fi-sr-home me-2"></i> Home</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-user me-2"></i> Iniciar Sesión</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-clipboard-user me-2"></i> Registrarse</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="../registroAmigo" class="nav-link"><i class="fi fi-sr-users-alt me-2 color1"></i> Registrarse como amigo</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-settings me-2"></i> Configuraciones</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-info me-2"></i> Acerca de</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-customer-service me-2"></i> Contácto</a></h5>
+                  </li>
+                  <li class="nav-item p-4 py-md-2">
+                    <h5><a href="" class="nav-link"><i class="fi fi-sr-interrogation me-2"></i> Ayuda</a></h5>
+                  </li>
+
+              </ul>
+            </div>
+                  <!-- enlaces redes sociales -->
+                  <div class="d-lg-none align-self-center py-4">
+                    <a href=""><i class="fi fi-sr-apps me-2 color1" style="font-size: 2em;"></i></a>
+                  </div>
+          </section>
+          <!-- fin de canvas  -->
+
+      </div>
+
+  </nav>
     <!--fin de navbar-->
       
 {% block content %}
@@ -81,7 +117,44 @@
 {% endblock %}
 
     <!-- footer -->
-    {%include "inicio/footer.html"%}
+    <footer style="background-color: #2F4858; color: #f0f0f0;" class="py-5">
+      <div class="container" id="footer-container">
+          <div class="row">
+              <div class="col-md-4">
+                  <h5>Enlaces útiles</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="#">Inicio</a></li>
+                      <li><a href="#">Acerca de</a></li>
+                      <li><a href="#">Servicios</a></li>
+                      <li><a href="#">Contacto</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Síguenos en</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="#">Facebook</a></li>
+                      <li><a href="#">Twitter</a></li>
+                      <li><a href="#">Instagram</a></li>
+                      <li><a href="#">LinkedIn</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Contacto</h5>
+                  <address>
+                      <strong>FriendlyHire</strong><br>
+                      Sercado<br>
+                      CBBA, Bolivia<br>
+                      <abbr title="Teléfono">Tel:</abbr> (123) 456-7890
+                  </address>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12 text-center">
+                  <p class="mb-0">&copy; 2024 FriendlyHire. Todos los derechos reservados. Diseñado por <a href="#" class="text-light">ASTRO Devs</a>.</p>
+              </div>
+          </div>
+      </div>
+  </footer>
     <!-- Bootstrap -->
 
     <script
