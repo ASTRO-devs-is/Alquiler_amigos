@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Salida, Categoria, Cliente, Amigo, DisponibilidadDias, DisponibilidadHoras
+from .models import Salida, Categoria, Cliente, Amigo, DisponibilidadDias, DisponibilidadHoras, Tarifa
 # Register your models here.
 
 class SalidaAdmin(admin.ModelAdmin):
@@ -23,9 +23,11 @@ class DisponibilidadDiasAdmin(admin.ModelAdmin):
 class DisponibilidadHorasAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
+
 admin.site.register(Salida, SalidaAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Amigo, AmigoAdmin)
 admin.site.register(DisponibilidadDias, DisponibilidadDiasAdmin)
 admin.site.register(DisponibilidadHoras, DisponibilidadHorasAdmin)
+admin.site.register(Tarifa)

@@ -4,5 +4,6 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('cargarFotos', views.cargar_fotos_perfil, name="subir_foto"), 
+        path('subir_foto/<nombre>/<apellido>/<ciudad>/<pais>/<telefono>/<email>/<localidad>/<descripcion>/<fecha>/<tarifa>/',
+            views.cargar_fotos_perfil, name='subir_foto'),
 ]

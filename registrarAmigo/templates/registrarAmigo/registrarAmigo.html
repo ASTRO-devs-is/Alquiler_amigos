@@ -4,7 +4,7 @@
 {% block content %}
     <div style="margin: 10px 100px;">
         <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>REGISTRAR AMIGO</b></h2></div>
-            </div>
+            
         
         <form class="form-grup" method='POST'>
             {% csrf_token %}
@@ -133,7 +133,7 @@
                             </div>
                         {% endif %}
     
-                        <div style="width: 200px;"><h4>{{form.tarifa.label}}: <span style="color: red">*</span></h4></div>
+                        <div style="width: 200px;"><h4>{{form.tarifa.label}} en bs/hora: <span style="color: red">*</span></h4></div>
                         <div style="width: 50%;"><h2>{{ form.tarifa }}</h2></div>
                         {% if errores %}
                             <div style="color: red;">
@@ -156,46 +156,42 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div style="display: block;">
-                            <div class="form-check-input" style="padding: 10px 15px;margin: 10px;">
-                                <div>{{ form.politica }}</div>
-                                <h4>
-                                    He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4>
-                                </h4>
-                                {% if errores %}
-                                <div style="color: red;">
-                                    {% for error in errores %}
-                                        {% if error == 'politica' %}
-                                            <h5>{{ form.politica.errors }}</h5>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                            </div><br>
-                            <div class="form-check-input" style="padding: 10px 15px;margin: 10px;">
-                                
-                                <div>{{ form.terminos }}</div>
-                                <h4>
-                                    Acepto los terminos y condiciones. <span style="color: red">*</span></h4>
-                                </h4>
-                                {% if errores %}
-                                <div style="color: red;">
-                                    {% for error in errores %}
-                                        {% if error == 'terminos' %}
-                                            <h5>{{ form.terminos.errors }}</h5>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>         
                     </div>
+                    <div style="display: block;margin: 5px 20px;">
+                        <div style="display: flex;">
+                            <div>{{ form.politica }}</div>
+                            <div><h4>He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4></div>
+                        </div>
+                        {% if errores %}
+                            <div style="color: red;">
+                                {% for error in errores %}
+                                    {% if error == 'politica' %}
+                                        <h5>{{ form.politica.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div style="display: flex;">
+                            <div>{{ form.terminos }}</div>
+                            <div><h4>Acepto los terminos y condiciones. <span style="color: red">*</span></h4></div>
+                        </div>    
+                            {% if errores %}
+                            <div style="color: red; width: 300px;">
+                                {% for error in errores %}
+                                    {% if error == 'terminos' %}
+                                        <h5>{{ form.terminos.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                    </div>   
                 </div>
-            </div>       
                 <div style="text-align: center;margin: 100px 0px;">
-                    <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" style="margin: 0px 100px;">Continuar</button>
+                    <button type="button" class="btn btn-secondary" style="margin: 0px 80px;">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" style="margin: 0px 80px;">Continuar</button>
                 </div>
+            </div>
         </form>
+    </div>
     
 {% endblock %}
