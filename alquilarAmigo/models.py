@@ -1,5 +1,4 @@
 from django.db import models
-from subir_fotos.models import FotoPerfil
 # Create your models here.
 class Salida(models.Model):
     categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
@@ -48,7 +47,6 @@ class Amigo(models.Model):
     disponibilidad = models.BooleanField(blank=True, default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    fotos = models.ManyToManyField(FotoPerfil, blank=True) 
     def __str__(self):
         return self.nombre
     
