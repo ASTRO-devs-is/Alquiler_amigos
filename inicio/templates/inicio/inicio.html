@@ -3,9 +3,11 @@
 
 {% block content %}
 
-    {% include "inicio/searchBar.html" %}    
-
-
+<div class="container" style="margin-top: 80px;">
+    <h2 style="text-align: center;">LISTA DE AMIGOS</h2>
+    <div class="card-columns">
+        
+        {%for amigo in amigos %}
         <div class="card">
             <img class="card-img-top" src="{{amigo.foto}}" alt="Card image cap">
             <div class="card-body">
