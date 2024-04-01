@@ -27,12 +27,12 @@ class formularioRegistrarAmigo(forms.Form):
     apellido = forms.CharField(required=False, label='Apellido', 
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Nombre del amigo'
+                                'placeholder': 'Apellido'
                             }))
     ciudad = forms.CharField(required=False, label='Ciudad', 
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Nombre del amigo'
+                                'placeholder': 'Ciudad'
                             }))
     pais = forms.CharField(required=False, label='Pais',
                             widget=forms.TextInput(attrs={

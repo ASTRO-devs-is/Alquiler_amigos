@@ -47,6 +47,10 @@ h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h
 .b{  background-color: #F6AE2D;}
 .c{  background-color: #F26419;}
 
+#fecha-registrar-amigo{
+  width: 27%;
+}
+
 #drop-area {
   border: 2px dashed #ccc;
   padding: 100px 130px;
@@ -217,5 +221,8 @@ margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
     width: 100px;
     font-size: 14px;
     margin: 5px 10px;
+  }
+  #fecha-registrar-amigo{
+    width: 40%;
   }
 }

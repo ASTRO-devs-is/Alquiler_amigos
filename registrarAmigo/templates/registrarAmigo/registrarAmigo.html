@@ -2,19 +2,20 @@
 {% load static %}
 
 {% block content %}
-    <div style="margin: 10px 100px;">
-        <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>REGISTRAR AMIGO</b></h2></div>
+    <div style="margin: 1%;">
+        
             
         
         <form class="form-grup" method='POST'>
             {% csrf_token %}
-            <div class="container">
+            <div class="container" id="formulario-container">
+                <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>REGISTRAR AMIGO</b></h2></div>
                 <h2>Datos Personales</h2>
                 <div class="row">
                     
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
     
-                        <div style=" margin: 5px 0px;">
+                        <div style="margin: 5% 0px;">
                             <div style="width: 100px;"><h4>{{form.nombre.label}}: <span style="color: red">*</span> </h4></div>
                             <div style="width: 80%;">{{form.nombre}}</div>
                             {% if errores %}
@@ -27,7 +28,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div style="margin: 5px 0px;">
+                        <div style="margin: 5% 0px;">
                             <div style="width: 100px;"><h4>{{form.telefono.label}}:</h4></div>
                             <div style="width: 80%;">{{form.telefono}}</div>
                             {% if errores %}
@@ -45,7 +46,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" >
-                        <div style="margin: 5px 0px;">
+                        <div style="margin: 2% 0px;">
                             <div style="width: 200px;"><h4>{{form.apellido.label}}: <span style="color: red">*</span></h4></div>
                             <div style="width: 80%;">{{form.apellido}}</div>
                             {% if errores %}
@@ -59,9 +60,9 @@
                             {% endif %}
                         </div>
 
-                        <div style="margin: 5px 0px;">
+                        <div style="margin: 5% 0px;">
                             <div style="width: 200px;"><h4>{{form.fecha.label}}: <span style="color: red">*</span></h4></div> 
-                            <div style="width: 27%;">{{form.fecha}}</div>
+                            <div id="fecha-registrar-amigo">{{form.fecha}}</div>
                             {% if errores %}
                                 <div style="color: red;">
                                     {% for error in errores %}
@@ -75,22 +76,22 @@
 
                     </div>
 
-                    <div style="padding: 10px 15px;">
-                        <div style="margin: 20px 0px;">
+                    <div style="padding: 1% 1.5%;">
+                        <div style="margin: 2% 0px;">
                             <div style="display: flex;">
-                                <div style="width: 200px;margin: 0px 0px;margin-right: 90px;" ><h4>{{form.pais.label}}: <span style="color: red">*</span></h4></div>
-                                <div style="width: 200px;margin: 0px 90px;"><h4>{{form.ciudad.label}}: <span style="color: red">*</span></h4></div> 
-                                <div style="width: 200px;margin: 0px 100px;"><h4>{{form.localidad.label}}: <span style="color: red">*</span></h4></div> 
+                                <div style="width: 200px;margin-right: 9%;" ><h4>{{form.pais.label}}: <span style="color: red">*</span></h4></div>
+                                <div style="width: 200px;margin: 0px 9%;"><h4>{{form.ciudad.label}}: <span style="color: red">*</span></h4></div> 
+                                <div style="width: 200px;margin: 0px 10%;"><h4>{{form.localidad.label}}: <span style="color: red">*</span></h4></div> 
                             
                             </div>
                             <div style="display: flex;">
-                                <div style="width: 43%;margin: 0px 0px;margin-right: 0px">{{form.pais}}</div>
-                                <div style="width: 30%;margin: 0px 100px;">{{form.ciudad}}</div>
-                                <div style="width: 30%;margin: 0px 100px;">{{form.localidad}}</div>   
+                                <div style="width: 43%;">{{form.pais}}</div>
+                                <div style="width: 30%;margin: 0px 10%;">{{form.ciudad}}</div>
+                                <div style="width: 30%;margin: 0px 10%;">{{form.localidad}}</div>   
                             </div>
                             <div style="display: flex;">
                                 {% if errores %}
-                                    <div style="color: red;width: 250px;margin: 0px 0px;margin-right: 0px">
+                                    <div style="color: red;width: 250px;">
                                         {% for error in errores %}
                                             {% if error == 'pais' %}
                                                 <h5>{{ form.pais.errors }}</h5>
@@ -100,7 +101,7 @@
                                 {% endif %}
                     
                                 {% if errores %}
-                                    <div style="color: red;width: 250px;margin: 0px 100px;">
+                                    <div style="color: red;width: 250px;margin: 0px 8%;">
                                         {% for error in errores %}
                                             {% if error == 'ciudad' %}
                                                 <h5>{{ form.ciudad.errors }}</h5>
@@ -110,7 +111,7 @@
                                 {% endif %}
 
                                 {% if errores %}
-                                    <div style="color: red;width: 250px;margin: 0px 50px;">
+                                    <div style="color: red;width: 250px;margin: 0px 5%;">
                                         {% for error in errores %}
                                             {% if error == 'localidad' %}
                                                 <h5>{{ form.localidad.errors }}</h5>
@@ -157,7 +158,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div style="display: block;margin: 5px 20px;">
+                    <div style="display: block;margin: 0.5% 2%;">
                         <div style="display: flex;">
                             <div>{{ form.politica }}</div>
                             <div><h4>He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4></div>
@@ -186,9 +187,9 @@
                             {% endif %}
                     </div>   
                 </div>
-                <div style="text-align: center;margin: 100px 0px;">
-                    <button type="button" class="btn btn-secondary" style="margin: 0px 80px;">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" style="margin: 0px 80px;">Continuar</button>
+                <div style="text-align: center;margin: 10% 0px;">
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Continuar</button>
                 </div>
             </div>
         </form>
