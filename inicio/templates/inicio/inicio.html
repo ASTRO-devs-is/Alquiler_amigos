@@ -5,7 +5,24 @@
 
     {% include "inicio/searchBar.html" %}    
 
-    {% include "inicio/tarjetas.html" %}
+
+        <div class="card">
+            <img class="card-img-top" src="{{amigo.foto}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{amigo.correo}}</h5>
+                <p class="card-text">{{amigo.nombre}} {{amigo.apellido}}</p>
+                <p class="card-text"><small class="text-muted">{{amigo.pais}}</small></p>
+                    <div class="text-center">
+                    <a href="../alquilar/programar/{{amigo.id}}" class="btn btn-primary">Ver perfil</a>
+                    </div>
+            </div>
+        </div>
+
+        {%endfor%}
+    </div>
+
+</div>
+
 
 {% endblock %}
 
