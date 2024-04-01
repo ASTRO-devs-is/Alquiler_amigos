@@ -9,7 +9,7 @@
     <body>
         <nav class="navbar navbar-expand-lg " style="background-color: #2F4858;"> <!-- Creacion de menu de navegacion -->
 
-            <div class="container-fluid ">
+            <div class="container-fluid mr-auto">
                 <a href="" class="navbar-brand color1 fw-semibold fs-2">FriendlyHire</a>
                 <!-- boton de navegacion  -->
                 <button
@@ -17,6 +17,7 @@
                   type="button"
                   data-bs-toggle="offcanvas"
                   data-bs-target="#menuLateral"
+                  aria-controls="menuLateral"
                 >
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,44 +30,48 @@
                 >
                   <div class="offcanvas-header" data-bs-theme="dark">
                     <h5 class="offcanvas-title color1 fs-2">FriendlyHire</h5>
+                    <!-- boton de navegacion  -->
                     <button
-                      class="btn-close"
+                      class="navbar-toggler text-success ml-auto"
                       type="button"
-                      aria-label="Close"
-                      data-bs-dismiss="offcanvas"
-                    ></button>
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#menuLateral"
+                      aria-controls="menuLateral"
+                    >
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
                   </div>
 
                   <!-- cuerpo de offcanvas-->
                   <div
-                    class="offcanvas-body d-flex flex-column justify-content-space-evenly "
+                    class="offcanvas-body d-flex flex-column mr-auto"
                   >
-                    <ul class="navbar-nav fs-5 justify-content-evenly">
+                    <ul class="navbar-nav fs-5 mr-auto">
 
                         <!-- elementos del sidebar -->
-                        <li class="nav-item p-4 py-md-2">
+                        <li class="nav-item py-md-2">
                           <a href="" class="nav-link"><i class="fi fi-sr-home me-2"></i> Home</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
+                        <li class="nav-item py-md-2">
                           <a href="" class="nav-link"><i class="fi fi-sr-user me-2"></i> Iniciar Sesión</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
+                        <li class="nav-item py-md-2">
                           <a href="" class="nav-link"><i class="fi fi-sr-clipboard-user me-2"></i> Registrarse</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
-                          <a href="Home/Registrar amigo/Registrar Datos Personales del Amigo/reg.html" class="nav-link"><i class="fi fi-sr-users-alt me-2 color1"></i> Registrarse como amigo</a>
+                        <li class="nav-item py-md-2">
+                          <a href="Home/Registrar amigo/Registrar Datos Personales del Amigo/reg.html" class="nav-link "><i class="fi fi-sr-users-alt me-2 color1"></i> Registrarse como amigo</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
-                          <a href="" class="nav-link"><i class="fi fi-sr-settings me-2"></i> Configuraciones</a>
+                        <li class="nav-item py-md-2">
+                          <a href="" class="nav-link disabled"><i class="fi fi-sr-settings me-2 disabled"></i> Configuraciones</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
-                          <a href="" class="nav-link"><i class="fi fi-sr-info me-2"></i> Acerca de</a>
+                        <li class="nav-item py-md-2">
+                          <a href="" class="nav-link disabled"><i class="fi fi-sr-info me-2 disabled"></i> Acerca de</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
-                          <a href="" class="nav-link"><i class="fi fi-sr-customer-service me-2"></i> Contácto</a>
+                        <li class="nav-item py-md-2">
+                          <a href="" class="nav-link disabled"><i class="fi fi-sr-customer-service me-2 disabled"></i> Contácto</a>
                         </li>
-                        <li class="nav-item p-4 py-md-2">
-                          <a href="" class="nav-link"><i class="fi fi-sr-interrogation me-2"></i> Ayuda</a>
+                        <li class="nav-item py-md-2">
+                          <a href="" class="nav-link disabled"><i class="fi fi-sr-interrogation me-2 disabled"></i> Ayuda</a>
                         </li>
 
                     </ul>
@@ -81,5 +86,6 @@
             </div>
 
         </nav>        
+
     </body>
 </html>
