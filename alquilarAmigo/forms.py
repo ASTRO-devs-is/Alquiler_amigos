@@ -6,10 +6,10 @@ from .models import Categoria
 
 
 categorias = list(Categoria.objects.all().values_list('nombre', 'nombre'))
-
+#categorias = [('cass', 'cass')]
 class formularioProgramarCita(forms.Form):
     categorias = forms.ChoiceField(choices=categorias, label='Escoge la categoría de tu Salida', required=False,
-                                    widget=forms.Select(attrs={'class': 'form-control'}))
+    widget=forms.Select(attrs={'class': 'form-control'}))
     cajaTexto = forms.CharField(label='Escribe la descripción de tu salida',
                                 required=False,
                                 widget=forms.Textarea(
