@@ -4,7 +4,7 @@ import datetime
 from .models import DisponibilidadHoras, Salida, Categoria
 # Create your views here.
 
-def programarSalida(request):
+def programarSalida(request, amigo_id=None, cliente_id=1):
     
     formulario_programarSalida = formularioProgramarCita()
     if request.method == 'POST':
@@ -14,8 +14,6 @@ def programarSalida(request):
             categoria = request.POST.get('categorias')
             fecha = request.POST.get('fecha')
             cajaTexto = request.POST.get('cajaTexto')
-            amigo_id = obtenerAmigoId(request)
-            cliente_id = obtenerClienteId()
 
             return redirect('EscogerHora', categoria=categoria, fecha=fecha, cajaTexto=cajaTexto, amigo_id=amigo_id, cliente_id=cliente_id)
         else:
@@ -26,7 +24,7 @@ def programarSalida(request):
 
 def escogerHora(request, categoria, fecha, cajaTexto, amigo_id, cliente_id):
     #formulario_horas = FormularioHoras()
-    horas = calcularHorario(request, fecha = fecha)
+    horas = calcularHorario(fecha = fecha, amigo_id = amigo_id, cliente_id = cliente_id)
     formulario_horas = FormularioHoras()
     nueva_salida = Salida()
     categoria_salida = Categoria.objects.get(nombre=categoria)
@@ -46,9 +44,8 @@ def escogerHora(request, categoria, fecha, cajaTexto, amigo_id, cliente_id):
             return render(request, 'programarSalida/escogerHora.html', {'formHoras': formulario_datos, 'horas': horas, 'errores': formulario_datos.errors})
     return render(request, 'programarSalida/escogerHora.html', {'horas': horas, 'formHoras': formulario_horas})
 
-def calcularHorario(request, fecha):
-    amigo_id = obtenerAmigoId(request)
-    cliente_id = 1  # Reemplaza esto con el id del cliente que quieres filtrar
+def calcularHorario(fecha, amigo_id, cliente_id):
+    
     horas = DisponibilidadHoras.objects.filter(amigo_id=amigo_id)  
     salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha=fecha)
     horas_disponibles = []
@@ -63,11 +60,4 @@ def calcularHorario(request, fecha):
 
     return horas_disponibles
 
-def obtenerAmigoId(request):
-    amigo_id = request.GET.get('amigo_id', None)
-    if amigo_id is not None:
-        return int(amigo_id)
-    else:
-        return 1  # Reemplaza esto None cuando ya se tenga la opcion de visualizar Perfil de Amigos
-def obtenerClienteId():
-    return 1  # Reemplaza esto con el id del cliente que quieres asignar
+

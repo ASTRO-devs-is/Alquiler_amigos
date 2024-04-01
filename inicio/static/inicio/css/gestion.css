@@ -14,6 +14,7 @@ h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-primary:hover{
   background-color: #F27431;
@@ -24,6 +25,7 @@ h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-secondary:hover{
   background-color: #5F788A;
@@ -198,5 +200,22 @@ font-size: 1.4em; /* Define el tamaño de los iconos */
 color: #55DDE0; /* Cambia el color de los iconos */
 margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
 }
+/*FIN DE CSS PARA LA BASE*/
 
-
+@media (max-width: 586px) {
+  #formulario-container{
+    width: 100%;
+    margin: 0px;
+    h2{font-size: 20px;}h3{font-size: 14px;}h4{font-size: 12px;}h5{font-size: 10px;}
+  }
+  .btn-primary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  .btn-secondary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+}

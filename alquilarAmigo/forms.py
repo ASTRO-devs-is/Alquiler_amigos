@@ -16,7 +16,8 @@ class formularioProgramarCita(forms.Form):
                                     attrs={
                                         'class': 'form-control', 
                                         'placeholder': 'Escribe aqui la descripción de tu salida',
-                                        'style': 'resize: none;'
+                                        'style': 'resize: none;',
+                                        'rows': 4
                                     })
                                 )
     fecha = forms.DateField(label='Escoge la fecha de tu salida', required=False,
