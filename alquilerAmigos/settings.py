@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'inicio',
     'registrarAmigo',
     'subir_fotos',
+    'visualizarPerfil',
 
 ]
 
