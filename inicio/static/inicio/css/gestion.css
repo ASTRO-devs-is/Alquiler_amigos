@@ -287,3 +287,83 @@ margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
     width: 40%;
   }
 }
+/*VISUALIZAR PERFIL*/
+  .profile-container { width: 50%;margin: 0px auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  .user-info { display: flex; justify-content: space-between; }
+  .user-details { flex-basis: 50%; }
+  .about-friend { flex-basis: 50%; }
+  .user-icon { width: 110px; height: 110px; background-color: #ddd; border-radius: 50%; margin-bottom: 10%; }
+  .user-icon img {
+    width: 100%; /* Esto hará que la imagen se ajuste al ancho de .user-icon */
+    height: 100%; /* Esto mantendrá la proporción de la imagen */
+    border-radius: 50%;
+  }
+  .stars { color: gold; }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; }
+  .field input { width: 100%; padding: 1%; margin-top: 0.5%; }
+  .about-friend {
+    background-color: #F6AE2D;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #F6AE2D;
+    border-radius: 2px;
+    margin: 2% auto; width: 90%; text-align: left; border-radius: 5%;
+  }
+  .user-details{
+    background-color:#55DDE0;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #55DDE0;
+    border-radius: 2px;
+
+  }
+  .bi {
+    font-size: 2rem; /* Ajusta el tamaño según tus preferencias */
+    margin-right: 10rem; /* Espacio entre el ícono y el texto */
+  }
+  #perfilAmigo{
+    display: flex;
+  }
+
+
+  #flechaAtras{
+    color: white;cursor: pointer;
+    font-size: 2em;
+    text-transform: none;
+    background: #2F4858; 
+    border-radius: 90%; 
+    padding: 10px;
+    transition: 0.3s;
+    margin-left: 90%;
+    margin-bottom: 5%;
+
+  }
+  #flechaAtras:hover{
+    background: #5F788A;
+  }
+  .user-icon {
+    width: 250px; /* Cambia esto al tamaño que prefieras */
+    height: 250px; /* Cambia esto al tamaño que prefieras */
+    border-radius: 50%; /* Esto hace que el div sea circular */
+    margin: 2% auto; /* Esto centra el div */
+    background: #f2f2f2; /* Cambia esto al color de fondo que prefieras */
+  }
+  .stars{
+    margin: 2% auto;
+    text-align: center;
+    font-size: 50px;
+  }
+  
+  @media (max-width: 586px) {
+    #perfilAmigo{
+      display: block;
+    }
+    #flechaAtras{
+      
+      margin-left: 80%;
+      margin-bottom: 5%;
+  
+    }
+    .profile-container { width: 100%;margin: auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  }
