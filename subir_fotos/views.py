@@ -17,7 +17,7 @@ def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email
                 profile_photo.save()
             except Exception as e:
                 print(e)
-        amigo.save()
+        #amigo.save()
         return redirect('Inicio')
     else:
         return render(request, 'subir_fotos/formulario.html') # Renderizar la plantilla del formulario de subida
