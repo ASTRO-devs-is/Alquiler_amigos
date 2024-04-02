@@ -29,45 +29,6 @@
     
 </head>
 
-<style>
-
-.offcanvas-start { 
-      background-color: #2F4858;
-}
-
-@media (max-width: 768px) {
-      .navbar-nav > li:hover {
-        background-color: #0dcaf0;
-      }
-}
-
-/*colores*/
-.color1 {
-    color: #55DDE0 !important; /* Código hexadecimal celeste azul para titulo offcanvas sidebar */
-}
-
-/* Estilo para los elementos de la lista en el sidebar */
-.nav-link {
-    color: #f0f0f0; /* Color gris en hexadecimal */
-}
-
-/*Estilo para resaltar el elemento activo */
-.nav-item.active .nav-link {
-    font-weight: bold; /* Negrita para el elemento activo */
-    color: #0000ff; /* Color azul en hexadecimal */
-}
-
-/* Personaliza la duración de la transición del offcanvas */
-.offcanvas {
-  transition: transform 1.5s ease; /* Cambia 0.5s por la duración deseada en segundos */
-}
-/* Estilos para todos los iconos */
-  i {
-    color: #55DDE0; /* Cambia el color de los iconos */
-  }
-
-</style>
-
 <body>
       
     <!-- Menu de navegacion -->
@@ -111,18 +72,23 @@
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="{% url 'Inicio' %}" class="nav-link"><i class="fi fi-sr-home me-2"></i> Home</a></h5>
                   </li>
+                  <!--
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-user me-2"></i> Iniciar Sesión</a></h5>
                   </li>
+                  
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-clipboard-user me-2"></i> Registrarse</a></h5>
                   </li>
+                  -->
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="/registroAmigo" class="nav-link"><i class="fi fi-sr-users-alt me-2 color1"></i> Registrarse como amigo</a></h5>
                   </li>
                   <li class="nav-item p-4 py-md-2">
+                  <!--
                     <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-settings me-2"></i> Configuraciones</a></h5>
                   </li>
+                  
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-info me-2"></i> Acerca de</a></h5>
                   </li>
@@ -132,7 +98,7 @@
                   <li class="nav-item p-4 py-md-2">
                     <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-interrogation me-2"></i> Ayuda</a></h5>
                   </li>
-
+                  -->
               </ul>
             </div>
                   <!-- enlaces redes sociales -->
@@ -156,25 +122,25 @@
       <div class="container" id="footer-container">
           <div class="row">
               <div class="col-md-4">
-                  <h5>Enlaces útiles</h5>
+                  <h4>Enlaces útiles</h4>
                   <ul class="list-unstyled">
-                      <li><a href="#">Inicio</a></li>
-                      <li><a href="#">Acerca de</a></li>
+                      <li><a href="https://astrodevs2024.pythonanywhere.com/" target="_blank">Inicio</a></li>
+                      <!--<li><a href="#">Acerca de</a></li>
                       <li><a href="#">Servicios</a></li>
-                      <li><a href="#">Contacto</a></li>
+                      <li><a href="#">Contacto</a></li>-->
                   </ul>
               </div>
               <div class="col-md-4">
-                  <h5>Síguenos en</h5>
+                  <h4>Síguenos en</h4>
                   <ul class="list-unstyled">
-                      <li><a href="#">Facebook</a></li>
-                      <li><a href="#">Twitter</a></li>
-                      <li><a href="#">Instagram</a></li>
-                      <li><a href="#">LinkedIn</a></li>
+                      <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                      <li><a href="https://twitter.com/AstroDevs2003/" target="_blank">X</a></li>
+                      <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                      <li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
                   </ul>
               </div>
               <div class="col-md-4">
-                  <h5>Contacto</h5>
+                  <h4>Contacto</h4>
                   <address>
                       <strong>FriendlyHire</strong><br>
                       Cercado<br>

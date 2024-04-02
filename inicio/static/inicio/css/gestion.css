@@ -5,7 +5,8 @@ body {
   background-size: cover;
 }
 
-h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h5{font-size: 13px;}h6{font-size: 10px;}
+h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
+h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size: 10px;cursor:default}
 
 
 .btn-primary{
@@ -285,6 +286,9 @@ margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
   }
   #fecha-registrar-amigo{
     width: 40%;
+  }
+  a{
+    font-size: 10px;
   }
 }
 /*VISUALIZAR PERFIL*/
