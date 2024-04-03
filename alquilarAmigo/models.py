@@ -80,14 +80,12 @@ class Tarifa(models.Model):
 
 
 class User (models.Model):
-    id_user = models.AutoField(primary_key=True)
     name_user = models.CharField(max_length=100)
     password = models.CharField(max_length=8)
     activado = models.BooleanField(default = True)
-    correo_electronico = models.EmailField(max_length=254)
 
     def __str__(self):
-        return f"Nombre: {self.name_user} - Correo Electrónico: {self.correo_electronico} - Activo: {self.activado}"
+        return f"Nombre: {self.name_user} - Activo: {self.activado}"
 
     @classmethod
     def get_id_user(cls, nombre):
@@ -98,22 +96,20 @@ class User (models.Model):
             return None
 
 class Rol (models.Model):
-    id_rol = models.AutoField(primary_key=True)
     rol = models.CharField(max_length=255)
 
     def __str__(self):
         return self.rol
     
 class Funcion(models.Model):
-    id_funcion = models. AutoField(primary_key=True)
     funcion = models.CharField(max_length=255)
 
     def __srt__(self):
         return self.funcion
 
 class User_Rol(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    rol = models.ForeignKey('Rol', on_delete=models.CASCADE)
     activo_ur = models.BooleanField(default=True)
     fecha_desde = models.DateField(auto_now_add=True)
 
@@ -121,7 +117,7 @@ class User_Rol(models.Model):
         unique_together = ('user', 'rol')
 
 class ROl_Funcion(models.Model):
-    rol= models.ForeignKey(Rol, on_delete=models.CASCADE)
+    rol= models.ForeignKey('Rol', on_delete=models.CASCADE)
     funcion = models.ForeignKey(Funcion, on_delete=models.CASCADE)
     activo_rf = models.BooleanField(default=True)
 
@@ -130,14 +126,13 @@ class ROl_Funcion(models.Model):
 
     
 class Interes(models.Model):
-    id_interes = models.AutoField(primary_key= True)
     interes = models.CharField(max_length= 255)
 
     def __srt__(self):
         return self.interes
     
 class User_Categoria (models.Model):
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    user = models.ForeignKey('User', on_delete= models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete= models.CASCADE)
     activo_uc = models.BooleanField(default=True)
 
@@ -145,31 +140,28 @@ class User_Categoria (models.Model):
         unique_together = ('user','categoria')
 
 class Categoria_Interes(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    interes = models.ForeignKey(Interes, on_delete=models.CASCADE)
+    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
+    interes = models.ForeignKey('Interes', on_delete=models.CASCADE)
     activo_ci= models.BooleanField(default= True)
 
     class Meta:
         unique_together= ('categoria', 'interes')
 
 class Idioma (models.Model):
-    id_idioma = models.AutoField(primary_key=True)
     idioma = models.CharField(max_length=255)
-
     def __srt__(self):
         return self.idioma
     
 class User_Idioma(models.Model):
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
-    idioma =models.ForeignKey(Idioma, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete= models.CASCADE)
+    idioma =models.ForeignKey('Idioma', on_delete=models.CASCADE)
     activo_ui= models.BooleanField(default= True)
 
     class Meta:
         unique_together=('user', 'idioma')
 
 class Reporte (models.Model):
-    id_reporte= models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     reporte= models.CharField(max_length= 500)
     fecha_reporte= models.DateField(auto_now_add=True)
 
@@ -177,8 +169,7 @@ class Reporte (models.Model):
         return f"Reporte {self.id_reporte} - Usuario: {self.user.name_user}"
     
 class Post (models.Model):
-    id_post = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     descripcion_post =models.CharField(max_length=500)
     fecha_post = models.DateField(auto_now_add=True)
 
@@ -186,21 +177,19 @@ class Post (models.Model):
         return f"Reporte {self.id_post} - Usuario: {self.user.name_user}"
     
 class Calificacion (models.Model):
-    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    post = models.ForeignKey('Post', on_delete = models.CASCADE)
     puntaje = models.IntegerField()
     fecha_calificacion= models.DateField(auto_now_add=True)
     
     
 class Tipo_Archivo(models.Model):
-    id_tipo_archivo = models.AutoField(primary_key=True)
     tipo_archivo = models.CharField(max_length = 50)
 
     def __srt__(self):
         return self.tipo_archivo
     
 class Archivo(models.Model):
-    id_archivo = models.AutoField(primary_key=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
     tipo_archivo = models.ForeignKey(Tipo_Archivo,on_delete=models.CASCADE)
     name_archivo = models.CharField(max_length = 255)
     archivo= models.BinaryField()
@@ -210,7 +199,6 @@ class Archivo(models.Model):
         return f"ID: {self.id_archivo} - Nombre: {self.name_archivo} - Tipo: {self.tipo_archivo.tipo_archivo} -Post: {self.post.descripcion_post}"
     
 class Direccion(models.Model):
-    id_direccion= models.AutoField(primary_key=True)
     pais = models. CharField(max_length=60)
     ciudad= models.CharField(max_length=60)
     localidad= models.CharField(max_length=60)
@@ -240,13 +228,11 @@ class Direccion(models.Model):
             return None
 
 class Chat (models.Model):
-    id_chat = models.AutoField(primary_key=True)
-    cita = models.ForeignKey(Salida, on_delete= models.CASCADE)
+    cita = models.ForeignKey('Salida', on_delete= models.CASCADE)
     fecha_chat= models.DateField(auto_now_add= True)
     activo_chat=models.BooleanField(default=True)
 
 class Favorito(models.Model):
-    id_favorito= models.AutoField(primary_key=True)
     id_cliente= models.ForeignKey("Cliente", on_delete= models.CASCADE)
     id_amigo = models.ForeignKey("Amigo", on_delete=models.CASCADE)
     fecha_agregado= models.DateField(auto_now_add=True)

@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import FotoPerfil
-from alquilarAmigo.models import Amigo
+from alquilarAmigo.models import Amigo, Direccion, Tarifa
 from subir_fotos.models import FotoPerfil
 
-def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email, localidad, descripcion, fecha, tarifa):
+def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email, localidad, descripcion, fecha, tarifa, genero):
     if request.method == 'POST':
-        amigo = Amigo(nombre=nombre, apellido=apellido, ciudad=ciudad, pais=pais, telefono=telefono, correo=email, localidad=localidad, descripcion=descripcion, fecha=fecha, tarifa=tarifa)
+        tarifa = Tarifa.objects.get(tarifa=tarifa)
+        direccion = Direccion(ciudad=ciudad, pais=pais, localidad=localidad)
+        direccion.save()
+        id_ubicacion = direccion.id
+        amigo = Amigo(nombre=nombre, apellido=apellido, telefono=telefono, ubicacion_id= id_ubicacion, correo=email,
+                    descripcion=descripcion, fecha_nacimiento=fecha, id_tarifa=tarifa, genero = genero)
         amigo.save()
         # Obtener archivos subidos
         uploaded_files = request.FILES.getlist('file-input')

@@ -1,10 +1,10 @@
 from django import forms
 import datetime
 from datetime import timedelta
-#from alquilarAmigo.models import Tarifa
+from alquilarAmigo.models import Tarifa
 
-#tarifa = [(tarifa.tarifa, str(tarifa.tarifa)) for tarifa in Tarifa.objects.all()]
-tarifa = [(1, 2)]
+tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+#tarifa = [(1, 2)]
 
 class formularioRegistrarAmigo(forms.Form):
     tarifa = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), 
