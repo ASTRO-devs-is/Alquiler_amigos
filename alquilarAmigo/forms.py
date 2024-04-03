@@ -8,6 +8,7 @@ from .models import Categoria
 categorias = list(Categoria.objects.all().values_list('nombre', 'nombre'))
 #categorias = [('cass', 'cass')]
 class formularioProgramarCita(forms.Form):
+    
     categorias = forms.ChoiceField(choices=categorias, label='Escoge la categoría de tu Salida', required=False,
     widget=forms.Select(attrs={'class': 'form-control'}))
     cajaTexto = forms.CharField(label='Escribe la descripción de tu salida',
@@ -44,36 +45,52 @@ class formularioProgramarCita(forms.Form):
         return fecha
 
 class FormularioHoras(forms.Form):
+    def __init__(self, *args, **kwargs):
+        self.horaInicioAux = None
+        self.fecha_dada = None
+        super(FormularioHoras, self).__init__( *args, **kwargs)
+    
+
     horaInicio = forms.TimeField(label='Escoge la hora de inicio',required=False,
                                 widget=forms.TimeInput( attrs={"type": "time",'class': 'form-control'}))
     horaFin = forms.TimeField(label='Escoge la hora de fin',required=False,
                             widget=forms.TimeInput(attrs={"type": "time",'class': 'form-control'}))
     
     def clean_horaInicio(self):
+        
         horaInicio = self.cleaned_data['horaInicio']
+        self.horaInicioAux = horaInicio
         if horaInicio is None:
             raise forms.ValidationError('La hora de inicio no puede estar vacia')
-        if horaInicio < datetime.datetime.now().time():
-            raise forms.ValidationError('La hora de inicio no puede ser menor a la hora actual')
+
+        if self.fecha_dada == datetime.date.today():
+            if horaInicio < datetime.datetime.now().time():
+                raise forms.ValidationError('La hora de inicio no puede ser menor a la hora actual')
+            
+        return horaInicio
 
     def clean_horaFin(self):
         horaFin = self.cleaned_data['horaFin']
-        horaInicio = self.cleaned_data.get('horaInicio')
+        horaInicio = self.horaInicioAux
         if horaFin == None:
             raise forms.ValidationError('La hora de fin no puede estar vacia')
-        if horaFin < datetime.datetime.now().time():
-            raise forms.ValidationError('La hora de fin no puede ser menor a la hora actual')
+        if horaInicio is None:
+            raise forms.ValidationError('Debe escoger una hora de inicio antes de escoger una hora de fin')
+        
+        if self.fecha_dada == datetime.date.today():
+            if horaFin < datetime.datetime.now().time():
+                raise forms.ValidationError('La hora de fin no puede ser menor a la hora actual')
         # Convertir a datetime
-        if horaInicio is not None:
-            ahora = dt.now()
-            dt_horaInicio = dt.combine(ahora, horaInicio)
-            dt_horaFin = dt.combine(ahora, horaFin)
-
-            if dt_horaFin - dt_horaInicio < timedelta(hours=1):
-                raise forms.ValidationError('La duración de la salida debe ser de al menos 1 hora')
-            diferencia = dt_horaFin - dt_horaInicio
-            minutos_diferencia = diferencia.seconds // 60
-
-            if minutos_diferencia % 30 != 0:
-                raise forms.ValidationError('La hora de fin debe ser igual a la hora de inicio o aumentar en incrementos de 30 minutos')        
+        
+        ahora = dt.now()
+        dt_horaInicio = dt.combine(ahora, horaInicio)
+        dt_horaFin = dt.combine(ahora, horaFin)
+        if dt_horaFin < dt_horaInicio:
+            raise forms.ValidationError('La hora de fin no puede ser menor a la hora de inicio')
+        if dt_horaFin - dt_horaInicio < timedelta(hours=1):
+            raise forms.ValidationError('La duración de la salida debe ser de al menos 1 hora')
+        diferencia = dt_horaFin - dt_horaInicio
+        minutos_diferencia = diferencia.seconds // 60
+        if minutos_diferencia % 30 != 0:
+            raise forms.ValidationError('La hora de fin debe ser igual a la hora de inicio o aumentar en incrementos de 30 minutos') 
         return horaFin
