@@ -43,6 +43,7 @@ class Amigo(models.Model):
     telefono = models.CharField(max_length=8, blank=True)
     descripcion = models.TextField(max_length=500, blank = False)
     fecha_nacimiento = models.DateField(blank = False)
+    id_tarifa= models.ForeignKey("Tarifa", on_delete= models.CASCADE)
     correo = models.EmailField(blank = False)
     disponibilidad = models.BooleanField(blank=True, default=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -53,7 +54,7 @@ class Amigo(models.Model):
     @classmethod
     def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
         nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
-                        fecha_nacimiento=fecha_nacimiento, tarifa= tarifa,correo=correo, gerero=genero)
+                        fecha_nacimiento=fecha_nacimiento, id_tarifa= tarifa,correo=correo, gerero=genero)
         nuevo_amigo.save()
         return nuevo_amigo
     
@@ -76,7 +77,6 @@ class DisponibilidadHoras(models.Model):
     
 class Tarifa(models.Model):
     tarifa = models.IntegerField()
-    id_amigo= models.ForeignKey("Amigo", on_delete= models.CASCADE)
 
 
 class User (models.Model):
