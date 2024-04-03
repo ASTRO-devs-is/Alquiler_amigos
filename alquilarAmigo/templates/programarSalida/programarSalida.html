@@ -14,13 +14,13 @@
             <div style="width: 50%; margin: auto">{{ formSalida.categorias }}</div>
             <div style="display: flex;margin: 5% 0px;">
                 <h3>{{ formSalida.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-                <div>
-                    <div style="float: right; margin-left: 5%;">{{ formSalida.fecha }}</div>
+                <div style="display: block;">
+                    <div style="margin-left: 5%; width: 150px;">{{ formSalida.fecha }}</div>
                     {% if errores %}
                         
                         {% for error in errores %}
                             {% if error == 'fecha' %}
-                                <h5 style="color: red; margin-left: 20%;width: 100%;">{{ formSalida.fecha.errors }}</h5>
+                                <h5 style="color: red;width: 100%;">{{ formSalida.fecha.errors }}</h5>
                             {% endif %}
                         {% endfor %}
                         
