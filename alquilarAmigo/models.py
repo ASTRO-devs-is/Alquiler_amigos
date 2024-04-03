@@ -1,6 +1,75 @@
 from django.db import models
-
 # Create your models here.
+class Salida(models.Model):
+    categoria_salida = models.ForeignKey('Categoria', on_delete=models.CASCADE)
+    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
+    amigo = models.ForeignKey('Amigo', on_delete=models.CASCADE)
+    descripcion_salida = models.TextField()
+    fecha_salida = models.DateField()
+    hora_inicio_salida = models.TimeField()
+    hora_fin_salida = models.TimeField()
+    cita_realizada = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return (self.categoria.nombre + ' - ' + self.cliente.nombre + ' - ' + self.amigo.nombre + ' - ' + 
+                self.fecha.strftime('%d/%m/%Y') + ' - ' + self.horaInicio.strftime('%H:%M') + ' - ' +
+                self.horaFin.strftime('%H:%M'))
+    
+class Categoria(models.Model):
+    nombre = models.CharField(max_length=50)
+    descripcion = models.TextField(max_length=500)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.nombre
+    
+class Cliente(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    correo = models.EmailField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.nombre
+    
+class Amigo(models.Model):
+
+    nombre = models.CharField(max_length=50, blank = False)
+    apellido = models.CharField(max_length=50, blank = False)
+    ciudad = models.CharField(max_length=50, blank = False)
+    pais = models.CharField(max_length=50, blank = False)
+    telefono = models.CharField(max_length=8)
+    localidad = models.CharField(max_length=50, blank = False)
+    descripcion = models.TextField(max_length=500, blank = False)
+    fecha_nacimiento = models.DateField(blank = False)
+    tarifa = models.IntegerField(blank = False)
+    correo = models.EmailField(blank = False)
+    disponibilidad = models.BooleanField(blank=True, default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.pais} -correo: {self.correo}"
+    
+class DisponibilidadDias(models.Model):
+    dias = models.CharField(max_length=10)
+    amigo = models.ForeignKey('Amigo', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.dias
+
+class DisponibilidadHoras(models.Model):
+    amigo = models.ForeignKey('Amigo', on_delete=models.CASCADE)
+    horaInicio = models.TimeField()
+    horaFin = models.TimeField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.horaInicio.strftime('%H:%M') + ' - ' + self.horaFin.strftime('%H:%M')
+    
+class Tarifa(models.Model):
+    tarifa = models.IntegerField()
 
 class User (models.Model):
     id_user = models.AutoField(primary_key=True)
@@ -51,13 +120,6 @@ class ROl_Funcion(models.Model):
     class Meta:
         unique_together= ('rol', 'funcion')
 
-class Categoria(models.Model):
-    id_categoria= models.AutoField(primary_key=True)
-    categoria = models.CharField(max_length= 255)
-    descripcion = models.CharField(max_length=300)
-
-    def __str__(self):
-        return self.categoria
     
 class Interes(models.Model):
     id_interes = models.AutoField(primary_key= True)
@@ -177,9 +239,6 @@ class Direccion(models.Model):
         except cls.DoesNotExist:
             return None
 
-    
-
-
 class Amigo (User):
     nombre_amigo= models.CharField(max_length = 255)
     apellidos_amigo = models.CharField(max_lenght= 500)
@@ -208,28 +267,9 @@ class Tarifa (models.Model):
         nueva_tarifa.save()
         #return nueva_tarifa
 
-
-class Horario (models.Model):
-    id_horario = models.AutoField(primary_key=True)
-    id_amigo = models.ForeignKey(User, on_delete=models.CASCADE)  
-    fecha_hora_ini = models.DateTimeField()
-    fecha_hora_fin = models.DateTimeField()
-    horario_disponible = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"Amigo: {self.id_amigo} - Desde: {self.fecha_hora_ini} - Hasta: {self.fecha_hora_fin} - Disponible: {self.horario_disponible}"
-
-class Cita (models.Model):
-    id_cita= models.AutoField(primary_key=True)
-    id_amigo = models.ForeignKey(User, on_delete=models.CASCADE)
-    id_cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_hora_ini = models.DateTimeField()
-    fecha_hora_fin = models.DateTimeField()
-    cita_realizada = models.BooleanField(default=False)
-
 class Chat (models.Model):
     id_chat = models.AutoField(primary_key=True)
-    cita = models.ForeignKey(Cita, on_delete= models.CASCADE)
+    cita = models.ForeignKey(Salida, on_delete= models.CASCADE)
     fecha_chat= models.DateField(auto_now_add= True)
     activo_chat=models.BooleanField(default=True)
 
@@ -238,10 +278,3 @@ class Favorito(models.Model):
     id_cliente= models.ForeignKey(User, on_delete= models.CASCADE)
     id_amigo = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_agregado= models.DateField(auto_now_add=True)
-
- 
-        
-
-
-
-

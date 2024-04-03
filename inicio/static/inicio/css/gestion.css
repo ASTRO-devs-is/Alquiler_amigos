@@ -5,12 +5,9 @@ body {
   background-size: cover;
 }
 
-h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}
+h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
+h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size: 10px;cursor:default}
 
-p {
-  font-size: 13px;
-  font-family: 'Times New Roman';
-}
 
 .btn-primary{
   background-color: #F26419;
@@ -18,6 +15,7 @@ p {
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-primary:hover{
   background-color: #F27431;
@@ -28,7 +26,348 @@ p {
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-secondary:hover{
   background-color: #5F788A;
 }
+
+
+.mostrarHorario{
+  width: 280px;display: flex;
+  background-color: #F26419;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+
+}
+
+.a{  background-color: #55DDE0;}
+.b{  background-color: #F6AE2D;}
+.c{  background-color: #F26419;}
+
+#fecha-registrar-amigo{
+  width: 27%;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  padding: 100px 130px;
+  text-align: center;
+  margin: 20px 5px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.drop-text {
+  font-size: 18px;
+  color: #6F5959;
+}
+
+#gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dragged-over {
+  border-color: #000;
+}
+
+.img-preview {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  font-family: "Helvetica Now", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+body {
+  font-family: "Helvetica Now", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.cargar-button{
+  background-color: #F26419;
+  color: #EEEEEE;
+  border-style: none;
+  border-radius: 10px;
+  width: 110px;
+  transition: background-color 0.3s ease;
+  padding: 10px 20px;
+}
+.cargar-button:hover{
+  background-color: #F27431;
+}
+.atras-button,
+.cancel-button {
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  background-color: #2F4858;
+  color: #EEEEEE;
+  border-style: none;
+  width: 110px;
+}
+
+.cancel-button:hover,
+.atras-button:hover {
+  background-color: #5F788A;
+}
+
+.buscar-label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #D9D9D9;
+  color: #050505;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.buscar-label:hover {
+  background-color: #bfbfbf;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 15%;
+  cursor: pointer;
+}
+
+.preview-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.dialog-container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.dialog-container p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+dialog::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog[open]::backdrop {
+  display: block;
+}
+
+dialog p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#footer-container{
+  background-color: #2F4858;
+}
+.offcanvas-start { 
+  background-color: #2F4858;
+}
+/*INICIO DE CSS PARA LA BASE*/
+@media (max-width: 768px) {
+  .navbar-nav > li:hover {
+    background-color: #0dcaf0;
+  }
+}
+
+/*colores*/
+.color1 {
+color: #55DDE0 !important; /* Código hexadecimal celeste azul para titulo offcanvas sidebar */
+}
+
+/* Estilo para los elementos de la lista en el sidebar */
+.nav-link {
+color: #f0f0f0; /* Color gris en hexadecimal */
+}
+
+/*Estilo para resaltar el elemento activo */
+.nav-item.active .nav-link {
+font-weight: bold; /* Negrita para el elemento activo */
+color: #0000ff; /* Color azul en hexadecimal */
+}
+
+/* Personaliza la duración de la transición del offcanvas */
+.offcanvas {
+transition: transform 1.5s ease; /* Cambia 0.5s por la duración deseada en segundos */
+}
+/* Estilos para todos los iconos */
+i {
+font-size: 1.4em; /* Define el tamaño de los iconos */
+/* Otros estilos opcionales */
+color: #55DDE0; /* Cambia el color de los iconos */
+margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
+}
+/*FIN DE CSS PARA LA BASE*/
+
+@media (max-width: 586px) {
+  #formulario-container{
+    width: 100%;
+    margin: 0px;
+    h2{font-size: 20px;}h3{font-size: 14px;}h4{font-size: 12px;}h5{font-size: 10px;}
+  }
+  .btn-primary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  .btn-secondary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  #fecha-registrar-amigo{
+    width: 40%;
+  }
+  a{
+    font-size: 10px;
+  }
+}
+/*VISUALIZAR PERFIL*/
+  .profile-container { width: 50%;margin: 0px auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  .user-info { display: flex; justify-content: space-between; }
+  .user-details { flex-basis: 50%; }
+  .about-friend { flex-basis: 50%; }
+  .user-icon { width: 110px; height: 110px; background-color: #ddd; border-radius: 50%; margin-bottom: 10%; }
+  .user-icon img {
+    width: 100%; /* Esto hará que la imagen se ajuste al ancho de .user-icon */
+    height: 100%; /* Esto mantendrá la proporción de la imagen */
+    border-radius: 50%;
+  }
+  .stars { color: gold; }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; }
+  .field input { width: 100%; padding: 1%; margin-top: 0.5%; }
+  .about-friend {
+    background-color: #F6AE2D;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #F6AE2D;
+    border-radius: 2px;
+    margin: 2% auto; width: 90%; text-align: left; border-radius: 5%;
+  }
+  .user-details{
+    background-color:#55DDE0;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #55DDE0;
+    border-radius: 2px;
+
+  }
+  .bi {
+    font-size: 2rem; /* Ajusta el tamaño según tus preferencias */
+    margin-right: 10rem; /* Espacio entre el ícono y el texto */
+  }
+  #perfilAmigo{
+    display: flex;
+  }
+
+
+  #flechaAtras{
+    color: white;cursor: pointer;
+    font-size: 2em;
+    text-transform: none;
+    background: #2F4858; 
+    border-radius: 90%; 
+    padding: 10px;
+    transition: 0.3s;
+    margin-left: 90%;
+    margin-bottom: 5%;
+
+  }
+  #flechaAtras:hover{
+    background: #5F788A;
+  }
+  .user-icon {
+    width: 250px; /* Cambia esto al tamaño que prefieras */
+    height: 250px; /* Cambia esto al tamaño que prefieras */
+    border-radius: 50%; /* Esto hace que el div sea circular */
+    margin: 2% auto; /* Esto centra el div */
+    background: #f2f2f2; /* Cambia esto al color de fondo que prefieras */
+  }
+  .stars{
+    margin: 2% auto;
+    text-align: center;
+    font-size: 50px;
+  }
+  
+  @media (max-width: 586px) {
+    #perfilAmigo{
+      display: block;
+    }
+    #flechaAtras{
+      
+      margin-left: 80%;
+      margin-bottom: 5%;
+  
+    }
+    .profile-container { width: 100%;margin: auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  }

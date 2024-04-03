@@ -2,42 +2,54 @@
 {% load static %}
 
 {% block content %}
-    <div style="margin: 10px 100px;">
-        <div style="text-align: center;margin: 10px;padding: 20px; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <div class="form-group" >
+
+    <div style="margin: 1%">
+    <div class="container" id="formulario-container">
+        <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
+        <form class="form-group" method='POST' style="width: 100%; margin: auto">
             {% csrf_token %}
             <div style="display: flex;">
-            <h3>{{ formCateg.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+            <h3>{{ formSalida.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
-            <div style="margin: 10px 10em;">{{ formCateg.categorias }}</div>
-            <div style="display: flex;margin: 50px 0px;">
-                <h3>{{ formCateg.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-                <div style="float: right; margin: 0px 50px;">{{ formCateg.fecha }}</div>
-            </div>
-            <div style="display: flex;margin: 50px 0px;">
-                <h3>{{ formCateg.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-            </div>
-            <div style="margin: 10px 10em;margin: 50px 0px;">
-                {{ formCateg.cajaTexto }}
+            <div style="width: 50%; margin: auto">{{ formSalida.categorias }}</div>
+            <div style="display: flex;margin: 5% 0px;">
+                <h3>{{ formSalida.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <div style="display: block;">
+                    <div style="margin-left: 5%; width: 150px;">{{ formSalida.fecha }}</div>
+                    {% if errores %}
+                        
+                        {% for error in errores %}
+                            {% if error == 'fecha' %}
+                                <h5 style="color: red;width: 100%;">{{ formSalida.fecha.errors }}</h5>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    {% endif %}
+                    
                 </div>
-            <div style="display: flex;margin: 50px 0px;">
-                <h3>Horarios disponibles:</h3>
+            </div>
+            <div style="display: flex;margin: 5% 0px;">
+                <h3>{{ formSalida.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
             
-            <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formCateg.horaInicio }}</div>
-            </div>
+                <div style="margin-top: 5%;" id="textProgramar">{{ formSalida.cajaTexto }}</div>
+                    {% if errores %}
+                        <div style="color: red;">
+                        {% for error in errores %}
+                            {% if error == 'cajaTexto' %}
+                                <h5>{{ formSalida.cajaTexto.errors }}</h5>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
             
-            <div style="display: flex;margin: 20px 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formCateg.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
-                <div style="float: right;margin: 0px 50px;">{{ formCateg.horaFin }}</div>
+        
+            <div style="text-align: center;margin-top: 10%;">
+                <button type="button" class="btn btn-secondary"  onclick="window.location.href='/'">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
             </div>
-            
-        </div>
-        <div style="text-align: center;margin: 100px 0px;">
-            <button type="button" class="btn btn-primary" style="margin: 0px 100px;">Programar</button>
-            <button type="button" class="btn btn-secondary" style="margin: 0px 100px;">Cancelar</button>
-        </div>
+        </form>
+
+    </div>
     </div>
 {% endblock %}

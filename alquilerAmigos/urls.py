@@ -22,6 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inicio.urls')),#incluye todas las urls de la app creada 
     path('alquilar/', include('alquilarAmigo.urls')),#incluye todas las urls de la app creada 
+    path('registroAmigo/', include('registrarAmigo.urls')),#incluye todas las urls de la app creada
+    path('subir_fotos/', include('subir_fotos.urls')),#incluye todas las urls de la app creada
+    path('perfil/', include('visualizarPerfil.urls')),#incluye todas las urls de la app creada
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#con esta linea de codigo le decimos a django que muestre las imagenes
 

@@ -2,7 +2,29 @@
 {% load static %}
 
 {% block content %}
-    <div>
-        <h1>Este es el Inicio</h1>
+
+<div class="container" style="margin-top: 5%;">
+    <h2 style="text-align: center;">LISTA DE AMIGOS</h2>
+    <div class="card-columns">
+        
+        {%for amigo in amigos %}
+        <div class="card">
+            <img class="card-img-top" src="{{amigo.foto}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{amigo.correo}}</h5>
+                <p class="card-text"  style="cursor: default;"><b>{{amigo.nombre}} {{amigo.apellido}}</b></p>
+                <p class="card-text" style="cursor: default;">{{amigo.pais}}</p>
+                    <div class="text-center">
+                    <a href="../perfil/amigo/{{amigo.id}}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
+                    </div>
+            </div>
+        </div>
+
+        {%endfor%}
     </div>
+
+</div>
+
+
 {% endblock %}
+

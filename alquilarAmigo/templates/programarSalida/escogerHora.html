@@ -1,0 +1,61 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div style="margin: 1% ">
+    <div class="container" id="formulario-container">
+        <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
+        <form class="form-group" method='POST' style="width: 100%; margin: auto">
+            {% csrf_token %}
+            <div>
+                <h3>Horarios disponibles:</h3>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    {% for horario in horas %}
+                        <div style="display: flex;">
+                            <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
+                                Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div style="display: flex;margin: 10% 0px;">
+                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
+                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaInicio }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'horaInicio' %}
+                            {{ formHoras.horaInicio.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div style="display: flex;margin: 10% 0px;">
+                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
+                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaFin }}</div>
+                {% if errores %}
+                    <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'horaFin' %}
+                            {{ formHoras.horaFin.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        
+            <div style="text-align: center;margin: 10% 0px;">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Programar</button>
+            </div>
+        </form>
+
+    </div>
+    </div>
+
+{% endblock %}
