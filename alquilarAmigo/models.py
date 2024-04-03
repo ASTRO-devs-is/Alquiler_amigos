@@ -28,6 +28,8 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     correo = models.EmailField()
+    fecha_nacimiento = models.DateField()
+    genero = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
@@ -37,19 +39,23 @@ class Amigo(models.Model):
 
     nombre = models.CharField(max_length=50, blank = False)
     apellido = models.CharField(max_length=50, blank = False)
-    ciudad = models.CharField(max_length=50, blank = False)
-    pais = models.CharField(max_length=50, blank = False)
-    telefono = models.CharField(max_length=8)
-    localidad = models.CharField(max_length=50, blank = False)
+    ubicacion = models.ForeignKey("Direccion", on_delete=models.PROTECT)
+    telefono = models.CharField(max_length=8, blank=True)
     descripcion = models.TextField(max_length=500, blank = False)
     fecha_nacimiento = models.DateField(blank = False)
-    tarifa = models.IntegerField(blank = False)
     correo = models.EmailField(blank = False)
     disponibilidad = models.BooleanField(blank=True, default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    genero = models.IntegerField(blank = False)
     def __str__(self):
         return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.pais} -correo: {self.correo}"
+    @classmethod
+    def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
+        nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
+                        fecha_nacimiento=fecha_nacimiento, tarifa= tarifa,correo=correo, gerero=genero)
+        nuevo_amigo.save()
+        return nuevo_amigo
     
 class DisponibilidadDias(models.Model):
     dias = models.CharField(max_length=10)
@@ -70,6 +76,8 @@ class DisponibilidadHoras(models.Model):
     
 class Tarifa(models.Model):
     tarifa = models.IntegerField()
+    id_amigo= models.ForeignKey("Amigo", on_delete= models.CASCADE)
+
 
 class User (models.Model):
     id_user = models.AutoField(primary_key=True)
@@ -201,19 +209,11 @@ class Archivo(models.Model):
     def __srt__(self):
         return f"ID: {self.id_archivo} - Nombre: {self.name_archivo} - Tipo: {self.tipo_archivo.tipo_archivo} -Post: {self.post.descripcion_post}"
     
-#La clase Cliente se define como una subclase de User. 
-#Cliente hereda todos los campos y métodos de User.
-class Cliente(User):
-    descripcion_cliente = models.CharField(max_length=700)
-
-    def __str__(self):
-        return f"Nombre: {self.name_user} - Acerca de mi: {self.descripcion_cliente}"
-    
 class Direccion(models.Model):
     id_direccion= models.AutoField(primary_key=True)
-    pais = models. CharField()
-    ciudad= models.CharField()
-    localidad= models.CharField()
+    pais = models. CharField(max_length=60)
+    ciudad= models.CharField(max_length=60)
+    localidad= models.CharField(max_length=60)
 
     def __str__(self):
         return f"{self.localidad}, {self.ciudad}, {self.pais}"
@@ -239,34 +239,6 @@ class Direccion(models.Model):
         except cls.DoesNotExist:
             return None
 
-class Amigo (User):
-    nombre_amigo= models.CharField(max_length = 255)
-    apellidos_amigo = models.CharField(max_lenght= 500)
-    fecha_nacimiento= models.DateField()
-    numero_celular= models.IntegerField()
-    ubicacion = models.ForeignKey(Direccion, on_delete=models.PROTECT)
-    descripcion_amigo=models.CharField(max_lenght= 700)
-
-    def __str__(self):
-        return f"Nombre: {self.name_user} -Contacto: {self.numero_celular}- Acerca de mi: {self.descripcion_amigo}"
-
-    @classmethod
-    def registrar_amigo(cls, nombre, apellidos, fecha_nacimiento, numero_celular, ubicacion, descripcion):
-        nuevo_amigo = cls(nombre_amigo=nombre, apellidos_amigo=apellidos, fecha_nacimiento=fecha_nacimiento, numero_celular=numero_celular, ubicacion=ubicacion, descripcion_amigo=descripcion)
-        nuevo_amigo.save()
-        return nuevo_amigo
-
-class Tarifa (models.Model):
-    id_tarifa = models.AutoField(primary_key=True)
-    id_amigo= models.ForeignKey(User, on_delete= models.CASCADE)
-    tarifa = models. IntegerField() 
-
-    @classmethod
-    def registrar_tarifa(cls, id_amigo, tarifa):
-        nueva_tarifa = cls(id_amigo_id=id_amigo, tarifa=tarifa)
-        nueva_tarifa.save()
-        #return nueva_tarifa
-
 class Chat (models.Model):
     id_chat = models.AutoField(primary_key=True)
     cita = models.ForeignKey(Salida, on_delete= models.CASCADE)
@@ -275,6 +247,6 @@ class Chat (models.Model):
 
 class Favorito(models.Model):
     id_favorito= models.AutoField(primary_key=True)
-    id_cliente= models.ForeignKey(User, on_delete= models.CASCADE)
-    id_amigo = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_cliente= models.ForeignKey("Cliente", on_delete= models.CASCADE)
+    id_amigo = models.ForeignKey("Amigo", on_delete=models.CASCADE)
     fecha_agregado= models.DateField(auto_now_add=True)

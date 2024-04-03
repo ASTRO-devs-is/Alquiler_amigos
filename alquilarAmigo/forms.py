@@ -1,12 +1,12 @@
 import datetime
 from datetime import datetime as dt, timedelta
 from django import forms
-from .models import Categoria
+#from .models import Categoria
 
 
 
-categorias = list(Categoria.objects.all().values_list('nombre', 'nombre'))
-#categorias = [('cass', 'cass')]
+#categorias = list(Categoria.objects.all().values_list('nombre', 'nombre'))
+categorias = [('cass', 'cass')]
 class formularioProgramarCita(forms.Form):
     
     categorias = forms.ChoiceField(choices=categorias, label='Escoge la categoría de tu Salida', required=False,
