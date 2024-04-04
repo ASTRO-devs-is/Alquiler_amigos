@@ -31,160 +31,163 @@
     </div>
 
     <script>
-        const fileInput = document.getElementById('file-input');
+        const dropArea = document.querySelector(".drag-area");
+        const dragText = dropArea.querySelector("header");
+        const button = dropArea.querySelector("button");
+        const input = dropArea.querySelector("input");
         const previewContainer = document.getElementById('preview-container');
         const atrasBtn = document.querySelector('.atras-button');
         const cargarBtn = document.querySelector('.cargar-button');
         const cancelarBtn = document.querySelector('.cancel-button');
         const uploadForm = document.getElementById('upload-form');
-        
         const MAX_IMAGENES = 5;
+        let selectedFiles = [];
+    
+        // Agregar la funcionalidad para arrastrar y soltar archivos
+        dropArea.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        dropArea.classList.add("drag-over");
+        dragText.textContent = "Suelta para cargar";
+        });
+    
+        dropArea.addEventListener("dragleave", () => {
+            dropArea.classList.remove("drag-over");
+            dragText.textContent = "Arrastra las fotos aquí";
+        });
+    
+        dropArea.addEventListener("drop", (event) => {
+            event.preventDefault();
+            dropArea.classList.remove("drag-over");
+            dragText.textContent = "Arrastra las fotos aquí";
+            const files = event.dataTransfer.files;
+            handleFiles(files);
+        });
+    
+        // Agregar la funcionalidad al botón de buscar fotos
+        button.onclick = () => {
+            input.click();
+        }
+    
+        // Manejar los archivos seleccionados
+        input.addEventListener("change", (event) => {
+            const files = event.target.files;
+            handleFiles(files);
+        });
+    
+        // Función para manejar los archivos
+        function handleFiles(files) {
+        const validFiles = Array.from(files).filter(isValidFile);
+    
+        if (validFiles.length + previewContainer.children.length > MAX_IMAGENES) {
+            alert(`Solo se permiten seleccionar hasta ${MAX_IMAGENES} imágenes.`);
+            return;
+        }
+    
+            validFiles.forEach(file => {
+            selectedFiles.push(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imgContainer = document.createElement("div"); // Crear un contenedor para la imagen y el botón de eliminar
+                imgContainer.classList.add("img-container"); // Agregar una clase CSS para estilos
 
-        fileInput.addEventListener('change', (event) => {
-            if (fileInput.files.length > MAX_IMAGENES) {
-                alert(`Solo se permiten seleccionar hasta ${MAX_IMAGENES} imágenes.`);
-                fileInput.value = '';
-                return;
-            }
-
-        previewContainer.innerHTML = '';
-            const files = Array.from(event.target.files);
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-
-                if (!validarFormato(file)) {
-                    alert('Formato de imagen no válido. Se permiten solo archivos con formato JPG o PNG.');
-                    fileInput.value = '';
-                    return;
-                }
-
-                if (!validarPeso(file)) {
-                    alert('Peso de imagen excedido. Se permiten fotos con un peso menor a 3 MB.');
-                    fileInput.value = '';
-                    return;
-                }
-
-                reader.onload = () => {
-                const previewWrapper = document.createElement('div');
-                previewWrapper.classList.add('preview-wrapper');
-
-                const img = document.createElement('img');
+                const img = document.createElement("img");
                 img.src = reader.result;
-                img.style.maxWidth = '100px';
-                img.style.margin = '10px';
+                img.classList.add('img-preview');
 
-                const removeBtn = document.createElement('span');
-                removeBtn.textContent = 'X';
-                removeBtn.classList.add('remove-btn');
-                removeBtn.addEventListener('click', () => {
-                    previewWrapper.remove();
+                const removeBtn = document.createElement("span");
+                removeBtn.textContent = "X";
+                removeBtn.classList.add("remove-btn");
+                removeBtn.addEventListener("click", () => {
+                    imgContainer.remove(); // Eliminar el contenedor completo
+                    selectedFiles = selectedFiles.filter(f => f !== file);
                     updateFilesAndPreview();
                 });
 
-                    previewWrapper.appendChild(img);
-                    previewWrapper.appendChild(removeBtn);
-                    previewContainer.appendChild(previewWrapper);
-                };
-
+                imgContainer.appendChild(img); // Agregar la imagen al contenedor
+                imgContainer.appendChild(removeBtn); // Agregar el botón de eliminar al contenedor
+                previewContainer.appendChild(imgContainer); // Agregar el contenedor al contenedor de previsualización
+            };
                 reader.readAsDataURL(file);
+            });
+
+                updateFilesAndPreview();
             }
-
-            updateFilesAndPreview();
-        });
-
-        const updateFilesAndPreview = () => {
-            const previews = previewContainer.querySelectorAll('.preview-wrapper');
-            const files = Array.from(fileInput.files);
-            cargarBtn.disabled = files.length === 0;
-        };
-        //FUNCION PARA VALIDAR EL FORMATO
-        function validarFormato(file) {
-            const extensionesValidas = ['jpg', 'png'];
-            const extension = file.name.split('.').pop().toLowerCase();
-            return extensionesValidas.includes(extension);
-        }
-        //FUNCION PARA VALIDAR EL PESO DE LA FOTO
-        function validarPeso(file) {
-            return file.size <= 3000000; // 3MB
-        }
-        //validar resolucion de una foto
-        function validarResolucion(file) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-
-            img.onload = () => {
-            const ancho = img.width;
-            const alto = img.height;
-
-            if (ancho * alto >= 4000000 && ancho * alto <= 100000000) {
-                resolve(true);
-            } else {
-                reject(new Error("Resolución de la imagen no permitida. La resolución debe estar entre 4MP y 100MP."));
+    
+            // Función para validar archivos
+            function isValidFile(file) {
+                const validExtensions = ['jpg', 'png'];
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                const isValidFormat = validExtensions.includes(fileExtension);
+                const isValidSize = file.size <= 3000000; // 3MB
+    
+                return isValidFormat && isValidSize;
             }
-            };
-
-            img.onerror = (error) => {
-            reject(new Error("Error al leer la imagen."));
-            };
-
-            img.src = URL.createObjectURL(file);
-        });
-        }
-
-        // FUNCION DE CONFIRMACION PARA EVENTOS CLICK
-        function confirmAction(message, action) {
-        return new Promise((resolve) => {
-            const dialog = document.createElement('dialog');
-            dialog.innerHTML = `
-            <div class="dialog-container">
-                <p>${message}</p>
-                <div class="buttons">
-                <button class="button-primary" id="confirm-button">Sí</button>
-                <button class="button-secondary" id="cancel-button">No</button>
-                </div>
-            </div>
-            `;
-
-            document.body.appendChild(dialog);
-
-            const confirmButton = dialog.querySelector('#confirm-button');
-            const cancelButton = dialog.querySelector('#cancel-button');
-
-            confirmButton.addEventListener('click', () => {
-            dialog.close();
-            resolve(true);
-            action();
-            });
-
-            cancelButton.addEventListener('click', () => {
-            dialog.close();
-            resolve(false);
-            });
-
-            dialog.showModal();
-        });
-        }
-
-        // FUNCIONALIDAD BOTONES
-        atrasBtn.addEventListener('click', () => {
-            uploadForm.reset();
-            previewContainer.innerHTML = '';
-        });
-
-        cargarBtn.addEventListener('click', () => {
-            confirmAction('¿Estás seguro de que quieres cargar las fotos?', () => {
-                uploadForm.submit();
-            });
-        });
-
-        cancelarBtn.addEventListener('click', () => {
-            confirmAction('¿Estás seguro de que quieres cancelar?', () => {
+    
+            // Función para actualizar archivos y previsualización
+            function updateFilesAndPreview() {
+                cargarBtn.disabled = selectedFiles.length === 0;
+            }
+    
+            // FUNCIONALIDAD BOTONES
+            atrasBtn.addEventListener('click', () => {
                 uploadForm.reset();
                 previewContainer.innerHTML = '';
+                selectedFiles = [];
+                updateFilesAndPreview();
             });
-        });
+    
+            cargarBtn.addEventListener('click', () => {
+                if (selectedFiles.length === 0) {
+                    alert('No se han seleccionado archivos para cargar.');
+                    return;
+                }
+    
+                confirmAction('¿Estás seguro de que quieres cargar las fotos?', () => {
+                    uploadForm.submit();
+                });
+            });
+    
+            cancelarBtn.addEventListener('click', () => {
+                confirmAction('¿Estás seguro de que quieres cancelar?', () => {
+                    uploadForm.reset();
+                    previewContainer.innerHTML = '';
+                    selectedFiles = [];
+                    updateFilesAndPreview();
+                });
+            });
+    
+            // Función de confirmación para eventos click
+            function confirmAction(message, action) {
+            return new Promise((resolve) => {
+            const dialog = document.createElement('dialog');
+            dialog.innerHTML = `
+                <div class="dialog-container">
+                    <p>${message}</p>
+                    <div class="buttons">
+                        <button class="button-primary" id="confirm-button">Sí</button>
+                        <button class="button-secondary" id="cancel-button">No</button>
+                    </div>
+                </div>
+            `;
+    
+                document.body.appendChild(dialog);
+    
+                const confirmButton = dialog.querySelector('#confirm-button');
+                const cancelButton = dialog.querySelector('#cancel-button');
+    
+                confirmButton.addEventListener('click', () => {
+                    dialog.close();
+                    resolve(true);
+                    action();
+                });
+    
+                cancelButton.addEventListener('click', () => {
+                    dialog.close();
+                    resolve(false);
+                });
+                dialog.showModal();
+            });
+        }
     </script>
 </body>
 </html>
