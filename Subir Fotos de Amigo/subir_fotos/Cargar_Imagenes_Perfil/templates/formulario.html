@@ -12,16 +12,18 @@
         <form id="upload-form" action="{% url 'upload_profile_photos' %}" method="post" enctype="multipart/form-data">
             
             <label for="photo_upload">1.Seleccionar fotos:</label>
-            <div id="drop-area">
-                <span class="drop-text">Arrastra las fotos aquí <br></span>
-                <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+            <div id="drop-area" class = "drag-area">
+                <header>Arrastra las fotos aquí <br></header>
+                <span >O<br></span>
+                <input type="file" id="file-input" multiple accept="image/jpeg, image/jpg, image/jpg" style="display: none;">
                 <label class="buscar-label" for="file-input">
-                    <span>Buscar Fotos</span>
+                    <button type="button">Buscar Fotos</button>
                 </label>
                 <div id="preview-container"></div>
             </div>
             <div id="gallery"></div>
             <div style="display: flex; justify-content: space-between;">
+                <button class="atras-button" type="button">Cancelar</button>
                 <button class="cargar-button" type="submit" disabled>Cargar</button>
                 <button class="cancel-button" type="button">Cancelar</button>
             </div>
