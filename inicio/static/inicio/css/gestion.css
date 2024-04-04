@@ -233,39 +233,8 @@ dialog p {
   background-color: #2F4858;
 }
 /*INICIO DE CSS PARA LA BASE*/
-@media (max-width: 768px) {
-  .navbar-nav > li:hover {
-    background-color: #0dcaf0;
-  }
-}
 
-/*colores*/
-.color1 {
-color: #55DDE0 !important; /* Código hexadecimal celeste azul para titulo offcanvas sidebar */
-}
 
-/* Estilo para los elementos de la lista en el sidebar */
-.nav-link {
-color: #f0f0f0; /* Color gris en hexadecimal */
-}
-
-/*Estilo para resaltar el elemento activo */
-.nav-item.active .nav-link {
-font-weight: bold; /* Negrita para el elemento activo */
-color: #0000ff; /* Color azul en hexadecimal */
-}
-
-/* Personaliza la duración de la transición del offcanvas */
-.offcanvas {
-transition: transform 1.5s ease; /* Cambia 0.5s por la duración deseada en segundos */
-}
-/* Estilos para todos los iconos */
-i {
-font-size: 1.4em; /* Define el tamaño de los iconos */
-/* Otros estilos opcionales */
-color: #55DDE0; /* Cambia el color de los iconos */
-margin-right: 0.5em; /* Añade un margen a la derecha de los iconos */
-}
 /*FIN DE CSS PARA LA BASE*/
 
 @media (max-width: 586px) {

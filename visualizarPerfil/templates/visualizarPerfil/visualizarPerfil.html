@@ -2,46 +2,47 @@
 {% load static %}
 
 {% block content %}
-
-<div style="text-align: center; margin: 1%; padding: 0px; pointer-events: none;">
-    <h2><b>PERFIL DE AMIGO</b></h2>
-</div>
-<a onclick="window.location.href='/'">
-    <i class="fa-solid fa-arrow-left"  id="flechaAtras"></i>
-</a>
-
-<div  id="perfilAmigo">
-    <div class="profile-container">
-        <div class="user-info" style="text-align: center;">
-            <div class="user-details">
-                <div class="user-icon"><img class="card-img-top" src="{{amigo.foto}}" alt="FotoAmigo"></div>
-                <div class="stars">★★★★★</div>
-                <div class="field">
-                    <label for="name" style="text-align: center;font-size: 20px;"><b>{{amigo.nombre}} {{amigo.apellido}}</b></label>
-                </div>
-                <hr>
-                <div class="field">
-                    <label for="email">{{amigo.correo}}</label>
-                </div>
-                <hr>
-                <div class="field">
-                    <label for="phone">{{amigo.telefono}}</label>
-                </div>
-                
-                <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="display: block; margin: auto;">ALQUILAR</a>
-            </div>
+<div class="page-content" id="visPerfil"> 
+        <div style="text-align: center;">
+            <h2><b>PERFIL DE AMIGO</b></h2>
         </div>
-    </div>
-    <div class="about-friend">
-        <h2 style="text-align: center;">Acerca de amigo</h2>
-        <p>Nacionalidad: {{amigo.pais}}<span id="nationality"></span></p>
-        <p>Edad: {{amigo.edad}} años<span id="age"></span></p>
-        <p>Idioma: Español<span id="language"></span></p>
-        <p>Genero: {{amigo.genero}}<span id="gender"></span></p>
-        <p>Precio BOB/Tiempo: {{amigo.tarifa}} bs/h<span id="price"></span></p>
-        <p class="fw-bolder">Descripcion <span id="description"></span></p>
-        <hr>
-        <p>{{amigo.descripcion}}</p>
-    </div>
-</div>   
+        <a onclick="window.location.href='/'">
+            <i class="fa-solid fa-arrow-left"  id="flechaAtras"></i>
+        </a>
+
+        <div  id="perfilAmigo">
+            <div class="profile-container">
+                <div class="user-info" style="text-align: center;">
+                    <div class="user-details">
+                        <div class="user-icon"><img class="card-img-top" src="{{amigo.foto}}" alt="FotoAmigo"></div>
+                        <div class="stars">★★★★★</div>
+                        <div class="field">
+                            <label for="name" style="text-align: center;font-size: 20px;"><b>{{amigo.nombre}} {{amigo.apellido}}</b></label>
+                        </div>
+                        <hr>
+                        <div class="field">
+                            <label for="email">{{amigo.correo}}</label>
+                        </div>
+                        <hr>
+                        <div class="field">
+                            <label for="phone">{{amigo.telefono}}</label>
+                        </div>
+                        
+                        <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="display: block; margin: auto;">ALQUILAR</a>
+                    </div>
+                </div>
+            </div>
+            <div class="about-friend">
+                <h2 style="text-align: center;">Acerca de amigo</h2>
+                <p>Nacionalidad: {{amigo.pais}}<span id="nationality"></span></p>
+                <p>Edad: {{amigo.edad}} años<span id="age"></span></p>
+                <p>Idioma: Español<span id="language"></span></p>
+                <p>Genero: {{amigo.genero}}<span id="gender"></span></p>
+                <p>Precio BOB/Tiempo: {{amigo.tarifa}} bs/h<span id="price"></span></p>
+                <p class="fw-bolder">Descripcion <span id="description"></span></p>
+                <hr>
+                <p>{{amigo.descripcion}}</p>
+            </div>
+        </div>  
+</div> 
 {% endblock %}

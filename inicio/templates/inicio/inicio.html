@@ -2,29 +2,56 @@
 {% load static %}
 
 {% block content %}
+<div class="page-content" id="contenTarjetas">
+    <!--cargado de perfiles-->
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+    
+          {% for amigo in page_obj %}
+              <div class="col">
+                  <div class="card">
+                      <img class="card-img-top" src="{{ amigo.foto }}" alt="No perfil">
+                      <div class="card-body d-flex flex-column">
+                          <p class="card-text" style="cursor: default;"><b>{{ amigo.nombre }} {{ amigo.apellido }}</b></p>
+                          <h5 class="card-title">{{ amigo.correo }}</h5>
+                          <p class="card-text" style="cursor: default;">{{ amigo.pais }}</p>
+                          <div class="d-flex justify-content-center">
+                              <a href="../perfil/amigo/{{ amigo.id }}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
 
-<div class="container" style="margin-top: 5%;">
-    <h2 style="text-align: center;">LISTA DE AMIGOS</h2>
-    <div class="card-columns">
-        
-        {%for amigo in amigos %}
-        <div class="card">
-            <img class="card-img-top" src="{{amigo.foto}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{amigo.correo}}</h5>
-                <p class="card-text"  style="cursor: default;"><b>{{amigo.nombre}} {{amigo.apellido}}</b></p>
-                <p class="card-text" style="cursor: default;">{{amigo.pais}}</p>
-                    <div class="text-center">
-                    <a href="../perfil/amigo/{{amigo.id}}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
-                    </div>
-            </div>
-        </div>
-
-        {%endfor%}
     </div>
 
-</div>
+    <!--paginacion-->
+    <nav aria-label="Page navegation" class="mt-4 d-flex justify-content-center">
+      <ul class="pagination justify-content-center pagination-md">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          {% endif %}
+      </ul>
+    </nav>
 
+</div>
+    
 
 {% endblock %}
-
