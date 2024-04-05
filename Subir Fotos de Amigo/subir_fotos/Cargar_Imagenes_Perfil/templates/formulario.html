@@ -75,28 +75,38 @@
         // Función para manejar los archivos
         function handleFiles(files) {
         const validFiles = Array.from(files).filter(isValidFile);
-    
+            
+        // Verificar si hay imágenes duplicadas
+        const duplicateFiles = validFiles.filter((file, index) => {
+            return validFiles.slice(index + 1).some(f => f.name === file.name && f.size === file.size);
+        });
+
+        if (duplicateFiles.length > 0) {
+            alert("Has seleccionado imágenes duplicadas. Por favor, verifica tus archivos.");
+            return;
+        }
+
         if (validFiles.length + previewContainer.children.length > MAX_IMAGENES) {
             alert(`Solo se permiten seleccionar hasta ${MAX_IMAGENES} imágenes.`);
             return;
         }
     
-            validFiles.forEach(file => {
-            selectedFiles.push(file);
-            const reader = new FileReader();
-            reader.onload = () => {
-                const imgContainer = document.createElement("div"); // Crear un contenedor para la imagen y el botón de eliminar
-                imgContainer.classList.add("img-container"); // Agregar una clase CSS para estilos
+        validFiles.forEach(file => {
+        selectedFiles.push(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imgContainer = document.createElement("div"); // Crear un contenedor para la imagen y el botón de eliminar
+            imgContainer.classList.add("img-container"); // Agregar una clase CSS para estilos
 
-                const img = document.createElement("img");
-                img.src = reader.result;
-                img.classList.add('img-preview');
+            const img = document.createElement("img");
+            img.src = reader.result;
+            img.classList.add('img-preview');
 
-                const removeBtn = document.createElement("span");
-                removeBtn.textContent = "X";
-                removeBtn.classList.add("remove-btn");
-                removeBtn.addEventListener("click", () => {
-                    imgContainer.remove(); // Eliminar el contenedor completo
+            const removeBtn = document.createElement("span");
+            removeBtn.textContent = "X";
+            removeBtn.classList.add("remove-btn");
+            removeBtn.addEventListener("click", () => {
+                imgContainer.remove(); // Eliminar el contenedor completo
                     selectedFiles = selectedFiles.filter(f => f !== file);
                     updateFilesAndPreview();
                 });
@@ -113,11 +123,22 @@
     
             // Función para validar archivos
             function isValidFile(file) {
-                const validExtensions = ['jpg', 'png'];
+                const validExtensions = ['jpg', 'png','jpeg'];
+                const invalidExtensions = ['docx', 'pptx', 'xlsx','pdf'];
                 const fileExtension = file.name.split('.').pop().toLowerCase();
                 const isValidFormat = validExtensions.includes(fileExtension);
+                const isInvalidFormat = invalidExtensions.includes(fileExtension);
                 const isValidSize = file.size <= 3000000; // 3MB
-    
+                
+                if (isInvalidFormat) {
+                    alert("Solo se permiten imágenes en formato JPG y PNG.");
+                    return false;
+                }
+
+                if (!isValidSize) {
+                    alert(`Solo se permite imágenes de peso de 3 MB.`);
+                }
+
                 return isValidFormat && isValidSize;
             }
     
