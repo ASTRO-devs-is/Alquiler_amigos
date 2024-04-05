@@ -12,9 +12,9 @@ class Salida(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return (self.categoria.nombre + ' - ' + self.cliente.nombre + ' - ' + self.amigo.nombre + ' - ' + 
-                self.fecha.strftime('%d/%m/%Y') + ' - ' + self.horaInicio.strftime('%H:%M') + ' - ' +
-                self.horaFin.strftime('%H:%M'))
+        return (self.categoria_salida.nombre + ' - Cliente: ' + self.cliente.nombre + ' - Amigo: ' + self.amigo.nombre + ' - ' + 
+                self.fecha_salida.strftime('%d/%m/%Y') + ' - ' + self.hora_inicio_salida.strftime('%H:%M') + ' - ' +
+                self.hora_fin_salida.strftime('%H:%M'))
     
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
@@ -50,7 +50,7 @@ class Amigo(models.Model):
     updated = models.DateTimeField(auto_now=True)
     genero = models.IntegerField(blank = False)
     def __str__(self):
-        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.pais} -correo: {self.correo}"
+        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.ubicacion.pais} -correo: {self.correo}"
     @classmethod
     def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
         nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
