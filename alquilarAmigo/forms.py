@@ -25,7 +25,8 @@ class formularioProgramarCita(forms.Form):
                             widget=forms.DateInput( attrs={"type": "date",'class': 'form-control'}))
     
     def clean_cajaTexto(self):
-        caracteresEspeciales = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}', '[', ']', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '¡', '¿']
+        caracteresEspeciales = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}',
+                                '[', ']', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '¡', '¿']
         cajaTexto = self.cleaned_data['cajaTexto']
         if cajaTexto == None or cajaTexto == '': 
             raise forms.ValidationError('La descripción no puede estar vacia')
