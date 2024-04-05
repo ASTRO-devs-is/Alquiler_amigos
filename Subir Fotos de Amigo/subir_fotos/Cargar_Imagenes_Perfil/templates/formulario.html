@@ -23,9 +23,8 @@
             </div>
             <div id="gallery"></div>
             <div style="display: flex; justify-content: space-between;">
-                <button class="atras-button" type="button">Cancelar</button>
-                <button class="cargar-button" type="submit" disabled>Cargar</button>
                 <button class="cancel-button" type="button">Cancelar</button>
+                <button class="cargar-button" type="submit" disabled>Cargar</button>
             </div>
         </form>
     </div>
@@ -36,7 +35,6 @@
         const button = dropArea.querySelector("button");
         const input = dropArea.querySelector("input");
         const previewContainer = document.getElementById('preview-container');
-        const atrasBtn = document.querySelector('.atras-button');
         const cargarBtn = document.querySelector('.cargar-button');
         const cancelarBtn = document.querySelector('.cancel-button');
         const uploadForm = document.getElementById('upload-form');
@@ -128,27 +126,19 @@
                 cargarBtn.disabled = selectedFiles.length === 0;
             }
     
-            // FUNCIONALIDAD BOTONES
-            atrasBtn.addEventListener('click', () => {
-                uploadForm.reset();
-                previewContainer.innerHTML = '';
-                selectedFiles = [];
-                updateFilesAndPreview();
-            });
-    
             cargarBtn.addEventListener('click', () => {
                 if (selectedFiles.length === 0) {
                     alert('No se han seleccionado archivos para cargar.');
                     return;
                 }
     
-                confirmAction('¿Estás seguro de que quieres cargar las fotos?', () => {
+                confirmAction('¿Está seguro de cargar las imágenes?', () => {
                     uploadForm.submit();
                 });
             });
     
             cancelarBtn.addEventListener('click', () => {
-                confirmAction('¿Estás seguro de que quieres cancelar?', () => {
+                confirmAction('¿Está seguro de cancelar?', () => {
                     uploadForm.reset();
                     previewContainer.innerHTML = '';
                     selectedFiles = [];

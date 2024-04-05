@@ -47,8 +47,20 @@ body {
   color: #333;
 }
 
-.atras-button,
-.cargar-button,
+.cargar-button{
+  background-color: #F26419;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
 .cancel-button {
   background-color: #2F4858;
   color: rgb(255, 255, 255);
@@ -64,9 +76,11 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.cargar-button:hover,
+.cargar-button:hover{
+  background-color: #4aec21;
+}
 .cancel-button:hover {
-  background-color: #bfbfbf;
+  background-color: #f30909;
 }
 
 .buscar-label {
