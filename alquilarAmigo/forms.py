@@ -25,6 +25,8 @@ class formularioProgramarCita(forms.Form):
                             widget=forms.DateInput( attrs={"type": "date",'class': 'form-control'}))
     
     def clean_cajaTexto(self):
+        ascii = [164,165,168,173,160,130,161,162,163,181,144,214,224,233]
+        ascii_rango = range(32,126)
         caracteresEspeciales = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}',
                                 '[', ']', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '¡', '¿']
         cajaTexto = self.cleaned_data['cajaTexto']
@@ -34,9 +36,15 @@ class formularioProgramarCita(forms.Form):
             raise forms.ValidationError('La descripción debe tener al menos 50 caracteres')
         if len(cajaTexto) > 500:
             raise forms.ValidationError('La descripción no puede tener mas de 500 caracteres')
-        for caracter in caracteresEspeciales:
-            if caracter in cajaTexto:
-                raise forms.ValidationError('La descripción no puede tener caracteres especiales')
+        contador = 0
+        for caracter in cajaTexto:
+            if caracter in caracteresEspeciales:
+                contador += 1
+        if contador > 20:
+            raise forms.ValidationError('La descripción contiene mas de 20 caracteres especiales')
+        for caracter in cajaTexto:
+            if ord(caracter) not in ascii_rango and ord(caracter) not in ascii:
+                raise forms.ValidationError('La descripción contiene caracteres no permitidos')
         return cajaTexto
         
 
