@@ -25,22 +25,22 @@ def programarSalida(request, amigo_id=None, cliente_id=1):
 def escogerHora(request, categoria, fecha, cajaTexto, amigo_id, cliente_id):
     #formulario_horas = FormularioHoras()
     nueva_salida = Salida()
-    salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha=fecha)
+    salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha_salida=fecha)
     horas = calcularHorario(fecha = fecha, amigo_id = amigo_id, cliente_id = cliente_id)
     horarios = [(h.horaInicio, h.horaFin) for h in horas]
     formulario_horas = FormularioHoras()
     categoria_salida = Categoria.objects.get(nombre=categoria)
-    nueva_salida.categoria = categoria_salida
-    nueva_salida.fecha = fecha
-    nueva_salida.descripcion = cajaTexto
+    nueva_salida.categoria_salida = categoria_salida
+    nueva_salida.fecha_salida = fecha
+    nueva_salida.descripcion_salida = cajaTexto
     nueva_salida.amigo_id = amigo_id
     nueva_salida.cliente_id = cliente_id
     if request.method == 'POST':
         formulario_datos = FormularioHoras(request.POST)
         
         if formulario_datos.is_valid():
-            nueva_salida.horaInicio = request.POST.get('horaInicio')
-            nueva_salida.horaFin = request.POST.get('horaFin')        
+            nueva_salida.hora_inicio_salida = request.POST.get('horaInicio')
+            nueva_salida.hora_fin_salida = request.POST.get('horaFin')        
             nueva_salida.save()
             return redirect('Inicio')
         else:
@@ -51,7 +51,7 @@ def escogerHora(request, categoria, fecha, cajaTexto, amigo_id, cliente_id):
 def calcularHorario(fecha, amigo_id, cliente_id):
     
     horas = DisponibilidadHoras.objects.filter(amigo_id=amigo_id)  
-    salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha=fecha)
+    salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha_salida=fecha)
     horas_disponibles = []
     for hora in horas:
         conflicto = False
@@ -65,3 +65,10 @@ def calcularHorario(fecha, amigo_id, cliente_id):
     return horas_disponibles
 
 
+def cancelar_programar_cita(request):
+    return render(request, 'programarSalida/cancelar.html')
+
+def confirmar_programar_cita(request):
+    if request.method == 'POST':
+        pass
+    return render(request, 'programarSalida/confirmar.html')

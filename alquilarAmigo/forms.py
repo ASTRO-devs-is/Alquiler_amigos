@@ -25,6 +25,10 @@ class formularioProgramarCita(forms.Form):
                             widget=forms.DateInput( attrs={"type": "date",'class': 'form-control'}))
     
     def clean_cajaTexto(self):
+        ascii = [164,165,168,173,160,130,161,162,163,181,144,214,224,233]
+        ascii_rango = range(32,126)
+        caracteresEspeciales = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}',
+                                '[', ']', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '¡', '¿']
         cajaTexto = self.cleaned_data['cajaTexto']
         if cajaTexto == None or cajaTexto == '': 
             raise forms.ValidationError('La descripción no puede estar vacia')
@@ -32,7 +36,17 @@ class formularioProgramarCita(forms.Form):
             raise forms.ValidationError('La descripción debe tener al menos 50 caracteres')
         if len(cajaTexto) > 500:
             raise forms.ValidationError('La descripción no puede tener mas de 500 caracteres')
+        contador = 0
+        for caracter in cajaTexto:
+            if caracter in caracteresEspeciales:
+                contador += 1
+        if contador > 20:
+            raise forms.ValidationError('La descripción contiene mas de 20 caracteres especiales')
+        for caracter in cajaTexto:
+            if ord(caracter) not in ascii_rango and ord(caracter) not in ascii:
+                raise forms.ValidationError('La descripción contiene caracteres no permitidos')
         return cajaTexto
+        
 
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
@@ -81,7 +95,6 @@ class FormularioHoras(forms.Form):
             if horaFin < datetime.datetime.now().time():
                 raise forms.ValidationError('La hora de fin no puede ser menor a la hora actual')
         # Convertir a datetime
-        
         ahora = dt.now()
         dt_horaInicio = dt.combine(ahora, horaInicio)
         dt_horaFin = dt.combine(ahora, horaFin)
@@ -89,8 +102,10 @@ class FormularioHoras(forms.Form):
             raise forms.ValidationError('La hora de fin no puede ser menor a la hora de inicio')
         if dt_horaFin - dt_horaInicio < timedelta(hours=1):
             raise forms.ValidationError('La duración de la salida debe ser de al menos 1 hora')
+        if dt_horaFin - dt_horaInicio > timedelta(hours=2):
+            raise forms.ValidationError('La duración de la salida no puede ser mayor a 2 horas')
         diferencia = dt_horaFin - dt_horaInicio
         minutos_diferencia = diferencia.seconds // 60
-        if minutos_diferencia % 30 != 0:
-            raise forms.ValidationError('La hora de fin debe ser igual a la hora de inicio o aumentar en incrementos de 30 minutos') 
+        if minutos_diferencia % 60 != 0:
+            raise forms.ValidationError('La hora de fin debe ir de hora en hora') 
         return horaFin
