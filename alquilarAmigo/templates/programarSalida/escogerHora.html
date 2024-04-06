@@ -50,7 +50,7 @@
             </div>
         
             <div style="text-align: center;margin: 10% 0px;">
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Cancelar</button>
+                <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Programar</button>
             </div>
         </form>
@@ -58,4 +58,19 @@
     </div>
     </div>
 
+<div class="modal fade" id="cancelar-programar-cita" role="dialog">
+
+</div>
+
 {% endblock %}
+
+{% block extrajs %}
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+{% endblock extrajs %}

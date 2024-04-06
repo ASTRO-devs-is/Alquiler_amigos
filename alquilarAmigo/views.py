@@ -65,3 +65,5 @@ def calcularHorario(fecha, amigo_id, cliente_id):
     return horas_disponibles
 
 
+def cancelar_programar_cita(request):
+    return render(request, 'programarSalida/cancelar.html')
