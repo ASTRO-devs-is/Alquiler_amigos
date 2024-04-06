@@ -1,8 +1,10 @@
 from django import forms
 import datetime
 from datetime import timedelta
+from alquilarAmigo.models import Tarifa
 
-tarifa = [('15 bs/hora', '15bs/hora'), ('25 bs/hora', '25 bs/hora'), ('50 bs/hora', '50 bs/hora'), ('75 bs/hora', '75 bs/hora'), ('100 bs/hora', '100 bs/hora')]
+tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+#tarifa = [(1, 2)]
 
 class formularioRegistrarAmigo(forms.Form):
     tarifa = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), 
@@ -25,12 +27,12 @@ class formularioRegistrarAmigo(forms.Form):
     apellido = forms.CharField(required=False, label='Apellido', 
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Nombre del amigo'
+                                'placeholder': 'Apellido'
                             }))
     ciudad = forms.CharField(required=False, label='Ciudad', 
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Nombre del amigo'
+                                'placeholder': 'Ciudad'
                             }))
     pais = forms.CharField(required=False, label='Pais',
                             widget=forms.TextInput(attrs={
