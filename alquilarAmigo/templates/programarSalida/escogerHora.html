@@ -10,48 +10,30 @@
             {% csrf_token %}
             <div>
                 <h3>Horarios disponibles:</h3>
+                {% if horas %}
                 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                     {% for horario in horas %}
                         <div style="display: flex;">
                             <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
                                 Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
                             </div>
+                            <input type="checkbox" name="horario_seleccionado" value="{{ horario.id }}">
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-            
-            <div style="display: flex;margin: 10% 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
-                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaInicio }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaInicio' %}
-                            {{ formHoras.horaInicio.errors }}
-                        {% endif %}
-                    {% endfor %}
+                {% else %}
+                    <div style="text-align: center;color: red;opacity: 0.5;">
+                    <h3>No hay horarios disponibles</h3>
                     </div>
                 {% endif %}
             </div>
             
-            <div style="display: flex;margin: 10% 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
-                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaFin }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaFin' %}
-                            {{ formHoras.horaFin.errors }}
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            
         
             <div style="text-align: center;margin: 10% 0px;">
                 <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="abrir_modal_confirmacion()">Programar</button>
+                <!--<button type="submit" class="btn btn-primary" onclick="abrir_modal_confirmacion('{{ datos|escapejs }}')">Programar</button>-->
+                <button type="submit" class="btn btn-primary">Programar</button>
             </div>
         </form>
 
@@ -61,8 +43,6 @@
 <div class="modal fade" id="cancelar-programar-cita" role="dialog">
 </div>
 
-<div class="modal fade" id="confirmar_programar_cita" role="dialog">
-</div>
 
 {% endblock %}
 
@@ -74,10 +54,6 @@
                 $(this).modal('show');
             });
         }
-        function abrir_modal_confirmacion(){
-            $('#confirmar-programar-cita').load("{% url 'confirmar_programar_cita' %}", function(){
-                $(this).modal('show');
-            });
-        }
+        
     </script>
 {% endblock extrajs %}

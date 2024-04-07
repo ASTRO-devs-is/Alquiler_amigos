@@ -29,15 +29,15 @@
                 </div>
             </div>
             <div style="display: flex;margin: 5% 0px;">
-                <h3>{{ formSalida.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                <h3>{{ formSalida.descripcion.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
             </div>
             
-                <div style="margin-top: 5%;" id="textProgramar">{{ formSalida.cajaTexto }}</div>
+                <div style="margin-top: 5%;" id="textProgramar">{{ formSalida.descripcion }}</div>
                     {% if errores %}
                         <div style="color: red;">
                         {% for error in errores %}
-                            {% if error == 'cajaTexto' %}
-                                <h5>{{ formSalida.cajaTexto.errors }}</h5>
+                            {% if error == 'descripcion' %}
+                                <h5>{{ formSalida.descripcion.errors }}</h5>
                             {% endif %}
                         {% endfor %}
                         </div>
