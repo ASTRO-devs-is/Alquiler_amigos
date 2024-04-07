@@ -1,10 +1,10 @@
 from django import forms
 import datetime
 from datetime import timedelta
-from alquilarAmigo.models import Tarifa
-
-tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
-#tarifa = [(1, 2)]
+#from alquilarAmigo.models import Tarifa
+import re
+#tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+tarifa = [(1, 2)]
 
 class formularioRegistrarAmigo(forms.Form):
     tarifa = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), 
@@ -82,12 +82,18 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('El email no puede estar vacio')
         if '@' not in email:
             raise forms.ValidationError('El email debe contener tener un formato valido')
+        # Verificar si el correo electrónico termina con "@gmail.com" o "@hotmail.com"
+        if not email.endswith('@gmail.com') and not email.endswith('@hotmail.com'):
+            raise forms.ValidationError('El email debe ser de dominio @gmail.com o @hotmail.com')
+
         return email
     
     def clean_telefono(self):
         telefono = self.cleaned_data['telefono']
-        if len(telefono) > 8:
-            raise forms.ValidationError('El telefono debe tener menos de 8 digitos')
+        
+         # Verificar si el teléfono tiene exactamente 8 dígitos
+        if len(telefono) != 8:
+            raise forms.ValidationError('El teléfono debe tener exactamente 8 dígitos')
         if not telefono.isdigit():
             raise forms.ValidationError('El telefono debe contener solo numeros')
         return telefono
@@ -96,40 +102,63 @@ class formularioRegistrarAmigo(forms.Form):
         nombre = self.cleaned_data['nombre']
         if nombre == "":
             raise forms.ValidationError('El nombre no puede estar vacio')
+        if re.search(r'\d', nombre):
+            raise forms.ValidationError('El nombre no puede contener valores numéricos')
         return nombre
     
     def clean_apellido(self):
         apellido = self.cleaned_data['apellido']
         if apellido == "":
             raise forms.ValidationError('El apellido no puede estar vacio')
+        if re.search(r'\d', apellido):
+            raise forms.ValidationError('El apellido no puede contener valores numéricos')
         return apellido
     
     def clean_descripcion(self):
         descripcion = self.cleaned_data['descripcion']
-        if descripcion == "":
-            raise forms.ValidationError('La descripcion no puede estar vacia')
-        if len(descripcion) < 10:
-            raise forms.ValidationError('La descripcion debe tener al menos 10 caracteres')
+       
+        if not descripcion.strip():
+            raise forms.ValidationError('La descripción no puede estar vacía')
+        if len(descripcion) < 50:
+            raise forms.ValidationError('La descripcion debe tener al menos 50 caracteres')
         if len(descripcion) > 500:
             raise forms.ValidationError('La descripcion no puede tener mas de 500 caracteres')
+        
+          # Contar el número de caracteres especiales permitidos en la descripción
+        caracteres_especiales_permitidos = {'.', '$', '*', '+', '/', '-', ',', ';', '?', '¡', '¿', '&', '%', '#', '"'
+                                            ,'1','2','3','4','5','6','7','8','9'}
+        num_caracteres_especiales = sum(1 for char in descripcion if char in caracteres_especiales_permitidos)
+    
+            # Verificar si el número de caracteres especiales supera el límite
+        if num_caracteres_especiales > 20:
+            raise forms.ValidationError('La descripción no puede tener más de 20 caracteres especiales')
         return descripcion
+
+
     
     def clean_ciudad(self):
         ciudad = self.cleaned_data['ciudad']
         if ciudad == "":
             raise forms.ValidationError('La ciudad no puede estar vacia')
+        if re.search(r'\d', ciudad):
+            raise forms.ValidationError('Ciudad no puede contener valores numéricos')
         return ciudad
     
     def clean_localidad(self):
         localidad = self.cleaned_data['localidad']
         if localidad == "":
             raise forms.ValidationError('La localidad no puede estar vacia')
+         # Verificar si la localidad contiene al menos un carácter que no sea un número
+        if not re.search(r'[^\d]', localidad):
+             raise forms.ValidationError('La localidad debe contener al menos un carácter que no sea un número')
         return localidad
     
     def clean_pais(self):
         pais = self.cleaned_data['pais']
         if pais == "":
-            raise forms.ValidationError('El pais no puede estar vacio')
+            raise forms.ValidationError('El paìs no puede estar vacio')
+        if re.search(r'\d', pais):
+            raise forms.ValidationError('El paìs no puede contener valores numéricos')
         return pais
     
     def clean_politica(self):
