@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Éxito</title>
+</head>
+<body>
+    <h1>¡Imágenes cargadas correctamente!</h1>
+    <ul>
+        {% for image in images_uploaded %}
+        <li><img src="{{ image }}" alt="Imagen cargada" width="200"></li>
+        {% endfor %}
+    </ul>
+    <script>
+        alert("Las imágenes se han cargado correctamente.");
+    </script>
+</body>
+</html>
