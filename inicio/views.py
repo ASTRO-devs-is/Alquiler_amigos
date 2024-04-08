@@ -14,7 +14,7 @@ def inicio(request):
         else:
             amigo.foto = None
 
-    paginador = Paginator(amigos, 4)  # Dividir la lista de amigos en páginas de 6 amigos cada una
+    paginador = Paginator(amigos, 8)  # Dividir la lista de amigos en páginas de 6 amigos cada una
     numPagina = request.GET.get('page')
     pagina = paginador.get_page(numPagina)
 

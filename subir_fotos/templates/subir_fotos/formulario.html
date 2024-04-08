@@ -5,9 +5,10 @@
 <title>Subir Fotos</title>
 {% endblock %}
 {% block content %}
-<div class="page-content" id="contenedSubirFoto">
+<img class="bg-img" src="https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=" alt="bg image">
+<div class="container-fluid" id="contenedSubirFoto">
     <div class="container" style="width: 80%; margin: 0 auto;">
-        <center><h1>CARGAR LAS FOTOS PARA EL PERFIL</h1></center>
+        <center><h1 class="text-uppercase  font-weight-bold" style="color: #fff8e7;">CARGAR LAS FOTOS PARA EL PERFIL</h1></center>
         <form id="upload-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
