@@ -7,4 +7,4 @@ class FotoPerfil(models.Model):
     fotos = models.ForeignKey(Amigo, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Foto de perfil: {self.image.name}"
+        return str(self.image)
