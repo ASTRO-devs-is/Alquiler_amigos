@@ -11,6 +11,8 @@
     <!-- Bootstrap -->
     <link href="{% static 'inicio/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <!--iconos -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.2.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://kit.fontawesome.com/c29dc6ece3.js" crossorigin="anonymous"></script>
@@ -28,134 +30,135 @@
     <link href="{% static 'inicio/css/gestion.css' %}" rel="stylesheet">
     
 </head>
-
 <body>
-      
-    <!-- Menu de navegacion -->
-    <nav class="navbar navbar-expand-lg " style="background-color: #2F4858;"> <!-- Creacion de menu de navegacion -->
+    
 
-      <div class="container-fluid ">
-          <a href="" class="navbar-brand color1 fw-semibold fs-2">FriendlyHire</a>
-          <!-- boton de navegacion  -->
-          <button
-            class="navbar-toggler text-success"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#menuLateral"
-          >
-          <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- offcanvas contenedor del contenido del sidebar -->
-          <section
-            class="offcanvas offcanvas-start offcanvas-collapse"
-            id="menuLateral"
-            tabindex="-1"
-          >
-            <div class="offcanvas-header" data-bs-theme="dark">
-              <h5 class="offcanvas-title color1 fs-2">FriendlyHire</h5>
-              <button
-                class="btn-close"
-                type="button"
-                aria-label="Close"
-                data-bs-dismiss="offcanvas"
-              ></button>
+    <!-- Menu navBar-->
+    <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand me-auto" href="{% url 'Inicio' %}">FriendlyHire</a>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title fs-4" id="offcanvasNavbarLabel">FriendlyHire</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2 active " aria-current="page" href="{% url 'Inicio' %}" style="color: #fff8e7;">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="/registroAmigo">Registrarse como amigo</a>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+                <!--
+                <a href="#" class="login-button">Login</a> 
+                <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                -->
             </div>
-
-            <!-- cuerpo de offcanvas-->
-            <div
-              class="offcanvas-body d-flex flex-column justify-content-space-evenly "
-            >
-              <ul class="navbar-nav fs-5 justify-content-evenly">
-
-                  <!-- elementos del sidebar -->
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="{% url 'Inicio' %}" class="nav-link"><i class="fi fi-sr-home me-2"></i> Home</a></h5>
-                  </li>
-                  <!--
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-user me-2"></i> Iniciar Sesión</a></h5>
-                  </li>
-                  
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-clipboard-user me-2"></i> Registrarse</a></h5>
-                  </li>
-                  -->
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="/registroAmigo" class="nav-link"><i class="fi fi-sr-users-alt me-2 color1"></i> Registrarse como amigo</a></h5>
-                  </li>
-                  <li class="nav-item p-4 py-md-2">
-                  <!--
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-settings me-2"></i> Configuraciones</a></h5>
-                  </li>
-                  
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-info me-2"></i> Acerca de</a></h5>
-                  </li>
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-customer-service me-2"></i> Contácto</a></h5>
-                  </li>
-                  <li class="nav-item p-4 py-md-2">
-                    <h5><a href="" class="nav-link" onclick="return false;"><i class="fi fi-sr-interrogation me-2"></i> Ayuda</a></h5>
-                  </li>
-                  -->
-              </ul>
-            </div>
-                  <!-- enlaces redes sociales -->
-                  <div class="d-lg-none align-self-center py-4">
-                    <a href=""><i class="fi fi-sr-apps me-2 color1" style="font-size: 2em;"></i></a>
-                  </div>
-          </section>
-          <!-- fin de canvas  -->
-
-      </div>
-
-  </nav>
+    </nav>
     <!--fin de navbar-->
-      
-{% block content %}
-<!--Contenido cambiante-->
-{% endblock %}
+
+      {% block content %}
+      <!--Contenido cambiante-->
+      {% endblock %}
 
     <!-- footer -->
-    <footer style="background-color: #2F4858; color: #f0f0f0;" class="py-5">
-      <div class="container" id="footer-container">
-          <div class="row">
-              <div class="col-md-4">
-                  <h4>Enlaces útiles</h4>
-                  <ul class="list-unstyled">
-                      <li><a href="https://astrodevs2024.pythonanywhere.com/" target="_blank">Inicio</a></li>
-                      <!--<li><a href="#">Acerca de</a></li>
-                      <li><a href="#">Servicios</a></li>
-                      <li><a href="#">Contacto</a></li>-->
-                  </ul>
+
+      <footer class="text-white pt-5 pb-4" style="background-color: #2F4858;" >
+          <div class="container text-center text-md-left" id="footerContenedor">
+
+            <div class="row text-center text-md-left">
+
+              <div class="col-md-3  col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase  font-weight-bold text-warning" style="color: #F6AE2D;">Friendly Hire</h5>
+                    <p>Nuestro equipo se compromete a proporcionar un servicio excepcional, asegurando que tu experiencia con Friendly Hire sea segura, cómoda y memorable. Ya sea que estés buscando un compañero para explorar una nueva ciudad, alguien con quien practicar un nuevo idioma o simplemente alguien con quien pasar el rato, estamos aquí para ayudarte a encontrar el amigo perfecto para ti.</p>
               </div>
-              <div class="col-md-4">
-                  <h4>Síguenos en</h4>
-                  <ul class="list-unstyled">
-                      <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-                      <li><a href="https://twitter.com/AstroDevs2003/" target="_blank">X</a></li>
-                      <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
-                      <li><a href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
-                  </ul>
+
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="color: #F6AE2D;">Enlaces útiles</h5>
+                    <p>
+                      <a href="#" class="text-white" style="text-decoration: none;"> Inicio</a>
+                    </p>
+                    <p>
+                      <a href="#" class="text-white" style="text-decoration: none;"> Acerca de</a>
+                    </p>
+                    <p>
+                      <a href="#" class="text-white" style="text-decoration: none;"> Servicios</a>
+                    </p>
+                    <p>
+                      <a href="#" class="text-white" style="text-decoration: none;"> Contacto</a>
+                    </p>
               </div>
-              <div class="col-md-4">
-                  <h4>Contacto</h4>
-                  <address>
-                      <strong>FriendlyHire</strong><br>
-                      Cercado<br>
-                      CBBA, Bolivia<br>
-                      <abbr title="Teléfono">Tel:</abbr> (123) 456-7890
-                  </address>
+
+              <div class="col-md-4  col-lg-3 col-xl-3 mx-auto mt-3 text-md-left">
+                  <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Enlaces útiles</h5>
+                  <p>
+                    <i class="fas fa-home mr-3"></i>Inicio
+                  </p>
+                  <p>
+                    <i class="fas fa-envelope mr-3"></i> Servicios
+                  </p>
+                  <p>
+                     <i class="fas fa-phone mr-3"></i> Acerca de
+                  </p>
+                  <p>
+                    <i class="fas fa-phone mr-3"></i> Contacto
+                 </p>
               </div>
+              <hr class="mb-4">
+
+              <div class="row align-items-center">
+
+                  <div class="col-md-7  col-lg-8">
+                    <p>Copyright ©2024 All rights reserved by:
+                        <a href="#" style="text-decoration: none;">
+                            <strong class="text-warning">FriendlyHire</strong>
+                        </a>
+                    </p>
+                  </div>
+
+                  <div class="col-md-5  col-lg-4">
+                        <div class="text-center text-md-right">
+                            <ul class="list-unstyled list-inline">
+                              <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px; "><i class="fab fa-facebook"></i></a>
+
+                              </li>
+                              <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fab fa-twitter"></i></a>
+
+                              </li>
+                              <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fab fa-google-plus"></i></a>
+
+                              </li>
+                              <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fab fa-linkedin-in"></i></a>
+
+                              </li>
+                              <li class="list-inline-item">
+                                <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fab fa-youtube"></i></a>
+
+                              </li>
+                            </ul>
+
+                        </div>
+
+                  </div>
+
+              </div>
+
+            </div>
+
           </div>
-          <div class="row">
-              <div class="col-12 text-center">
-                  <p class="mb-0">&copy; 2024 FriendlyHire. Todos los derechos reservados. Diseñado por <a href="#" class="text-light">ASTRO Devs</a>.</p>
-              </div>
-          </div>
-      </div>
-  </footer>
+
+      </footer>    
+
     <!-- Bootstrap -->
 
     <script src="{% static 'inicio/vendor/jquery/jquery.min.js' %}"></script>

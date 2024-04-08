@@ -2,15 +2,13 @@
 {% load static %}
 
 {% block content %}
-    <div style="margin: 1%;">
-        
-            
+<img class="bg-img" src="https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=" alt="bg image">
+    <div class="container-fluid" id= "contenRegistAmigo">
         
         <form class="form-grup" method='POST'>
             {% csrf_token %}
-            <div class="container" id="formulario-container">
+            <div class="container" id="formulario-container" style="background-color: #dcdcdc;">
                 <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>REGISTRAR AMIGO</b></h2></div>
-                <h2>Datos Personales</h2>
                 <div class="row">
                     
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">

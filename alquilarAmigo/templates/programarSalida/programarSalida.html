@@ -2,30 +2,33 @@
 {% load static %}
 
 {% block content %}
+<img class="bg-img" src="https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=" alt="bg image">
+<div class="container-fluid" id="contenedProgSalida">
 
-    <div style="margin: 1%">
-    <div class="container" id="formulario-container">
-        <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <form class="form-group" method='POST' style="width: 100%; margin: auto">
-            {% csrf_token %}
-            <div style="display: flex;">
-            <h3>{{ formSalida.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-            </div>
-            <div style="width: 50%; margin: auto">{{ formSalida.categorias }}</div>
-            <div style="display: flex;margin: 5% 0px;">
-                <h3>{{ formSalida.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-                <div style="display: block;">
-                    <div style="margin-left: 5%; width: 150px;">{{ formSalida.fecha }}</div>
-                    {% if errores %}
+    <div>
+        <div class="container" id="formulario-container">
+            <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
+            <form class="form-group" method='POST' style="width: 100%; margin: auto">
+                {% csrf_token %}
+                <div style="display: flex;">
+                <h3>{{ formSalida.categorias.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                </div>
+                <div style="width: 50%; margin: auto">{{ formSalida.categorias }}</div>
+                <div style="display: flex;margin: 5% 0px;">
+                    <h3>{{ formSalida.fecha.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+                    <div style="display: block;">
+                        <div style="margin-left: 5%; width: 150px;">{{ formSalida.fecha }}</div>
+                        {% if errores %}
+                            
+                            {% for error in errores %}
+                                {% if error == 'fecha' %}
+                                    <h5 style="color: red;width: 100%;">{{ formSalida.fecha.errors }}</h5>
+                                {% endif %}
+                            {% endfor %}
+                            
+                        {% endif %}
                         
-                        {% for error in errores %}
-                            {% if error == 'fecha' %}
-                                <h5 style="color: red;width: 100%;">{{ formSalida.fecha.errors }}</h5>
-                            {% endif %}
-                        {% endfor %}
-                        
-                    {% endif %}
-                    
+                    </div>
                 </div>
             </div>
             <div style="display: flex;margin: 5% 0px;">
@@ -49,7 +52,7 @@
                 <button type="submit" class="btn btn-primary">Siguiente</button>
             </div>
         </form>
-
+        </div>
     </div>
     </div>
 
@@ -71,3 +74,4 @@
         }
     </script>
 {% endblock extrajs %}
+
