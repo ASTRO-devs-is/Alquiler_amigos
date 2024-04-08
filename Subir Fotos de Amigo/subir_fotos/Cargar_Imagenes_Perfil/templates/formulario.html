@@ -9,13 +9,13 @@
 <body>
     <div class="container" style="width: 80%; margin: 0 auto;">
         <center><h1>CARGAR LAS FOTOS PARA EL PERFIL</h1></center>
-        <form id="upload-form" action="{% url 'upload_profile_photos' %}" method="post" enctype="multipart/form-data">
+        <form id="upload-form" action="{% url 'cargar_fotos_perfil' %}"  method="post" enctype="multipart/form-data">
             
             <label for="photo_upload">1.Seleccionar fotos:</label>
             <div id="drop-area" class = "drag-area">
                 <header>Arrastra las fotos aquí <br></header>
                 <span >O<br></span>
-                <input type="file" id="file-input" multiple accept="image/jpeg, image/jpg, image/jpg" style="display: none;">
+                <input type="file" id="file-input" name="file-input" multiple accept="image/jpeg, image/jpg, image/jpg" style="display: none;">
                 <label class="buscar-label" for="file-input">
                     <button type="button">Buscar Fotos</button>
                 </label>
@@ -78,7 +78,7 @@
             
         // Verificar si hay imágenes duplicadas
         const duplicateFiles = validFiles.filter((file, index) => {
-            return validFiles.slice(index + 1).some(f => f.name === file.name && f.size === file.size);
+            return validFiles.some((f, i) => i !== index && f.name === file.name && f.size === file.size);
         });
 
         if (duplicateFiles.length > 0) {
@@ -92,9 +92,9 @@
         }
     
         validFiles.forEach(file => {
-        selectedFiles.push(file);
-        const reader = new FileReader();
-        reader.onload = () => {
+            selectedFiles.push(file);
+            const reader = new FileReader();
+            reader.onload = () => {
             const imgContainer = document.createElement("div"); // Crear un contenedor para la imagen y el botón de eliminar
             imgContainer.classList.add("img-container"); // Agregar una clase CSS para estilos
 
@@ -145,6 +145,11 @@
             // Función para actualizar archivos y previsualización
             function updateFilesAndPreview() {
                 cargarBtn.disabled = selectedFiles.length === 0;
+                // Agregar los archivos seleccionados al formulario
+                const formData = new FormData(uploadForm);
+                selectedFiles.forEach(file => {
+                    formData.append('file-input', file);
+                });
             }
     
             cargarBtn.addEventListener('click', () => {
@@ -154,10 +159,33 @@
                 }
     
                 confirmAction('¿Está seguro de cargar las imágenes?', () => {
-                    uploadForm.submit();
+                    const formData = new FormData(uploadForm);
+                    fetch("{% url 'cargar_fotos_perfil' %}", {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Error al cargar las imágenes');
+                        }
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            alert('Las imágenes se han cargado correctamente.');
+                            window.location.href = "{% url 'exito' %}";
+                        } else {
+                            alert('Error al cargar las imágenes');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error al cargar las imágenes');
+                    });
                 });
             });
-    
+        
             cancelarBtn.addEventListener('click', () => {
                 confirmAction('¿Está seguro de cancelar?', () => {
                     uploadForm.reset();
@@ -169,18 +197,18 @@
     
             // Función de confirmación para eventos click
             function confirmAction(message, action) {
-            return new Promise((resolve) => {
-            const dialog = document.createElement('dialog');
-            dialog.innerHTML = `
-                <div class="dialog-container">
-                    <p>${message}</p>
-                    <div class="buttons">
-                        <button class="button-primary" id="confirm-button">Sí</button>
-                        <button class="button-secondary" id="cancel-button">No</button>
+            return new Promise((resolve, reject) => {
+                const dialog = document.createElement('dialog');
+                dialog.innerHTML = `
+                    <div class="dialog-container">
+                        <p>${message}</p>
+                        <div class="buttons">
+                            <button class="button-primary" id="confirm-button">Sí</button>
+                            <button class="button-secondary" id="cancel-button">No</button>
+                        </div>
                     </div>
-                </div>
-            `;
-    
+                `;
+
                 document.body.appendChild(dialog);
     
                 const confirmButton = dialog.querySelector('#confirm-button');

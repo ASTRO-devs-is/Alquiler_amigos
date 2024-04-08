@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from subir_fotos.Cargar_Imagenes_Perfil import views
 
 urlpatterns = [
