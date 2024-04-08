@@ -44,7 +44,7 @@
                         
 
                     </div>
-
+                    
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" >
                         <div style="margin: 2% 0px;">
                             <div style="width: 200px;"><h4>{{form.apellido.label}}: <span style="color: red">*</span></h4></div>
@@ -122,13 +122,33 @@
 
                             </div>  
                         </div> 
-                        <div style="width: 200px;"><h4>{{form.email.label}}: <span style="color: red">*</span></h4></div>
-                        <div style="width: 50%;">{{form.email}}</div>
+                        
+
+                        <div style="display: flex; margin-top: 10px;">
+                            <div style="width: 200px; margin-right: 9%;"><h4>{{ form.email.label }}: <span style="color: red">*</span></h4></div>
+                            <div style="width: 100px; margin: 0px 9%;"><h4>{{ form.genero.label }}: <span style="color: red">*</span></h4></div> 
+                        </div>
+                        <div style="display: flex; margin-bottom: 10px;">
+                            <div style="width: 50%;">{{ form.email }}</div>
+                            <div style="width: 50%; margin: 0px 10%;">{{ form.genero }}</div>
+                        </div>
+
                         {% if errores %}
                             <div style="color: red;">
                                 {% for error in errores %}
                                     {% if error == 'email' %}
                                         <h5>{{ form.email.errors }}</h5>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                       
+                        {% if errores %}
+                            <div style="color: red;">
+                                {% for error in errores %}
+                                    {% if error == 'genero' %}
+                                        <h5>{{ form.genero.errors }}</h5>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -161,7 +181,7 @@
                     <div style="display: block;margin: 0.5% 2%;">
                         <div style="display: flex;">
                             <div>{{ form.politica }}</div>
-                            <div><h4>He leido y acepto el aviso legal y la Politica de privacidad. <span style="color: red">*</span></h4></div>
+                            <div><h4>He leìdo y acepto el aviso legal y la Polìtica de privacidad. <span style="color: red">*</span></h4></div>
                         </div>
                         {% if errores %}
                             <div style="color: red;">
@@ -174,7 +194,7 @@
                         {% endif %}
                         <div style="display: flex;">
                             <div>{{ form.terminos }}</div>
-                            <div><h4>Acepto los terminos y condiciones. <span style="color: red">*</span></h4></div>
+                            <div><h4>Acepto los tèrminos y condiciones. <span style="color: red">*</span></h4></div>
                         </div>    
                             {% if errores %}
                             <div style="color: red; width: 300px;">
@@ -187,8 +207,9 @@
                             {% endif %}
                     </div>   
                 </div>
+              
                 <div style="text-align: center;margin: 10% 0px;">
-                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <button type="button" class="btn btn-secondary"  onclick="window.location.href='/'">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Continuar</button>
                 </div>
             </div>

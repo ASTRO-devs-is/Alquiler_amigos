@@ -55,14 +55,16 @@ class Amigo(models.Model):
     @classmethod
     def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
       
-          # Verificar si el correo electrónico ya existe en la base de datos
-        if cls.objects.filter(correo=correo).exists():
-            raise ValidationError("El correo electrónico ya está registrado")
         
         nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
                         fecha_nacimiento=fecha_nacimiento, id_tarifa= tarifa,correo=correo, gerero=genero)
         nuevo_amigo.save()
         return nuevo_amigo
+    
+    @classmethod
+    def correo_duplicado(cls, correo):
+        # Verificar si el correo electrónico ya existe en la base de datos
+        return cls.objects.filter(correo=correo).exists()
     
 class DisponibilidadDias(models.Model):
     dias = models.CharField(max_length=10)

@@ -15,7 +15,7 @@ def registrarAmigo(request):
             email = request.POST['email']
             localidad = request.POST['localidad']
             tarifa = request.POST['tarifa']
-            genero = 1#agregar campo genero y obtenerlo del formulario
+            genero = request.POST['genero']  #agregar campo genero y obtenerlo del formulario pero en tipo numerico
             descripcion = request.POST['descripcion']
             fecha = request.POST['fecha']
             return redirect('subir_foto', nombre=nombre, apellido=apellido, ciudad=ciudad,
