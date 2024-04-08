@@ -35,38 +35,38 @@
 
     <!-- Menu navBar-->
     <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand me-auto" href="{% url 'Inicio' %}">FriendlyHire</a>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title fs-4" id="offcanvasNavbarLabel">FriendlyHire</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2 active " aria-current="page" href="{% url 'Inicio' %}" style="color: #fff8e7;">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="/registroAmigo">Registrarse como amigo</a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-                <!--
-                <a href="#" class="login-button">Login</a> 
-                <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                -->
-            </div>
+      <div class="container-fluid">
+          <a class="navbar-brand me-auto" href="{% url 'Inicio' %}">FriendlyHire</a>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+              <h5 class="offcanvas-title fs-4" id="offcanvasNavbarLabel">FriendlyHire</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+              <li class="nav-item">
+                  <a class="nav-link mx-lg-2 active " aria-current="page" href="{% url 'Inicio' %}" style="color: #fff8e7;">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link mx-lg-2" href="/registroAmigo">Registrarse como amigo</a>
+              </li>
+              </ul>
+          </div>
+          </div>
+          <!--
+          <a href="#" class="login-button">Login</a> 
+          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          -->
+      </div>
     </nav>
     <!--fin de navbar-->
-
+    <div class="bg-img"></div>
       {% block content %}
       <!--Contenido cambiante-->
       {% endblock %}
-
+    </div>
     <!-- footer -->
 
       <footer class="text-white pt-5 pb-4" style="background-color: #2F4858;" >
@@ -79,37 +79,15 @@
                     <p>Nuestro equipo se compromete a proporcionar un servicio excepcional, asegurando que tu experiencia con Friendly Hire sea segura, cómoda y memorable. Ya sea que estés buscando un compañero para explorar una nueva ciudad, alguien con quien practicar un nuevo idioma o simplemente alguien con quien pasar el rato, estamos aquí para ayudarte a encontrar el amigo perfecto para ti.</p>
               </div>
 
-              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3 text-md-left">
                     <h5 class="text-uppercase mb-4 font-weight-bold text-warning" style="color: #F6AE2D;">Enlaces útiles</h5>
-                    <p>
-                      <a href="#" class="text-white" style="text-decoration: none;"> Inicio</a>
-                    </p>
-                    <p>
-                      <a href="#" class="text-white" style="text-decoration: none;"> Acerca de</a>
-                    </p>
-                    <p>
-                      <a href="#" class="text-white" style="text-decoration: none;"> Servicios</a>
-                    </p>
-                    <p>
-                      <a href="#" class="text-white" style="text-decoration: none;"> Contacto</a>
-                    </p>
+                    <p><i class="fas fa-home mr-3"></i><a href="#" class="text-white" style="text-decoration: none;"> Inicio</a></p>
+                    <p><i class="fas fa-envelope mr-3"></i><a href="#" class="text-white" style="text-decoration: none;"> Acerca de</a></p>
+                    <p><i class="fas fa-phone mr-3"></i><a href="#" class="text-white" style="text-decoration: none;"> Servicios</a></p>
+                    <p><i class="fas fa-phone mr-3"></i><a href="#" class="text-white" style="text-decoration: none;"> Contacto</a></p>
               </div>
 
-              <div class="col-md-4  col-lg-3 col-xl-3 mx-auto mt-3 text-md-left">
-                  <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Enlaces útiles</h5>
-                  <p>
-                    <i class="fas fa-home mr-3"></i>Inicio
-                  </p>
-                  <p>
-                    <i class="fas fa-envelope mr-3"></i> Servicios
-                  </p>
-                  <p>
-                     <i class="fas fa-phone mr-3"></i> Acerca de
-                  </p>
-                  <p>
-                    <i class="fas fa-phone mr-3"></i> Contacto
-                 </p>
-              </div>
+              
               <hr class="mb-4">
 
               <div class="row align-items-center">
@@ -143,20 +121,13 @@
                               </li>
                               <li class="list-inline-item">
                                 <a href="#" class="btn-floating btn-sm text-white" style="font-size: 23px;"><i class="fab fa-youtube"></i></a>
-
                               </li>
                             </ul>
-
                         </div>
-
                   </div>
-
               </div>
-
             </div>
-
           </div>
-
       </footer>    
 
     <!-- Bootstrap -->

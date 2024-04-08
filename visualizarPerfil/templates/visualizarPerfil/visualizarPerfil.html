@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block content %}
-<img class="bg-img" src="https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=" alt="bg image">
-<div class="container-fluid" id="visPerfil">
+<div class="container-fluid">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 mt-5 pt-5">
             <div class="row z-depth-3">
@@ -12,12 +11,11 @@
                         <img src="{{amigo.foto}}" alt="imgPerfil" class="img-fluid">
                         <ul class="list-unstyled d-flex justify-content-center mt-4">
                             {%for _ in "12345"%}
-                            <li><a href="#"><i class="fas fa-star fa-star text-dark"></i></a></li>
+                            <li><i class="fas fa-star fa-star" style="color: gold;"></i></li>
                             {%endfor%}
                         </ul>
                         <h2 class="font-weight-bold mt-4">{{amigo.nombre}} {{amigo.apellido}}</h2>                                                                           
-                        <p>{{amigo.edad}} AÑOS</p> 
-                        <i class="far fa-edit fa-2x mb-4"></i>                     
+                        <h4>{{amigo.edad}} Años</h4>                 
                     </div>                   
                 </div>
                 <div class="col-sm-8 bg-white rounded-right">
@@ -30,7 +28,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Teléfono:</p>
-                                <h6 class="text-muted" style="font-size: 18px;">+591 {{amigo.telefono}}</h6>
+                                <h6 class="text-muted" style="font-size: 18px;">(+591) {{amigo.telefono}}</h6>
                             </div>               
                         </div>
                         <div class="row">
@@ -40,7 +38,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Edad:</p>
-                                <h6 class="text-muted " style="font-size: 18px;">{{amigo.edad}}</h6>
+                                <h6 class="text-muted " style="font-size: 18px;">{{amigo.edad}} Años</h6>
                             </div>
                         </div>
                         
@@ -50,15 +48,14 @@
                                 <h6 class="text-muted" style="font-size: 18px;">{{amigo.pais}}</h6>
                             </div>
                             <div class="col-sm-6">
-                                <p class="font-weight-bold"> Precio BOB/Tiempo:</p>
-                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.tarifa}}</h6>
+                                <p class="font-weight-bold"> Precio:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.tarifa}} bs/h</h6>
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold"> Idioma:</p>
                                 <h6 class="text-muted" style="font-size: 18px;">Español</h6>
                             </div>
                         </div>
-                          
                         <hr class="bg-primary">
                         <div class="row">
                                 <div class="col-sm-6">

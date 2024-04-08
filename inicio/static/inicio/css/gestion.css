@@ -1,8 +1,7 @@
 body {
-  font-family: "Helvetica";
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+  margin-top: 80px;
+  position: relative;
+  height: 100%;
 }
 
 h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
@@ -10,7 +9,7 @@ h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size
 
 
 .btn-primary{
-  background-color: #F6AE2D;
+  background-color: #F26419;
   color:#fff8e7;
   border-style: none;
   width: 200px;
@@ -18,7 +17,7 @@ h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size
   margin: 0px 5%;
 }
 .btn-primary:hover{
-  background-color: #ce8709;
+  background-color: #F28419;
 }
 .btn-secondary{
   background-color: #2F4858;
@@ -228,19 +227,21 @@ dialog p {
 /*INICIO DE CSS PARA LA BASE*/
 
 .bg-img {
-  height: 100vh;
-  width: 100vw;
+  background-image: url('https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   filter: brightness(0.6);
   position: absolute;
   z-index: -1;
 }
-
 .navbar {
   background-color: #2F4858;
   height: 80px;
-  margin: 20px;
-  border-radius: 16px;
+  width: 100%;
   padding: 0.5rem;
 }
 
@@ -348,49 +349,18 @@ dialog p {
   position: relative;
 }
 
-#contenRegistAmigo {
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Altura igual a la ventana del navegador */
-  overflow: auto;
-  
- 
-}
-
-#visPerfil {
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Altura igual a la ventana del navegador */
-  position: relative;
- 
-}
-
 #footerContenedor {
   color:#fff8e7;
   position: relative;
 }
 
+.card-img-top {
+  width: 100%; /* Esto hará que la imagen ocupe todo el ancho de la tarjeta */
+  height: 350px; /* Ajusta este valor a la altura que prefieras */
+  object-fit: cover; /* Esto hará que la imagen se redimensione para cubrir completamente el bloque de contenido */
+}
+
 /*FIN DE CSS PARA LA BASE*/
-
-#contenedProgSalida {
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Altura igual a la ventana del navegador */
-  position: relative;
-}
-
-#contenedSubirFoto {
-  color: #fff8e7;
-  padding-top: 300px;
-  padding-bottom: 150px; 
-  padding-left: 200px;
-  padding-right: 200px;
-  position: relative;
- 
-}
 
 @media (max-width: 586px) {
 
