@@ -54,8 +54,7 @@ class Amigo(models.Model):
         return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.ubicacion.pais} -correo: {self.correo}"
     @classmethod
     def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
-      
-        
+    
         nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
                         fecha_nacimiento=fecha_nacimiento, id_tarifa= tarifa,correo=correo, gerero=genero)
         nuevo_amigo.save()

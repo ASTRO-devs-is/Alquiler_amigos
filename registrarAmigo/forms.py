@@ -1,12 +1,13 @@
 from django import forms
 import datetime
 from datetime import timedelta
-#from alquilarAmigo.models import Tarifa
+from alquilarAmigo.models import Tarifa
 from alquilarAmigo.models import Amigo
 
 import re
-#tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
-tarifa = [(1, 2)]
+
+tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+#tarifa = [(1, 2)]
 GENERO_CHOICES = (
     (1, 'Femenino'),
     (2, 'Masculino'),
@@ -15,14 +16,14 @@ GENERO_CHOICES = (
 )
 class formularioRegistrarAmigo(forms.Form):
     genero = forms.ChoiceField(choices=GENERO_CHOICES, label='Género', 
-                               widget=forms.RadioSelect())
+                            widget=forms.RadioSelect())
     
     tarifa = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), 
                                     choices=tarifa, label='Tarifa', required=False)
-    descripcion = forms.CharField(required=False, label='Descrìbete', max_length=500, 
+    descripcion = forms.CharField(required=False, label='Descríbete', max_length=500, 
                                 widget=forms.Textarea(attrs={
                                     'class': 'form-control',
-                                    'placeholder': 'Da una breve descripciòn de tì mismo',
+                                    'placeholder': 'Da una breve descripción de tí mismo',
                                     'rows': 4,
                                     'style': 'resize: none;'
                                 }))
@@ -49,10 +50,10 @@ class formularioRegistrarAmigo(forms.Form):
                                 'class': 'form-control',
                                 'placeholder': 'Paìs'
                             }))
-    telefono = forms.CharField(required=False, label='Telèfono',
+    telefono = forms.CharField(required=False, label='Teléfono',
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Telèfono'
+                                'placeholder': 'Teléfono'
                                 }))
     email = forms.CharField(required=False, label='Email', widget=forms.EmailInput(attrs={
                                 'class': 'form-control',
@@ -73,9 +74,6 @@ class formularioRegistrarAmigo(forms.Form):
                                 widget=forms.CheckboxInput(attrs={
                                 'class': 'form-check-input'
                                 }))
-    
-   
-
 
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
@@ -99,18 +97,18 @@ class formularioRegistrarAmigo(forms.Form):
         if not email.endswith('@gmail.com') and not email.endswith('@hotmail.com'):
             raise forms.ValidationError('El email debe ser de dominio @gmail.com o @hotmail.com')
         if Amigo.correo_duplicado(email):
-            raise forms.ValidationError('El correo electrònico ya està registrado')
+            raise forms.ValidationError('El correo electrónico ya está registrado')
 
         return email
     
     def clean_telefono(self):
         telefono = self.cleaned_data['telefono']
         
-         # Verificar si el teléfono tiene exactamente 8 dígitos
+        # Verificar si el teléfono tiene exactamente 8 dígitos
         if len(telefono) != 8:
             raise forms.ValidationError('El teléfono debe tener exactamente 8 dígitos')
         if not telefono.isdigit():
-            raise forms.ValidationError('El telefono debe contener solo numeros')
+            raise forms.ValidationError('El teléfono debe contener solo numeros')
         return telefono
     
     def clean_nombre(self):
@@ -131,7 +129,6 @@ class formularioRegistrarAmigo(forms.Form):
     
     def clean_descripcion(self):
         descripcion = self.cleaned_data['descripcion']
-       
         if not descripcion.strip():
             raise forms.ValidationError('La descripción no puede estar vacía')
         if len(descripcion) < 50:
@@ -139,7 +136,7 @@ class formularioRegistrarAmigo(forms.Form):
         if len(descripcion) > 500:
             raise forms.ValidationError('La descripciòn no puede tener mas de 500 caracteres')
         
-          # Contar el número de caracteres especiales permitidos en la descripción
+        # Contar el número de caracteres especiales permitidos en la descripción
         caracteres_especiales_permitidos = {'.', '$', '*', '+', '/', '-', ',', ';', '?', '¡', '¿', '&', '%', '#', '"'
                                             ,'1','2','3','4','5','6','7','8','9'}
         num_caracteres_especiales = sum(1 for char in descripcion if char in caracteres_especiales_permitidos)
@@ -150,10 +147,10 @@ class formularioRegistrarAmigo(forms.Form):
         return descripcion
 
     def clean_genero(self):
-       genero = self.cleaned_data.get('genero')
-       if not genero:
-        raise forms.ValidationError('Debe seleccionar un género')
-       return genero
+        genero = self.cleaned_data.get('genero')
+        if not genero:
+            raise forms.ValidationError('Debe seleccionar un género')
+        return genero
     
     def clean_ciudad(self):
         ciudad = self.cleaned_data['ciudad']
@@ -167,9 +164,9 @@ class formularioRegistrarAmigo(forms.Form):
         localidad = self.cleaned_data['localidad']
         if localidad == "":
             raise forms.ValidationError('La localidad no puede estar vacia')
-         # Verificar si la localidad contiene al menos un carácter que no sea un número
+        # Verificar si la localidad contiene al menos un carácter que no sea un número
         if not re.search(r'[^\d]', localidad):
-             raise forms.ValidationError('La localidad debe contener al menos un carácter que no sea un número')
+            raise forms.ValidationError('La localidad debe contener al menos un carácter que no sea un número')
         return localidad
     
     def clean_pais(self):
