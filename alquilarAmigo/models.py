@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 # Create your models here.
 class Salida(models.Model):
     categoria_salida = models.ForeignKey('Categoria', on_delete=models.CASCADE)
@@ -44,7 +45,7 @@ class Amigo(models.Model):
     descripcion = models.TextField(max_length=500, blank = False)
     fecha_nacimiento = models.DateField(blank = False)
     id_tarifa= models.ForeignKey("Tarifa", on_delete= models.CASCADE)
-    correo = models.EmailField(blank = False)
+    correo = models.EmailField(blank=False, unique=True) 
     disponibilidad = models.BooleanField(blank=True, default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -53,10 +54,17 @@ class Amigo(models.Model):
         return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Pais: {self.ubicacion.pais} -correo: {self.correo}"
     @classmethod
     def registrar_amigo(cls, nombre, apellidos, ubicacion, telefono, descripcion, fecha_nacimiento, tarifa, correo, genero):
+      
+        
         nuevo_amigo = cls(nombre=nombre, apellido=apellidos, ubicacion=ubicacion,telefono=telefono, descripcion=descripcion,
                         fecha_nacimiento=fecha_nacimiento, id_tarifa= tarifa,correo=correo, gerero=genero)
         nuevo_amigo.save()
         return nuevo_amigo
+    
+    @classmethod
+    def correo_duplicado(cls, correo):
+        # Verificar si el correo electrónico ya existe en la base de datos
+        return cls.objects.filter(correo=correo).exists()
     
 class DisponibilidadDias(models.Model):
     dias = models.CharField(max_length=10)
