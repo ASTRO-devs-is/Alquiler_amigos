@@ -6,51 +6,34 @@
     <div style="margin: 1% ">
     <div class="container" id="formulario-container">
         <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <form class="form-group" method='POST' style="width: 100%; margin: auto">
+        <form class="form-group" method='POST' style="width: 100%; margin: auto" id="formulario-escoger-hora">
             {% csrf_token %}
             <div>
-                <h3>Horarios disponibles:</h3>
+                <h3>Selecciona los horarios de tu salida: </h3>
+                {% if horas %}
                 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                     {% for horario in horas %}
-                        <div style="display: flex;">
-                            <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="{{ horario.id }}">
+                            <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">
                                 Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
-                            </div>
+                            </label class="form-check">
+                            
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-            
-            <div style="display: flex;margin: 10% 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaInicio.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3></div>
-                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaInicio }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaInicio' %}
-                            {{ formHoras.horaInicio.errors }}
-                        {% endif %}
-                    {% endfor %}
+                {% else %}
+                    <div style="text-align: center;color: red;opacity: 0.5;">
+                    <h3>No hay horarios disponibles</h3>
                     </div>
                 {% endif %}
             </div>
             
-            <div style="display: flex;margin: 10% 0px;">
-                <div style="width: 280px;display: flex;"><h3>{{ formHoras.horaFin.label }}:</h3> <h3 style="color: red;">&nbsp;*&nbsp;&nbsp;</h3></div>
-                <div style="float: right;margin: 0px 5%;">{{ formHoras.horaFin }}</div>
-                {% if errores %}
-                    <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'horaFin' %}
-                            {{ formHoras.horaFin.errors }}
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+            
         
             <div style="text-align: center;margin: 10% 0px;">
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Cancelar</button>
+                <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
+                <!--<button type="submit" class="btn btn-primary" onclick="abrir_modal_confirmacion('{{ datos|escapejs }}')">Programar</button>-->
                 <button type="submit" class="btn btn-primary">Programar</button>
             </div>
         </form>
@@ -58,4 +41,27 @@
     </div>
     </div>
 
+<div class="modal fade" id="cancelar-programar-cita" role="dialog">
+</div>
+
+
 {% endblock %}
+
+{% block extrajs %}
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
+                $(this).modal('show');
+            });
+        }
+        document.getElementById('formulario-escoger-hora').addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            if (!checkedOne) {
+                event.preventDefault();
+                alert('Por favor, selecciona al menos un horario.');
+            }
+        });
+    </script>
+{% endblock extrajs %}

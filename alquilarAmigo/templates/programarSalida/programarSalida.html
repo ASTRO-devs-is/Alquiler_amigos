@@ -30,30 +30,48 @@
                         
                     </div>
                 </div>
-                <div style="display: flex;margin: 5% 0px;">
-                    <h3>{{ formSalida.cajaTexto.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
-                </div>
-                
-                    <div style="margin-top: 5%;" id="textProgramar">{{ formSalida.cajaTexto }}</div>
-                        {% if errores %}
-                            <div style="color: red;">
-                            {% for error in errores %}
-                                {% if error == 'cajaTexto' %}
-                                    <h5>{{ formSalida.cajaTexto.errors }}</h5>
-                                {% endif %}
-                            {% endfor %}
-                            </div>
-                        {% endif %}
-                
+            </div>
+            <div style="display: flex;margin: 5% 0px;">
+                <h3>{{ formSalida.descripcion.label }}:</h3> <h3 style="color: red;">&nbsp;*</h3>
+            </div>
             
-                <div style="text-align: center;margin-top: 10%;">
-                    <button type="button" class="btn btn-secondary"  onclick="window.location.href='/'">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Siguiente</button>
-                </div>
-            </form>
-
+                <div style="margin-top: 5%;" id="textProgramar">{{ formSalida.descripcion }}</div>
+                    {% if errores %}
+                        <div style="color: red;">
+                        {% for error in errores %}
+                            {% if error == 'descripcion' %}
+                                <h5>{{ formSalida.descripcion.errors }}</h5>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+            
+        
+            <div style="text-align: center;margin-top: 10%;">
+                <button type="button" class="btn btn-secondary"  onclick="abrir_modal_cancelacion()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
+            </div>
+        </form>
         </div>
     </div>
+    </div>
 
-</div>
+<div class="modal fade" id="cancelar-programar-cita" role="dialog">
+</div> 
+
+
 {% endblock %}
+
+
+
+{% block extrajs %}
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+{% endblock extrajs %}
+
