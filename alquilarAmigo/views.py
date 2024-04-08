@@ -28,14 +28,16 @@ def escogerHora(request, categoria, fecha, descripcion, amigo_id, cliente_id):
     horas = calcularHorario(fecha = fecha, amigo_id = amigo_id, cliente_id = cliente_id)
     
     datos = []
-    if request.method == 'POST':
-        horarios_seleccionados = request.POST.getlist('horario_seleccionado')
-        for horario_id in horarios_seleccionados:
-            horario = DisponibilidadHoras.objects.get(id=horario_id)
-            datos.append({'categoria': categoria, 'fecha': fecha, 'descripcion': descripcion, 'amigo_id': amigo_id, 'cliente_id': cliente_id,
-                    'hora_inicio': str(horario.horaInicio), 'hora_fin': str(horario.horaFin)})
-        datos_json = json.dumps(datos)
-        return redirect('confirmar_programar_cita', datos=datos_json)
+    
+    horarios_seleccionados = request.POST.getlist('horario_seleccionado')
+    if len(horarios_seleccionados) != 0:
+        if request.method == 'POST':
+            for horario_id in horarios_seleccionados:
+                horario = DisponibilidadHoras.objects.get(id=horario_id)
+                datos.append({'categoria': categoria, 'fecha': fecha, 'descripcion': descripcion, 'amigo_id': amigo_id, 'cliente_id': cliente_id,
+                        'hora_inicio': str(horario.horaInicio), 'hora_fin': str(horario.horaFin)})
+            datos_json = json.dumps(datos)
+            return redirect('confirmar_programar_cita', datos=datos_json)
             
     return render(request, 'programarSalida/escogerHora.html', {'horas': horas, 'salidas': salidas})
 

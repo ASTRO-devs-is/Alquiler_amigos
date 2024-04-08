@@ -6,18 +6,19 @@
     <div style="margin: 1% ">
     <div class="container" id="formulario-container">
         <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Programar Salida</b></h2></div>
-        <form class="form-group" method='POST' style="width: 100%; margin: auto">
+        <form class="form-group" method='POST' style="width: 100%; margin: auto" id="formulario-escoger-hora">
             {% csrf_token %}
             <div>
-                <h3>Horarios disponibles:</h3>
+                <h3>Selecciona los horarios de tu salida: </h3>
                 {% if horas %}
                 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                     {% for horario in horas %}
-                        <div style="display: flex;">
-                            <div class="mostrarHorario {% cycle 'a' 'b' 'c' %}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="{{ horario.id }}">
+                            <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">
                                 Desde {{ horario.horaInicio }} Hasta {{ horario.horaFin }}
-                            </div>
-                            <input type="checkbox" name="horario_seleccionado" value="{{ horario.id }}">
+                            </label class="form-check">
+                            
                         </div>
                     {% endfor %}
                 </div>
@@ -54,6 +55,13 @@
                 $(this).modal('show');
             });
         }
-        
+        document.getElementById('formulario-escoger-hora').addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            if (!checkedOne) {
+                event.preventDefault();
+                alert('Por favor, selecciona al menos un horario.');
+            }
+        });
     </script>
 {% endblock extrajs %}
