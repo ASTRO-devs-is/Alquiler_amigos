@@ -2,7 +2,98 @@
 {% load static %}
 
 {% block content %}
-    <div>
-        <h1>Este es el Inicio</h1>
+
+<div id="carrusel" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-target="#carrusel" data-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-target="#carrusel" data-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-target="#carrusel" data-slide-to="2" aria-label="Slide 3"></button>
     </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img src="https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=" class="d-block w-100 c-img" alt="slide1">
+        <div class="carousel-caption top-1 mt-4 d-none d-md-block">
+          <h5 class="display-1 fw-bolder text-capitalize">Amigo Casual</h5>
+          <p class="mt-5 fs-4 text-uppercase">"¡Disfruta de un día soleado en la plaza con tus amigos! Sumérgete en la alegría y la camaradería mientras paseas entre árboles frondosos y charlas animadas. Alquila un amigo para compartir risas, historias y momentos inolvidables bajo el cálido sol."</p> 
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img src="https://media.istockphoto.com/id/870923226/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=FRrDgGTMYzWe6VhfHtQb668USoBomtZAxZHtOCIThrc=" class="d-block w-100 c-img" alt="sdile2">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 class="display-1 fw-bolder text-capitalize">Amigo para deporte</h5>
+          <p class="mt-5 fs-4 text-uppercase">"Encuentra a tu compañero ideal para el deporte. Comparte tu pasión por el ejercicio y la actividad física con un amigo que te motive y te acompañe en cada entrenamiento. Alquila un amigo que comparta tu entusiasmo por el deporte y juntos alcancen sus metas fitness."</p>
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img src="https://media.istockphoto.com/id/125144778/es/foto/j%C3%B3venes-estudiantes-universitarios-relajante-al-aire-libre.jpg?s=2048x2048&w=is&k=20&c=6Aki5LFAnmyKuRwuVRCCL7XDgJpJfWGK1OfNStfyauM=" class="d-block w-100 c-img" alt="silde3">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 class="display-1 fw-bolder text-capitalize">Amigo de estúdio</h5>
+          <p class="mt-5 fs-4 text-uppercase">"¡Prepárate para una sesión de estudio productiva y colaborativa con tus amigos! Sumérgete en un ambiente de concentración y camaradería, donde juntos buscan el éxito académico. Alquila un amigo para compartir conocimientos, resolver dudas y motivarte mutuamente en esta emocionante aventura de aprendizaje."</h4>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-target="#carrusel" data-slide-to="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-target="#carrusel" data-slide-to="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<div class="container-fluid" id="fondoTarjetas">
+    <div class="container" id="contenTarjetas">
+        <!--cargado de perfiles-->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        
+              {% for amigo in page_obj %}
+                  <div class="col">
+                      <div class="card">
+                          <img class="card-img-top" src="{{ amigo.foto }}" alt="No perfil">
+                          <div class="card-body d-flex flex-column">
+                              <p class="card-text" style="cursor: default;"><b>{{ amigo.nombre }} {{ amigo.apellido }}</b></p>
+                              <h5 class="card-title">{{ amigo.correo }}</h5>
+                              <p class="card-text" style="cursor: default;">{{ amigo.pais }}</p>
+                              <div class="d-flex justify-content-center">
+                                  <a href="../perfil/amigo/{{ amigo.id }}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+
+        </div>
+
+        <!--paginacion-->
+        <nav aria-label="Page navegation" class="mt-2 d-flex justify-content-center">
+          <ul class="pagination justify-content-center pagination-md">
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?page=1" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+              </li>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                  </a>
+              </li>
+              {% endif %}
+          </ul>
+        </nav>
+
+    </div>
+    
+</div>
 {% endblock %}
