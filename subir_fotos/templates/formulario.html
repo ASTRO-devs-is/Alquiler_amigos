@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARGAR LAS FOTOS PARA EL PERFIL</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container" style="width: 80%; margin: 0 auto;">
+
+{% extends 'inicio/base.html' %}
+{% load static %}
+{% block title %}
+<title>Subir Fotos</title>
+{% endblock %}
+{% block content %}
+<form id="upload-form"  method="post" enctype="multipart/form-data">
+    {% csrf_token %}    
+    <div class="container" id="formulario-container" style="width: 80%; margin: 0 auto;">
         <center><h1>CARGAR LAS FOTOS PARA EL PERFIL</h1></center>
-        <form id="upload-form" action="{% url 'cargar_fotos_perfil' %}"  method="post" enctype="multipart/form-data">
+        
             
             <label for="photo_upload">1.Seleccionar fotos:</label>
             <div id="drop-area" class = "drag-area">
@@ -23,11 +23,15 @@
             </div>
             <div id="gallery"></div>
             <div style="display: flex; justify-content: space-between;">
-                <button class="cancel-button" type="button">Cancelar</button>
-                <button class="cargar-button" type="submit" disabled>Cargar</button>
+                <button class="cancel-button" type="button" onclick="abrir_modal_cancelacion()">Cancelar</button>
+                <button class="cargar-button" type="submit">Cargar</button>
             </div>
-        </form>
+        
     </div>
+</form>
+
+<div class="modal fade" id="cancelar-subir-fotos" role="dialog">
+</div> 
 
     <script>
         const dropArea = document.querySelector(".drag-area");
@@ -144,7 +148,6 @@
     
             // Función para actualizar archivos y previsualización
             function updateFilesAndPreview() {
-                cargarBtn.disabled = selectedFiles.length === 0;
                 // Agregar los archivos seleccionados al formulario
                 const formData = new FormData(uploadForm);
                 selectedFiles.forEach(file => {
@@ -152,38 +155,13 @@
                 });
             }
     
-            cargarBtn.addEventListener('click', () => {
+            cargarBtn.addEventListener('click', (e) => {
                 if (selectedFiles.length === 0) {
+                    e.preventDefault();
                     alert('No se han seleccionado archivos para cargar.');
-                    return;
-                }
-    
-                confirmAction('¿Está seguro de cargar las imágenes?', () => {
-                    const formData = new FormData(uploadForm);
-                    fetch("{% url 'cargar_fotos_perfil' %}", {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error('Error al cargar las imágenes');
-                        }
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            alert('Las imágenes se han cargado correctamente.');
-                            window.location.href = "{% url 'exito' %}";
-                        } else {
-                            alert('Error al cargar las imágenes');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error al cargar las imágenes');
-                    });
-                });
+                }else{
+                    uploadForm.submit();
+                }    
             });
         
             cancelarBtn.addEventListener('click', () => {
@@ -195,38 +173,12 @@
                 });
             });
     
-            // Función de confirmación para eventos click
-            function confirmAction(message, action) {
-            return new Promise((resolve, reject) => {
-                const dialog = document.createElement('dialog');
-                dialog.innerHTML = `
-                    <div class="dialog-container">
-                        <p>${message}</p>
-                        <div class="buttons">
-                            <button class="button-primary" id="confirm-button">Sí</button>
-                            <button class="button-secondary" id="cancel-button">No</button>
-                        </div>
-                    </div>
-                `;
-
-                document.body.appendChild(dialog);
-    
-                const confirmButton = dialog.querySelector('#confirm-button');
-                const cancelButton = dialog.querySelector('#cancel-button');
-    
-                confirmButton.addEventListener('click', () => {
-                    dialog.close();
-                    resolve(true);
-                    action();
-                });
-    
-                cancelButton.addEventListener('click', () => {
-                    dialog.close();
-                    resolve(false);
-                });
-                dialog.showModal();
+        
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-subir-fotos').load("{% url 'cancelar_subir_fotos' %}", function(){
+                $(this).modal('show');
             });
         }
     </script>
-</body>
-</html>
+{% endblock %}
