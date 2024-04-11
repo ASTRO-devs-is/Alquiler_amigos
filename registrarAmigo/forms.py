@@ -85,6 +85,7 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('La fecha no puede ser mayor a la fecha actual')
         if fecha > hace_18_anos:
             raise forms.ValidationError('Debes tener al menos 18 años de edad')
+        
         return fecha
     
     def clean_email(self):
