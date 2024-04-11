@@ -60,6 +60,12 @@ class Amigo(models.Model):
         nuevo_amigo.save()
         return nuevo_amigo
     
+
+    @classmethod
+    def telefono_duplicado(cls, telefono):
+        # Verificar si el número de teléfono ya existe en la base de datos
+        return cls.objects.filter(telefono=telefono).exists()
+    
     @classmethod
     def correo_duplicado(cls, correo):
         # Verificar si el correo electrónico ya existe en la base de datos
