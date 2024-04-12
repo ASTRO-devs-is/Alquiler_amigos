@@ -5,12 +5,17 @@
             
         </div>
         <div class="modal-body text-center">
-            <h4 >¿Está seguro de cancelar?</h4>
+            <h4 >¿Volver a atras?</h4>
         </div>
         <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
-            <button class="btn btn-primary" type="submit" onclick="window.history.back()">Si</button>
+            <button class="btn btn-primary" type="submit" onclick="volverAtras()">Si</button>
         </div>
     </div>
 
 </div>
+<script>
+    function volverAtras() {
+        window.history.back();
+    }
+</script>
