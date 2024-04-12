@@ -69,6 +69,9 @@ def calcularHorario(fecha, amigo_id, cliente_id):
 def cancelar_programar_cita(request):
     return render(request, 'programarSalida/cancelar.html')
 
+def cancelar_programar_cita2(request):
+    return render(request, 'programarSalida/cancelar2.html')
+
 def confirmar_programar_cita(request, datos=None):
     datos_nuevos = json.loads(datos)
     if request.method == 'POST':
