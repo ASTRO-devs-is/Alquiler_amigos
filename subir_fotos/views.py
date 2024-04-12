@@ -7,11 +7,13 @@ import os
 from django.core.files.storage import default_storage
 
 def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email, localidad, descripcion, fecha, tarifa, genero):
+
     datos = []
     if request.method == 'POST':
-        
+       
         # Obtener archivos subidos
         uploaded_files = request.FILES.getlist('file-input')
+      
         for uploaded_file in uploaded_files:
             file_name = default_storage.save('tmp/' + uploaded_file.name, uploaded_file)
             # Crear un nuevo objeto ProfilePhoto y guardar la imagen
