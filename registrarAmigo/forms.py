@@ -3,7 +3,6 @@ import datetime
 from datetime import timedelta
 from alquilarAmigo.models import Tarifa
 from alquilarAmigo.models import Amigo
-
 import re
 
 tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
