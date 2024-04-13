@@ -1,22 +1,23 @@
 body {
-  font-family: "Helvetica";
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+  margin-top: 80px;
+  position: relative;
+  height: 100%;
 }
 
-h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h5{font-size: 13px;}h6{font-size: 10px;}
+h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
+h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size: 10px;cursor:default}
 
 
 .btn-primary{
   background-color: #F26419;
-  color: #EEEEEE;
+  color:#fff8e7;
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-primary:hover{
-  background-color: #F27431;
+  background-color: #F28419;
 }
 .btn-secondary{
   background-color: #2F4858;
@@ -24,7 +25,444 @@ h1{font-size: 30px;}h2{font-size: 26px;}h3{font-size: 20px;}h4{font-size: 15px}h
   border-style: none;
   width: 200px;
   font-size: 20px;
+  margin: 0px 5%;
 }
 .btn-secondary:hover{
   background-color: #5F788A;
 }
+
+
+.mostrarHorario{
+  width: 280px;display: flex;
+  background-color: #F26419;
+  border-radius: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+
+}
+
+.a{  background-color: #55DDE0;}
+.b{  background-color: #F6AE2D;}
+.c{  background-color: #F26419;}
+
+#fecha-registrar-amigo{
+  width: 27%;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  padding: 100px 130px;
+  text-align: center;
+  margin: 20px 5px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.drop-text {
+  font-size: 18px;
+  color: #6F5959;
+}
+
+#gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dragged-over {
+  border-color: #000;
+}
+
+.img-preview {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  font-family: "Helvetica Now", sans-serif;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+body {
+  font-family: "Helvetica Now", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.cargar-button{
+  background-color: #F26419;
+  color: #EEEEEE;
+  border-style: none;
+  border-radius: 10px;
+  width: 110px;
+  transition: background-color 0.3s ease;
+  padding: 10px 20px;
+}
+.cargar-button:hover{
+  background-color: #F27431;
+}
+.atras-button,
+.cancel-button {
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  background-color: #2F4858;
+  color: #EEEEEE;
+  border-style: none;
+  width: 110px;
+}
+
+.cancel-button:hover,
+.atras-button:hover {
+  background-color: #5F788A;
+}
+
+.buscar-label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #D9D9D9;
+  color: #050505;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.buscar-label:hover {
+  background-color: #bfbfbf;
+}
+
+#formulario-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 15%;
+  cursor: pointer;
+}
+
+.preview-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.dialog-container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.dialog-container p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+dialog::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog[open]::backdrop {
+  display: block;
+}
+
+dialog p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+/*INICIO DE CSS PARA LA BASE*/
+
+.bg-img {
+  background-image: url('https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+  position: absolute;
+  z-index: -1;
+}
+.navbar {
+  background-color: #2F4858;
+  height: 80px;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  color: #fff8e7;
+  font-size: 24px;
+  transition: 0.3s color;
+}
+
+.login-button {
+  background-color: #F26419;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: 0.3s background-color;
+}
+
+.login-button:hover {
+  background-color: #b4450b;
+}
+
+.navbar-toggler {
+  border: none;
+  font-size: 1.25rem
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+  box-shadow: none;
+  outline:none;
+}
+
+.nav-link {
+  color: #fff8e7;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #cccccc;
+}
+
+@media (min-width: 991px) {
+  .nav-link::before{
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 2px;
+      background-color: #55DDE0;
+      visibility: hidden;
+      transition: 0.3s ease-in-out;
+  }
+
+  .nav-link:hover::before, .nav-link.active::before {
+      width: 100%;
+      visibility: visible;
+  }
+}
+
+.offcanvas {
+  color: #fff8e7;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px); /* Ajusta el valor para cambiar la intensidad del desenfoque */
+}
+
+
+.c-item {
+  height: 100vh;
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+#fondoTarjetas {
+  min-height: calc(100vh - 100px); /* Ajusta 100px según el tamaño de tu pie de página */
+  position: relative;
+}
+
+#fondoTarjetas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=');
+  background-size: cover;
+  filter: brightness(0.6);
+  z-index: -1;
+}
+
+#contenTarjetas {
+  padding-top: 100px;
+  padding-bottom: auto;
+  padding-right: auto;
+  padding-left: auto;
+  position: relative;
+}
+
+#footerContenedor {
+  color:#fff8e7;
+  position: relative;
+}
+
+.card-img-top {
+  width: 100%; /* Esto hará que la imagen ocupe todo el ancho de la tarjeta */
+  height: 350px; /* Ajusta este valor a la altura que prefieras */
+  object-fit: cover; /* Esto hará que la imagen se redimensione para cubrir completamente el bloque de contenido */
+}
+
+/*FIN DE CSS PARA LA BASE*/
+
+@media (max-width: 586px) {
+
+
+  #formulario-container{
+    width: 100%;
+    h2{font-size: 20px;}h3{font-size: 14px;}h4{font-size: 12px;}h5{font-size: 10px;}
+  }
+  .btn-primary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  .btn-secondary{
+    width: 100px;
+    font-size: 14px;
+    margin: 5px 10px;
+  }
+  #fecha-registrar-amigo{
+    width: 40%;
+  }
+  a{
+    font-size: 10px;
+  }
+}
+/*VISUALIZAR PERFIL*/
+  .profile-container { width: 50%;margin: 0px auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  .user-info { display: flex; justify-content: space-between; }
+  .user-details { flex-basis: 50%; }
+  .about-friend { flex-basis: 50%; }
+  .user-icon { width: 110px; height: 110px; background-color: #ddd; border-radius: 50%; margin-bottom: 10%; }
+  .user-icon img {
+    width: 100%; /* Esto hará que la imagen se ajuste al ancho de .user-icon */
+    height: 100%; /* Esto mantendrá la proporción de la imagen */
+    border-radius: 50%;
+  }
+  .stars { color: gold; }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; }
+  .field input { width: 100%; padding: 1%; margin-top: 0.5%; }
+  .about-friend {
+    background-color: #F6AE2D;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #F6AE2D;
+    border-radius: 2px;
+    margin: 2% auto; width: 90%; text-align: left; border-radius: 5%;
+  }
+  .user-details{
+    background-color:#55DDE0;
+    padding: 10px;
+    text-align: left;
+    border: 10px solid #55DDE0;
+    border-radius: 2px;
+
+  }
+  .bi {
+    font-size: 2rem; /* Ajusta el tamaño según tus preferencias */
+    margin-right: 10rem; /* Espacio entre el ícono y el texto */
+  }
+  #perfilAmigo{
+    display: flex;
+  }
+
+
+  #flechaAtras{
+    color: white;cursor: pointer;
+    font-size: 2em;
+    text-transform: none;
+    background: #2F4858; 
+    border-radius: 90%; 
+    padding: 10px;
+    transition: 0.3s;
+    margin-left: 90%;
+    margin-bottom: 5%;
+
+  }
+  #flechaAtras:hover{
+    background: #5F788A;
+  }
+  .user-icon {
+    width: 250px; /* Cambia esto al tamaño que prefieras */
+    height: 250px; /* Cambia esto al tamaño que prefieras */
+    border-radius: 50%; /* Esto hace que el div sea circular */
+    margin: 2% auto; /* Esto centra el div */
+    background: #f2f2f2; /* Cambia esto al color de fondo que prefieras */
+  }
+  .stars{
+    margin: 2% auto;
+    text-align: center;
+    font-size: 50px;
+  }
+  
+  @media (max-width: 586px) {
+    #perfilAmigo{
+      display: block;
+    }
+    #flechaAtras{
+      
+      margin-left: 80%;
+      margin-bottom: 5%;
+  
+    }
+    .profile-container { width: 100%;margin: auto; padding: 2%;display: flex;border-radius: 5%;overflow: hidden; }
+  }

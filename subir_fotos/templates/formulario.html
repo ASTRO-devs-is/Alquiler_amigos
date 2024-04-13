@@ -1,0 +1,40 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+{% block title %}
+<title>Subir Fotos</title>
+{% endblock %}
+{% block content %}
+<div id="message-container"></div>
+<form id="upload-form" action="{% url 'cargar_fotos_perfil' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}    
+    <div class="container" id="formulario-container"  style="width: 80%; margin: 0 auto;">
+        <center><h1>CARGAR LAS FOTOS PARA EL PERFIL</h1></center>
+        
+            
+            <label for="photo_upload">1.Seleccionar fotos:</label>
+            <div id="drop-area" class = "drag-area">
+                <header>Arrastra las fotos aquí <br></header>
+                <span >O<br></span>
+                <input type="file" id="file-input" name="file-input" multiple style="display: none;">
+                <label class="buscar-label" for="file-input">
+                    <button type="button">Buscar Fotos</button>
+                </label>
+                <div id="preview-container"></div>
+            </div>
+            <div id="gallery"></div>
+            <div style="display: flex; justify-content: space-between;">
+                <button class="cancel-button" type="button" onclick="abrir_modal_cancelacion()">Cancelar</button>
+                <button class="cargar-button" type="submit">Cargar</button>
+            </div>
+        
+    </div>
+</form>
+
+<div class="modal fade" id="cancelar-subir-fotos" role="dialog">
+</div> 
+{% endblock %}
+
+{% block extrajs %}
+<script src="{% static 'inicio/js/app.js' %}" type="text/javascript" async></script>
+{% endblock extrajs %}
+
