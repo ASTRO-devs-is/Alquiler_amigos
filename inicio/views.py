@@ -3,6 +3,7 @@ from alquilarAmigo.models import Amigo
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
+import datetime
 
 from django.core.paginator import Paginator
 
@@ -38,6 +39,7 @@ def buscarAmigos(request):
             'apellido': amigo.apellido,
             'correo': amigo.correo,
             'id': amigo.id,
+            'edad':  datetime.datetime.now().year - amigo.fecha_nacimiento.year,
         }
         foto_perfil = amigo.fotoperfil_set.first()
         if foto_perfil:

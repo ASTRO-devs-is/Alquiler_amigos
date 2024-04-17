@@ -2,47 +2,49 @@
 {% load static %}
 
 {% block content %}
-
-<div id="carrusel" class="carousel slide carousel-fade" data-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-target="#carrusel" data-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-target="#carrusel" data-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-target="#carrusel" data-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
+<div id="carrusel" class="carousel carousel-fade">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carrusel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carrusel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+      <div class="carousel-inner">
       <div class="carousel-item active c-item">
-        <img src="https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=" class="d-block w-100 c-img" alt="slide1">
+        <img src="'https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=" class="d-block w-100 c-img" alt="slide1">
         <div class="carousel-caption top-1 mt-4 d-none d-md-block">
           <h5 class="display-1 fw-bolder text-capitalize">Amigo Casual</h5>
-          <p class="mt-5 fs-4 text-uppercase">"¡Disfruta de un día soleado en la plaza con tus amigos! Sumérgete en la alegría y la camaradería mientras paseas entre árboles frondosos y charlas animadas. Alquila un amigo para compartir risas, historias y momentos inolvidables bajo el cálido sol."</p> 
+          <p class="mt-5 fs-4 text-uppercase">"¡Disfruta de un día soleado en la plaza con tus amigos! Sumérgete en la alegría y la camaradería mientras paseas entre árboles frondosos y charlas animadas. Alquila un amigo para compartir risas, historias y momentos inolvidables bajo el cálido sol."</p>
         </div>
       </div>
       <div class="carousel-item c-item">
-        <img src="https://media.istockphoto.com/id/870923226/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=FRrDgGTMYzWe6VhfHtQb668USoBomtZAxZHtOCIThrc=" class="d-block w-100 c-img" alt="sdile2">
+        <img src="https://media.istockphoto.com/id/870923226/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=FRrDgGTMYzWe6VhfHtQb668USoBomtZAxZHtOCIThrc=" class="d-block w-100 c-img" class="d-block w-100 c-img" alt="slide2">
         <div class="carousel-caption d-none d-md-block">
           <h5 class="display-1 fw-bolder text-capitalize">Amigo para deporte</h5>
           <p class="mt-5 fs-4 text-uppercase">"Encuentra a tu compañero ideal para el deporte. Comparte tu pasión por el ejercicio y la actividad física con un amigo que te motive y te acompañe en cada entrenamiento. Alquila un amigo que comparta tu entusiasmo por el deporte y juntos alcancen sus metas fitness."</p>
         </div>
       </div>
       <div class="carousel-item c-item">
-        <img src="https://media.istockphoto.com/id/125144778/es/foto/j%C3%B3venes-estudiantes-universitarios-relajante-al-aire-libre.jpg?s=2048x2048&w=is&k=20&c=6Aki5LFAnmyKuRwuVRCCL7XDgJpJfWGK1OfNStfyauM=" class="d-block w-100 c-img" alt="silde3">
+        <img src="https://media.istockphoto.com/id/125144778/es/foto/j%C3%B3venes-estudiantes-universitarios-relajante-al-aire-libre.jpg?s=2048x2048&w=is&k=20&c=6Aki5LFAnmyKuRwuVRCCL7XDgJpJfWGK1OfNStfyauM=" class="d-block w-100 c-img" alt="slide3">
         <div class="carousel-caption d-none d-md-block">
           <h5 class="display-1 fw-bolder text-capitalize">Amigo de estúdio</h5>
-          <p class="mt-5 fs-4 text-uppercase">"¡Prepárate para una sesión de estudio productiva y colaborativa con tus amigos! Sumérgete en un ambiente de concentración y camaradería, donde juntos buscan el éxito académico. Alquila un amigo para compartir conocimientos, resolver dudas y motivarte mutuamente en esta emocionante aventura de aprendizaje."</h4>
+          <p class="mt-5 fs-4 text-uppercase">"¡Prepárate para una sesión de estudio productiva y colaborativa con tus amigos! Sumérgete en un ambiente de concentración y camaradería, donde juntos buscan el éxito académico. Alquila un amigo para compartir conocimientos, resolver dudas y motivarte mutuamente en esta emocionante aventura de aprendizaje."</p>
         </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-target="#carrusel" data-slide-to="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-target="#carrusel" data-slide-to="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carrusel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carrusel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
+
     <!-- incluimos el buscador -->
-    {% include 'inicio/searchBar.html' %}
+{% include 'inicio/searchBar.html' %}
 
 <!-- seccion tarjetas perfil -->
 <div class="container-fluid" id="fondoTarjetas">
@@ -53,30 +55,69 @@
         </div>
     </div>
 
-    <!--paginacion-->
-        <nav aria-label="Page navegation" class="mt-2 d-flex justify-content-center">
-            <ul class="pagination justify-content-center pagination-md" id="paginacion">
+    <!--mensaje no se encontraron amigos-->
+    <div id="mensajeVacio" class="text-center mt-3" style="display: none;">
 
-            </ul>
-        </nav>
-
+    </div>
 </div>
 
-    <!-- script para busqueda en tiempo real -->
+    <!--paginacion-->
+    <nav aria-label="Page navegation" class="mt-2 d-flex justify-content-center">
+        <ul class="pagination justify-content-center pagination-lg " id="paginacion">
+
+        </ul>
+    </nav>    <!-- script para busqueda en tiempo real -->
+
 <script>
 
+        // Lista de URLs de las imágenes a pre cargar
+        const urls = [
+            'https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=',
+            'https://media.istockphoto.com/id/870923226/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=FRrDgGTMYzWe6VhfHtQb668USoBomtZAxZHtOCIThrc=',
+            'https://media.istockphoto.com/id/125144778/es/foto/j%C3%B3venes-estudiantes-universitarios-relajante-al-aire-libre.jpg?s=2048x2048&w=is&k=20&c=6Aki5LFAnmyKuRwuVRCCL7XDgJpJfWGK1OfNStfyauM=',
+            // Agrega todas las URLs de las imágenes que quieras pre cargar
+        ];
+
+        // Función para pre cargar las imágenes
+        function preloadImages(urls) {
+            urls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        }
+
+        preloadImages(urls);
+            // Asignar las imágenes precargadas al carousel
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        carouselItems.forEach((item, index) => {
+            item.querySelector('img').src = urls[index];
+        });
+
         const tarjetasAmigos = document.querySelector('#tarjetasAmigos');
+        const mensajeVacio = document.querySelector('#mensajeVacio');
 
         function mostrarAmigos(data) {
             tarjetasAmigos.innerHTML = '';
-            data.amigos.forEach(amigo => {
-                const card = document.createElement('div');
-                card.classList.add('col');
-                card.innerHTML = `
+
+            if (data.amigos.length === 0) {
+                mensajeVacio.style.display = 'block';
+                mensajeVacio.innerHTML = `<i class="fas fa-frown" style="font-size: 5em"></i>
+                                          <h5 class="display-1 fw-bolder text-capitalize">Sorry</h5>`;
+                document.querySelector('#paginacion').style.display = 'none'; // Ocultar la paginación
+            } else {
+                mensajeVacio.style.display = 'none'; // Ocultar el mensaje de vacío
+                document.querySelector('#paginacion').style.display = 'flex'; // Ocultar la paginación
+                data.amigos.forEach(amigo => {
+                    const card = document.createElement('div');
+                    card.classList.add('col');
+                    card.innerHTML = `
                     <div class="card">
                         <img class="card-img-top" src="${amigo.foto}" alt="No perfil">
                         <div class="card-body d-flex flex-column">
-                            <p class="card-text" style="cursor: default;"><b>${amigo.nombre} ${amigo.apellido}</b></p>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text" style="cursor: default;"><b>${amigo.nombre} ${amigo.apellido}</b></p>
+                                <p class="card-text" style="cursor: default;"><b>${amigo.edad} años</b></p>
+                            </div>
                             <h5 class="card-title">${amigo.correo}</h5>
                             <div class="d-flex justify-content-center">
                                 <a href="../perfil/amigo/${amigo.id}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
@@ -84,44 +125,71 @@
                         </div>
                     </div>
                 `;
-                tarjetasAmigos.appendChild(card);
-            });
+                    tarjetasAmigos.appendChild(card);
+                });
 
-            // Actualizar paginación
-            const paginacion = document.querySelector('#paginacion');
-            paginacion.innerHTML = '';
+                // Actualizar paginación
+                const paginacion = document.querySelector('#paginacion');
+                paginacion.innerHTML = '';
 
-            if (data.has_previous) {
-                const liPrevious = document.createElement('li');
-                liPrevious.classList.add('page-item');
-                const pagAnt = data.page_number - 1;
-                liPrevious.innerHTML = `<a class="page-link" href="?page=${pagAnt}" aria-label="Previous"><span aria-hidden="true"></span>&laquo;</a>`;
-                paginacion.appendChild(liPrevious);
-            }
-
-            data.page_range.forEach(num => {
-                const li = document.createElement('li');
-                if (num === data.page_number) {
-                    li.classList.add('page-item', 'active');
-                    li.innerHTML = `<span class="page-link">${num}</span>`;
-                } else {
-                    li.classList.add('page-item');
-                    li.innerHTML = `<a class="page-link" href="?page=${num}">${num}</a>`;
+                if (data.has_previous) {
+                    const liPrevious = document.createElement('li');
+                    liPrevious.classList.add('page-item');
+                    const pagAnt = data.page_number - 1;
+                    liPrevious.innerHTML = `<a class="page-link" href="?page=${pagAnt}" aria-label="Previous"><span aria-hidden="true"><i class="fas fa-chevron-left" href="?page=${pagAnt}"></span></a>`;
+                    paginacion.appendChild(liPrevious);
                 }
-                paginacion.appendChild(li);
-            });
 
-            if (data.has_next) {
-                const liTotalPages = document.createElement('li');
-                liTotalPages.classList.add('page-item'); // Puedes ajustar la clase según tu estilo
-                liTotalPages.innerHTML = `<span class="page-link">${data.num_pages}</span>`;
-                paginacion.appendChild(liTotalPages);
+                let inicio = Math.max(1, data.page_number - 3);
+                let fin = Math.min(data.num_pages, inicio + 3);
 
-                const liNext = document.createElement('li');
-                liNext.classList.add('page-item');
-                const pagSig = data.page_number + 1;
-                liNext.innerHTML = `<a class="page-link" href="?page=${pagSig}" aria-label="Next"><span aria-hidden="true"></span>&raquo;</a>`;
-                paginacion.appendChild(liNext);
+                if (inicio > 1) {
+                    const liInicio = document.createElement('li');
+                    liInicio.classList.add('page-item');
+                    liInicio.innerHTML = `<a class="page-link" href="?page=1">1</a>`;
+                    paginacion.appendChild(liInicio);
+                }
+
+                if (inicio > 2) {
+                    const liPuntosInicio = document.createElement('li');
+                    liPuntosInicio.classList.add('page-item');
+                    liPuntosInicio.innerHTML = `<span class="page-link"><strong>...</strong></span>`;
+                    paginacion.appendChild(liPuntosInicio);
+                }
+
+                for (let num = inicio; num <= fin; num++) {
+                    const li = document.createElement('li');
+                    if (num === data.page_number) {
+                        li.classList.add('page-item', 'active');
+                        li.innerHTML = `<span class="page-link">${num}</span>`;
+                    } else {
+                        li.classList.add('page-item');
+                        li.innerHTML = `<a class="page-link" href="?page=${num}">${num}</a>`;
+                    }
+                    paginacion.appendChild(li);
+                }
+
+                if (fin < data.num_pages - 1) {
+                    const liPuntosFin = document.createElement('li');
+                    liPuntosFin.classList.add('page-item');
+                    liPuntosFin.innerHTML = `<span class="page-link"><strong>...</strong></span>`;
+                    paginacion.appendChild(liPuntosFin);
+                }
+
+                if (fin < data.num_pages) {
+                    const liFin = document.createElement('li');
+                    liFin.classList.add('page-item');
+                    liFin.innerHTML = `<a class="page-link" href="?page=${data.num_pages}">${data.num_pages}</a>`;
+                    paginacion.appendChild(liFin);
+                }
+
+                if (data.has_next) {
+                    const liNext = document.createElement('li');
+                    liNext.classList.add('page-item', 'text-white');
+                    const pagSig = data.page_number + 1;
+                    liNext.innerHTML = `<a class="page-link" href="?page=${pagSig}" aria-label="Next"><span aria-hidden="true"><i class="fas fa-chevron-right" href="?page=${pagSig}"></span></a>`;
+                    paginacion.appendChild(liNext);
+                }
             }
         }
 
@@ -142,15 +210,16 @@
 
         const paginacion = document.querySelector('#paginacion');
         paginacion.addEventListener('click', function(event) {
-            if (event.target.tagName === 'A' || event.target.tagName === 'SPAN' && (event.target.getAttribute('aria-label') === 'Previous' || event.target.getAttribute('aria-label') === 'Next')) {
+            if (event.target.tagName === 'A' || event.target.tagName === 'I') {
                 event.preventDefault();
-                 const page = event.target.getAttribute('href').split('=')[1];
-                 const nombre = document.querySelector('#inputBuscador').value;
-                 fetch(`{% url 'Buscar' %}?nombre=${nombre}&page=${page}`)
+                const page = event.target.getAttribute('href').split('=')[1];
+                const nombre = document.querySelector('#inputBuscador').value;
+                fetch(`{% url 'Buscar' %}?nombre=${nombre}&page=${page}`)
                     .then(response => response.json())
                     .then(data => mostrarAmigos(data));
             }
         });
+
 
 
 </script>

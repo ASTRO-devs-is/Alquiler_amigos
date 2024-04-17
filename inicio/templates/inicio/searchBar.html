@@ -9,9 +9,9 @@
     <body>
 
         <!--barra de busqueda-->
-        <nav class="navbar navbar-expand-lg" style="background-color: #33658A;">            
+        <nav class="navbar navbar-expand-lg bg-transparent" id="navBuscador" style="background-color: #33658A;">
               <!--contenedor colapsable-->
-              <div class="collapse navbar-collapse container" id="navBuscador">
+              <div class="collapse navbar-collapse container" >
                   <!-- lista de elementos de la barra de busqueda --> 
                 <ul class="navbar-nav ml-auto">
                     
@@ -83,8 +83,9 @@
                 </ul>
                 <!--Buscador-->
                 <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Gal Gadot Varsano" aria-label="Search" name="nombre" id="inputBuscador">
-                  <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Buscar</button>
+                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+
                 </form>
 
               </div>
