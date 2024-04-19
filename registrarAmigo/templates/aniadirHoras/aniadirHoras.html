@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block content %}
-<form class="form-grup" method='POST'>
+<form class="form-grup" method='POST' id="form-escoger-horas">
     {% csrf_token %}
-    <div class="container" id="formulario-container">
+    <div class="container" id="formulario-container" style="padding: 1% 7%;">
         <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Disponibilidad de tiempo</b></h2></div>
-        <div class="row"></div>
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8"></div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" ></div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="Desde xx Hasta xx">
-                    <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">   
-                    </label class="form-check">
-
+        <div class="row">
+            {% for hora in horas %}
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="{{ hora }}">
+                        <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">{{ hora }}</label>
+                    </div>
                 </div>
+            {% endfor %}
+        </div>
         <div style="text-align: center;margin: 10% 0px;">
             <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
             <button type="submit" class="btn btn-primary">Aceptar</button>
@@ -36,5 +36,13 @@
                 $(this).modal('show');
             });
         }
+        document.getElementById('form-escoger-horas').addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            if (!checkedOne) {
+                event.preventDefault();
+                alert('Por favor, selecciona al menos un horario.');
+            }
+        });
     </script>
 {% endblock extrajs %}

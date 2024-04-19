@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import formularioRegistrarAmigo
 from urllib.parse import quote, unquote
 
+
 # Create your views here.
 def registrarAmigo(request):
     formulario = formularioRegistrarAmigo()
@@ -30,7 +31,8 @@ def registrarAmigo(request):
     return render(request, "registrarAmigo/registrarAmigo.html", {'form': formulario})
 
 def aniadirHoras(request):
-    return render(request, "aniadirHoras/aniadirHoras.html")
+    horas = ["Desde {:02d}:00 Hasta {:02d}:00".format(h, h+1) for h in range(8, 22)]
+    return render(request, "aniadirHoras/aniadirHoras.html", {'horas': horas})
 
 def cancelar_aniadir_horas(request):
     return render(request, 'aniadirHoras/cancelar.html')
