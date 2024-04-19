@@ -1,0 +1,40 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+<form class="form-grup" method='POST'>
+    {% csrf_token %}
+    <div class="container" id="formulario-container">
+        <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Disponibilidad de tiempo</b></h2></div>
+        <div class="row"></div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8"></div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" ></div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="Desde xx Hasta xx">
+                    <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">   
+                    </label class="form-check">
+
+                </div>
+        <div style="text-align: center;margin: 10% 0px;">
+            <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="modal fade" id="cancelar-aniadir-horas" role="dialog">
+</div> 
+    
+{% endblock %}
+{% block extrajs %}
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-aniadir-horas').load("{% url 'cancelar_aniadir_horas' %}", function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+{% endblock extrajs %}
