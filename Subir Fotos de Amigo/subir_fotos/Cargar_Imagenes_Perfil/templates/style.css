@@ -61,6 +61,7 @@ body {
   border-radius: 12px;
   transition: background-color 0.3s ease;
 }
+
 .cancel-button {
   background-color: #2F4858;
   color: rgb(255, 255, 255);
@@ -79,6 +80,7 @@ body {
 .cargar-button:hover{
   background-color: #4aec21;
 }
+
 .cancel-button:hover {
   background-color: #f30909;
 }
