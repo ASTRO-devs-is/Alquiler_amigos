@@ -10,8 +10,8 @@
             {% for hora in horas %}
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="horario_seleccionado" value="{{ hora }}">
-                        <label class="form-check-label mostrarHorario {% cycle 'a' 'b' 'c' %}">{{ hora }}</label>
+                        <input class="form-check-input" type="checkbox" name="horario_seleccionado_{{ forloop.counter }}" value="{{ hora }}">
+                        <label class="form-check-label mostrarHorario" style="background-color: #55DDE0;">{{ hora }}</label>
                     </div>
                 </div>
             {% endfor %}
@@ -42,7 +42,11 @@
             if (!checkedOne) {
                 event.preventDefault();
                 alert('Por favor, selecciona al menos un horario.');
-            }
+            }else if(confirm("¿Guardar horario seleccionado?")){
+                    alert("Horario guardado con éxito.");
+                }else {
+                    event.preventDefault();  
+                }
         });
     </script>
 {% endblock extrajs %}
