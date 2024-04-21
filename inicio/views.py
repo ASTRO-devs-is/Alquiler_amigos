@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo
+from alquilarAmigo.models import Amigo,Tarifa
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
@@ -40,7 +40,15 @@ def buscarAmigos(request):
             'correo': amigo.correo,
             'id': amigo.id,
             'edad':  datetime.datetime.now().year - amigo.fecha_nacimiento.year,
+            'disponibilidad': amigo.disponibilidad,
         }
+
+        amigo.tarifa = Tarifa.objects.get(id=amigo.id_tarifa_id).tarifa
+        if amigo.tarifa:
+            amigo_data['tarifa'] = amigo.tarifa
+        else:
+            amigo_data['tarifa'] = None
+
         foto_perfil = amigo.fotoperfil_set.first()
         if foto_perfil:
             amigo_data['foto'] = foto_perfil.image.url

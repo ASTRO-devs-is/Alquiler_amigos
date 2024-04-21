@@ -75,7 +75,6 @@
             'https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=',
             'https://media.istockphoto.com/id/870923226/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=FRrDgGTMYzWe6VhfHtQb668USoBomtZAxZHtOCIThrc=',
             'https://media.istockphoto.com/id/125144778/es/foto/j%C3%B3venes-estudiantes-universitarios-relajante-al-aire-libre.jpg?s=2048x2048&w=is&k=20&c=6Aki5LFAnmyKuRwuVRCCL7XDgJpJfWGK1OfNStfyauM=',
-            // Agrega todas las URLs de las imágenes que quieras pre cargar
         ];
 
         // Función para pre cargar las imágenes
@@ -101,8 +100,8 @@
 
             if (data.amigos.length === 0) {
                 mensajeVacio.style.display = 'block';
-                mensajeVacio.innerHTML = `<i class="fas fa-frown" style="font-size: 5em"></i>
-                                          <h5 class="display-1 fw-bolder text-capitalize">Sorry</h5>`;
+                mensajeVacio.innerHTML = `<i class="fas fa-frown text-light" style="font-size: 5em"></i>
+                                          <h5 class="display-1 fw-bolder text-capitalize text-light">Lo sentimos, no se encontraron resultados</h5>`;
                 document.querySelector('#paginacion').style.display = 'none'; // Ocultar la paginación
             } else {
                 mensajeVacio.style.display = 'none'; // Ocultar el mensaje de vacío
@@ -118,7 +117,10 @@
                                 <p class="card-text" style="cursor: default;"><b>${amigo.nombre} ${amigo.apellido}</b></p>
                                 <p class="card-text" style="cursor: default;"><b>${amigo.edad} años</b></p>
                             </div>
-                            <h5 class="card-title">${amigo.correo}</h5>
+                            <div class="d-flex justify-content-between">
+                            <h5 class="card-title">${amigo.tarifa} Bs/h</h5>
+                            <p class="card-text disponibilidad">Disponible: ${amigo.disponibilidad}</p>
+                            </div>
                             <div class="d-flex justify-content-center">
                                 <a href="../perfil/amigo/${amigo.id}" class="btn btn-primary" style="margin: auto;">Ver perfil</a>
                             </div>
@@ -127,6 +129,14 @@
                 `;
                     tarjetasAmigos.appendChild(card);
                 });
+
+                // Agregar clase de estilo según la disponibilidad
+                const disponibilidadElement = card.querySelector('.disponibilidad');
+                if (amigo.disponibilidad === true) {
+                    disponibilidadElement.classList.add('disponible');
+                } else {
+                    disponibilidadElement.classList.add('no-disponible');
+                }
 
                 // Actualizar paginación
                 const paginacion = document.querySelector('#paginacion');
@@ -192,7 +202,7 @@
                 }
             }
         }
-
+        //mostrar amigos al cargar la pagina por primera vez
         document.addEventListener('DOMContentLoaded', function() {
         fetch('{% url 'Buscar' %}')
             .then(response => response.json())
@@ -207,7 +217,7 @@
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
-
+        // agregar evento a las paginas para que muestren alos amigos correspondientes a dicha pagina al hacer click
         const paginacion = document.querySelector('#paginacion');
         paginacion.addEventListener('click', function(event) {
             if (event.target.tagName === 'A' || event.target.tagName === 'I') {
