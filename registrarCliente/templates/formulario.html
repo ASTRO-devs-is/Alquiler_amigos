@@ -1,75 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Datos Personales del Cliente</title>
-    <!-- Enlace a Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Datos Personales del Cliente</title>
+  <!-- Enlace a Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container mt-5">
-    <h1 class="mb-4">REGISTRAR CLIENTE</h1>
+    <h1 class="mb-4 text-center">REGISTRAR CLIENTE</h1>
     <form>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre: </label>
-            <input type="text" class="form-control" id="nombre" required>
-            <label for="apellido" class="form-label">Apellido: </label>
-            <input type="text" class="form-control" id="apellido" required>
-            <label for="telefono" class="form-label">Telefono: </label>
-            <input type="text" class="form-control" id="telefono" required>
-            <label for="start">Fecha de Nacimiento:</label><br>
-            <input type="date" id="start" name="trip-start" min="1960-01-01" max="2006-12-31"/><br>
-            <label for="country" class="form-label">Pais: </label>
-            <input type="text" class="form-control" id="country" required>
-            <label for="city" class="form-label">Ciudad: </label>
-            <input type="text" class="form-control" id="city" required>
-            <label for="location" class="form-label">Localidad: </label>
-            <input type="text" class="form-control" id="location" required>
-            <label for="email">Correo electronico:</label>
-            <input type="email" placeholder="@gmail.com" id="email" pattern=".+@example\.com" size="30" required />
-            <label for="password">Contraseña: </label>
-            <input type="password" name="password" id="password">
-            <span>Mostrar</span>
-            <label for="password">Repetir Contraseña: </label>
-            <input type="password" name="password" id="password">
-            <span>Mostrar</span>
-            <p>Género</p>
-            <div>
-              <input type="radio" id="Femenino" name="drone" value="Femenino" checked>
-              <label for="Femenino">Femenino</label>
-            </div>
-            <div>
-              <input type="radio" id="Masculino" name="drone" value="Masculino" checked>
-              <label for="Masculino">Masculino</label>
-            </div>
-            <div>
-              <input type="radio" id="No binario/otro" name="drone" value="No binario/otro" checked>
-              <label for="No binario/otro">No binario/otro</label>
-            </div>
-            <div>
-              <input type="radio" id="Prefiero no decir" name="drone" value="Prefiero no decir" checked>
-              <label for="Prefiero no decir">Prefiero no decir</label>
-            </div>
-            <label for="descripcion">Describete:</label><br>
-            <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea><br>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nombre">Nombre: *</label><br>
+            <input type="text" id="nombre" class="nombre" required>
           </div>
-          <div>
-            <label>
-              <input type="checkbox">
-              He leído y acepto el aviso legal y la Política de privacidad. *
-            </label><br>
-            <label>
-              <input type="checkbox">
-              Acepto los términos y condiciones. *
-            </label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="apellido">Apellido: *</label><br>
+            <input type="text" id="apellido" class="nombre" required>
           </div>
-          
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="telefono">Teléfono: *</label><br>
+            <input type="tel" id="telefono" class="telefono" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="fecha-nacimiento">Fecha de Nacimiento: *</label><br>
+            <input type="date" id="fecha-nacimiento" class="fecNac" required>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="pais">País: *</label><br>
+            <input type="text" id="pais" class="ubicacion" required>
+          </div>
+          <div class="col-md-4">
+            <label for="ciudad">Ciudad: *</label><br>
+            <input type="text" id="ciudad" class="ubicacion" required>
+          </div>
+          <div class="col-md-4">
+            <label for="localidad">Localidad: *</label><br>
+            <input type="text" id="localidad" class="ubicacion" required>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">Email: *</label><br>
+            <input type="email" id="email" class="email" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="contrasena">Contraseña: *</label><br>
+                <input type="password" id="contrasena" class="paswd" required>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="form-group mb-3">
+              <label>Género: *</label>
+              <div class="radio-group">
+                <div>
+                  <input type="radio" id="femenino" name="genero" value="femenino" required>
+                  <label for="femenino">Femenino</label>
+                </div>
+                <div>
+                  <input type="radio" id="masculino" name="genero" value="masculino" required>
+                  <label for="masculino">Masculino</label>
+                </div>
+                <div>
+                  <input type="radio" id="no-binario" name="genero" value="no-binario" required>
+                  <label for="no-binario">No binario/otro</label>
+                </div>
+                <div>
+                  <input type="radio" id="prefiero-no-decir" name="genero" value="prefiero-no-decir" required>
+                  <label for="prefiero -no-decir">Prefiero no decir</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="repetir-contrasena">Repetir contraseña: *</label><br>
+            <input type="password" id="repetir-contrasena" required>
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-group mb-3">
+        <label for="descripcion">Descríbete: *</label><br>
+        <textarea id="descripcion" class="desc" required></textarea>
+      </div>
+      <div class="checkbox-group mb-3">
+        <div>
+          <input type="checkbox" id="aviso-legal" required>
+          <label for="aviso-legal">He leído y acepto el aviso legal y la Política de privacidad. *</label>
+        </div>
+        <div>
+          <input type="checkbox" id="terminos-condiciones" required>
+          <label for="terminos-condiciones">Acepto los términos y condiciones. *</label>
+        </div>
+      </div>
+      <div class="button-group" style="display: flex; justify-content: space-between;">
+        <button class="cancel-button" type="button">CANCELAR</button>
+        <button class="continuar-button" type="submit">CONTINUAR</button>
+      </div>
     </form>
-    <div style="display: flex; justify-content: space-between;">
-      <button class="cancel-button" type="button">Cancelar</button>
-      <button class="continuar-button" type="submit" disabled>Continuar</button>
-    </div>
-  </div>  
+  </div>
 </body>
+
 </html>
