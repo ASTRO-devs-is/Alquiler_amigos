@@ -1,7 +1,5 @@
 body {
-  margin-top: 80px;
   position: relative;
-  height: 100%;
 }
 
 h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
@@ -159,6 +157,21 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
+#formRegAmigo {
+  min-height: calc(125vh);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+#progSalida {
+  min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
 
 .remove-btn {
   position: absolute;
@@ -224,8 +237,45 @@ dialog p {
   font-size: 16px;
   margin-bottom: 10px;
 }
-/*INICIO DE CSS PARA LA BASE*/
 
+#paginacion {
+  color: #fff8e7; /* Cambia el color del texto */
+}
+
+#paginacion page-item .page-link {
+  color: #fff8e7; /* Cambia el color del texto */
+  border-radius: 8px;
+}
+
+/* Estilos personalizados para la paginación */
+  #paginacion .page-item.active .page-link {
+    background-color: #33658A ; /* Cambia el color de fondo */
+    border-color: transparent; /* Cambia el color del borde */
+    border-radius: 8px;
+  }
+
+  #paginacion .page-item:not(.active) .page-link:hover {
+    background-color: #2F4858; /* Cambia el color de fondo en hover */
+    border-color: transparent ; /* Cambia el color del borde en hover */
+    border-radius: 8px;
+}
+
+
+  #paginacion .page-item:not(.active) .page-link {
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff8e7; /* Cambia el color del texto */
+}
+
+
+.page-link:hover {
+  color: #33658A; /* Color del texto al pasar el ratón */
+}
+
+
+
+
+/*INICIO DE CSS PARA LA BASE*/
 .bg-img {
   background-image: url('https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=');
   background-size: cover;
@@ -238,11 +288,15 @@ dialog p {
   position: absolute;
   z-index: -1;
 }
+
+#navBuscador {
+  background-color: transparent;
+}
+
 .navbar {
   background-color: #2F4858;
   height: 80px;
   width: 100%;
-  padding: 0.5rem;
 }
 
 .navbar-brand {
@@ -250,6 +304,11 @@ dialog p {
   color: #fff8e7;
   font-size: 24px;
   transition: 0.3s color;
+}
+
+#carrusel {
+  background: none;
+  background-color: transparent;
 }
 
 .login-button {
@@ -315,6 +374,7 @@ dialog p {
 
 .c-item {
   height: 100vh;
+  width: 100vw;
 }
 
 .c-img {
@@ -324,28 +384,21 @@ dialog p {
 }
 
 #fondoTarjetas {
-  min-height: calc(100vh - 100px); /* Ajusta 100px según el tamaño de tu pie de página */
+  min-height: calc(100vh - 225px); /* Ajusta 100px según el tamaño de tu pie de página */
   position: relative;
 }
 
 #fondoTarjetas::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://media.istockphoto.com/id/1226378817/es/foto/fondos-de-geometr%C3%ADa-abstracta.jpg?s=2048x2048&w=is&k=20&c=RFYz9QM3u3N4O7C72uTNyed3yGnVoVuxdJ1dqWzgML0=');
-  background-size: cover;
-  filter: brightness(0.6);
-  z-index: -1;
+  min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+
 }
 
 #contenTarjetas {
-  padding-top: 100px;
-  padding-bottom: auto;
-  padding-right: auto;
-  padding-left: auto;
+  padding-top: 50px;
   position: relative;
 }
 
@@ -363,12 +416,6 @@ dialog p {
 /*FIN DE CSS PARA LA BASE*/
 
 @media (max-width: 586px) {
-
-
-  #formulario-container{
-    width: 100%;
-    h2{font-size: 20px;}h3{font-size: 14px;}h4{font-size: 12px;}h5{font-size: 10px;}
-  }
   .btn-primary{
     width: 100px;
     font-size: 14px;
@@ -421,8 +468,22 @@ dialog p {
     font-size: 2rem; /* Ajusta el tamaño según tus preferencias */
     margin-right: 10rem; /* Espacio entre el ícono y el texto */
   }
-  #perfilAmigo{
+  #visPerfAmigo {
+    min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
+    box-sizing: border-box;
     display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+
+  }
+
+  #formSubirFotoAmigo {
+    min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+
   }
 
 
