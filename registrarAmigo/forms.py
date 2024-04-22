@@ -78,12 +78,16 @@ class formularioRegistrarAmigo(forms.Form):
         fecha = self.cleaned_data['fecha']
         hoy = datetime.date.today()
         hace_18_anos = hoy - timedelta(days=18*365.25)  # Resta 18 años a la fecha actual
+        hace_99_anos = hoy - datetime.timedelta(days=99*365.25)  # Resta 85 años a la fecha actual
         if fecha is None:
             raise forms.ValidationError('La fecha no puede estar vacia')
         if fecha > hoy:
             raise forms.ValidationError('La fecha no puede ser mayor a la fecha actual')
         if fecha > hace_18_anos:
             raise forms.ValidationError('Debes tener al menos 18 años de edad')
+        if fecha < hace_99_anos:
+            raise forms.ValidationError('La edad máxima permitida es de 85 años')
+        
         return fecha
     
     def clean_email(self):
@@ -95,6 +99,11 @@ class formularioRegistrarAmigo(forms.Form):
         # Verificar si el correo electrónico termina con "@gmail.com" o "@hotmail.com"
         if not email.endswith('@gmail.com') and not email.endswith('@hotmail.com'):
             raise forms.ValidationError('El email debe ser de dominio @gmail.com o @hotmail.com')
+        
+        # Verificar si el correo electrónico contiene caracteres no permitidos
+        if not re.match(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]+$', email):
+            raise forms.ValidationError('Lo siento el correo electronico, solo se permiten letras (a-z), números (0-9), y el punto "."')
+
         if Amigo.correo_duplicado(email):
             raise forms.ValidationError('El correo electrónico ya está registrado')
 
@@ -108,6 +117,11 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('El teléfono debe tener exactamente 8 dígitos')
         if not telefono.isdigit():
             raise forms.ValidationError('El teléfono debe contener solo numeros')
+         # Verificar si el teléfono ya está en uso
+        if Amigo.telefono_duplicado(telefono):
+            raise forms.ValidationError('Este número de teléfono ya está registrado')
+
+
         return telefono
     
     def clean_nombre(self):
@@ -136,7 +150,7 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('La descripciòn no puede tener mas de 500 caracteres')
         
         # Contar el número de caracteres especiales permitidos en la descripción
-        caracteres_especiales_permitidos = {'.', '$', '*', '+', '/', '-', ',', ';', '?', '¡', '¿', '&', '%', '#', '"'
+        caracteres_especiales_permitidos = {'.', '$', '*', '+', '-', ',', ';', '?', '¡', '¿', '&', '%', '#', '"'
                                             ,'1','2','3','4','5','6','7','8','9'}
         num_caracteres_especiales = sum(1 for char in descripcion if char in caracteres_especiales_permitidos)
     
