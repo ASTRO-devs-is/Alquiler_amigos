@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'registrarAmigo',
     'subir_fotos',
     'visualizarPerfil',
-    
+    'login',
+    'widget_tweaks',
+
 
 ]
 
@@ -123,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 
 # Default primary key field type
@@ -133,3 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Ruta para almacenar archivos multimedia subidos
+""""
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+"""
