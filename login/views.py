@@ -18,8 +18,8 @@ def login_view(request):
        # print("Datos del formulario:", request.POST)  # Esto imprimirá los datos del formulario en la consola.
         if form.is_valid():
             email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            print(password)
+            password1 = form.cleaned_data.get('password')
+            print(password1)
             print(email)
             try:
                 user = User.objects.get(name_user=email)
