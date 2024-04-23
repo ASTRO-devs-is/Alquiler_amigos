@@ -32,7 +32,7 @@
             
         
             <div style="text-align: center;margin: 10% 0px;">
-                <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
+                <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Atras</button>
                 <!--<button type="submit" class="btn btn-primary" onclick="abrir_modal_confirmacion('{{ datos|escapejs }}')">Programar</button>-->
                 <button type="submit" class="btn btn-primary">Programar</button>
             </div>
@@ -51,7 +51,7 @@
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         function abrir_modal_cancelacion(){
-            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
+            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita2' %}", function(){
                 $(this).modal('show');
             });
         }
