@@ -24,7 +24,7 @@ def login_view(request):
             try:
                 user = User.objects.get(name_user=email)
 
-                if user.check_password(password):
+                if user.user.password==password1:
                     messages.success(request, 'Login exitoso')
                     return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
                 else:
