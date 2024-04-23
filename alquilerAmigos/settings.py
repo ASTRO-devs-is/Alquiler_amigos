@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'subir_fotos',
     'visualizarPerfil',
     'login',
+    'widget_tweaks',
 
 ]
 

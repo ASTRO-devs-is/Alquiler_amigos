@@ -119,6 +119,7 @@ form h2{
 	transform: translateY(-50%);
 	color: #525353;
 	font-size: 18px;
+	font-family: 'Poppins', sans-serif;
 	transition: .3s;
 }
 

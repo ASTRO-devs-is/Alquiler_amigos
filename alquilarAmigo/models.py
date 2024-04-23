@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import make_password, check_password
+
 # Create your models here.
 class Salida(models.Model):
     categoria_salida = models.ForeignKey('Categoria', on_delete=models.CASCADE)
@@ -87,20 +89,30 @@ class Tarifa(models.Model):
 
 
 class User (models.Model):
-    name_user = models.CharField(max_length=100)
-    password = models.CharField(max_length=8)
+    name_user = models.EmailField(blank=False, unique=True)
+    password = models.CharField(max_length=128)
     activado = models.BooleanField(default = True)
 
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+        self.save()
+        
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
+    
     def __str__(self):
         return f"Nombre: {self.name_user} - Activo: {self.activado}"
 
+    
     @classmethod
     def get_id_user(cls, nombre):
         try:
             user = cls.objects.get(name_user=nombre)
-            return user.id_user
+            return user.name_user
         except cls.DoesNotExist:
             return None
+        
+    
 
 class Rol (models.Model):
     rol = models.CharField(max_length=255)

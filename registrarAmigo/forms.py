@@ -6,8 +6,8 @@ from alquilarAmigo.models import Amigo
 
 import re
 
-tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
-#tarifa = [(1, 2)]
+#tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+tarifa = [(1, 2)]
 GENERO_CHOICES = (
     (1, 'Femenino'),
     (2, 'Masculino'),
