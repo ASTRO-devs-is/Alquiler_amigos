@@ -6,35 +6,27 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 mt-5 pt-5">
             <div class="row z-depth-3">
-               
+                
                 <div class="col-sm-8 bg-white rounded-right">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2 class="mt-3 text-right text'b"><b>CREAR CUENTA</b></h2>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <a href="{% url 'Inicio' %}" class="btn btn-primary mt-3" style="width: 50px;"><i class="fas fa-arrow-left"></i></a>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2 class="mt-3 text-right"><b>CREAR CUENTA</b></h2>
                         </div>
-                        <hr class="badge-primary mt-0 w-25">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                           
-                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                              </svg>
-                            
-                           
-                            <a href="../../registroCliente/" >Registrar como cliente</a>
-                            </div>
-                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                               
-                                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                                  </svg>
-                               <a href="../../registroAmigo/">Registrar como amigo</a>
-                               
-                            </div>
+                        <div class="col-sm-6 text-right">
+                            <a href="{% url 'Inicio' %}" class="btn btn-primary mt-3" style="width: 50px;"><i class="fas fa-arrow-left"></i></a>
+                        </div>
+                    </div>
+                    <hr class="badge-primary mt-0 w-25">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mx-auto">
+                            <img src="{% static 'inicio/img/perfil.png' %}" width="200" height="150">
+                            <a href="../../registroCliente/" style="font-size: 18px;">Registrar como cliente</a>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mx-auto">
+                            <img src="{% static 'inicio/img/client.jpg' %}" width="200" height="150">
+                            <a href="../../registroAmigo/" style="font-size: 18px;" >Registrar como amigo</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
