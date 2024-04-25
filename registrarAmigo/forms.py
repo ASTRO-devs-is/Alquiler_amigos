@@ -3,11 +3,10 @@ import datetime
 from datetime import timedelta
 from alquilarAmigo.models import Tarifa
 from alquilarAmigo.models import Amigo
-
 import re
 
-tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
-#tarifa = [(1, 2)]
+#tarifa = list(Tarifa.objects.all().values_list('tarifa', 'tarifa'))
+tarifa = [(1, 2)]
 GENERO_CHOICES = (
     (1, 'Femenino'),
     (2, 'Masculino'),
@@ -86,8 +85,6 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('La fecha no puede ser mayor a la fecha actual')
         if fecha > hace_18_anos:
             raise forms.ValidationError('Debes tener al menos 18 años de edad')
-        if fecha < hace_99_anos:
-            raise forms.ValidationError('La edad máxima permitida es de 85 años')
         
         return fecha
     

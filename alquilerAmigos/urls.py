@@ -26,6 +26,8 @@ urlpatterns = [
     path('subir_fotos/', include('subir_fotos.urls')),#incluye todas las urls de la app creada
     path('perfil/', include('visualizarPerfil.urls')),#incluye todas las urls de la app creada
     path('cuenta/', include('crearCuenta.urls')),#incluye todas las urls de la app creada
+    path('login/', include('login.urls')),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#con esta linea de codigo le decimos a django que muestre las imagenes
-
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#con esta linea de codigo le decimos a django que muestre las imagenes
