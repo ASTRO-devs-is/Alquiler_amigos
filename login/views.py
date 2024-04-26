@@ -19,12 +19,10 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            print(password)
-            print(email)
             try:
                 user = User.objects.get(name_user=email)
-
-                if user.check_password(password):
+                
+                if user.password == password :
                     messages.success(request, 'Login exitoso')
                     return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
                 else:
