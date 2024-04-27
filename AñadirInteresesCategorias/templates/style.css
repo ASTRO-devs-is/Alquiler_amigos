@@ -1,0 +1,13 @@
+/* style.css */
+/*.h4{
+    margin-top: 10%;
+}*/
+
+.container-intereses {
+    border-right: 1px solid #ccc;
+}
+
+.contenedor-categorias {
+    margin-bottom: 20px; /* Agrega el margen inferior deseado */
+}
+

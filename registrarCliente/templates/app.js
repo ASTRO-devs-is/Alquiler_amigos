@@ -51,7 +51,7 @@ document.getElementById("registroForm").addEventListener("submit", function (eve
 
 // Función para redirigir a la página principal
 function redirigirPaginaPrincipal() {
-  window.location.href = "URL_DE_LA_PAGINA_PRINCIPAL"; // Reemplaza "URL_DE_LA_PAGINA_PRINCIPAL" con la URL correcta
+  window.location.href = "Inicio"; // Reemplaza "URL_DE_LA_PAGINA_PRINCIPAL" con la URL correcta
 }
 
 // Agrega un evento onclick al botón cancelar que llame a la función redirigirPaginaPrincipal
