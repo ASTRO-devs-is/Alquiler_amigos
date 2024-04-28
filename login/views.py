@@ -25,7 +25,7 @@ def login_view(request):
                     messages.success(request, 'Login exitoso')
                     return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
                 else:
-                    messages.error(request, 'Contraseña incorrecta o usuario no activo')
+                    messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
             except User.DoesNotExist:
                 messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
                
