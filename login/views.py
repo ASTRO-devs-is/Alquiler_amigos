@@ -27,7 +27,7 @@ def login_view(request):
                 else:
                     messages.error(request, 'Contraseña incorrecta o usuario no activo')
             except User.DoesNotExist:
-                messages.error(request, 'Usuario no encontrado')
+                messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
                
         else:
             print("Errores del formulario:", form.errors)
