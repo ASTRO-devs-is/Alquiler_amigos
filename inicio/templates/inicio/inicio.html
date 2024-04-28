@@ -204,7 +204,7 @@
         }
         //mostrar amigos al cargar la pagina por primera vez
         document.addEventListener('DOMContentLoaded', function() {
-        fetch('{% url 'Buscar' %}')
+        fetch("{% url 'Buscar' %}")
             .then(response => response.json())
             .then(data => mostrarAmigos(data));
         });
