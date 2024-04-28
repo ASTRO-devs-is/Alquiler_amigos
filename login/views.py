@@ -29,7 +29,7 @@ def login_view(request):
                 except User.DoesNotExist:
                     messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
             else: 
-                 messages.error(request, 'Registrar con correo válido')
+                 messages.error(request, 'Registrate con correo válido @gmail o @hotmail')
 
         else:
             print("Errores del formulario:", form.errors)
