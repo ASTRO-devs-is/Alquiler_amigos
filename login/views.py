@@ -17,18 +17,20 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            
-            try:
-                user = User.objects.get(name_user=email)
-
-                if user.password==password:
-                    messages.success(request, 'Login exitoso')
-                    return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
-                else:
+            if email.endswith('@gmail.com') or email.endswith('@hotmail.com'):
+                try:
+                    user = User.objects.get(name_user=email)
+                    
+                    if user.password==password:
+                        messages.success(request, 'Login exitoso')
+                        return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
+                    else:
+                        messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
+                except User.DoesNotExist:
                     messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
-            except User.DoesNotExist:
-                messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
-               
+            else: 
+                 messages.error(request, 'Registrar con correo válido')
+
         else:
             print("Errores del formulario:", form.errors)
     return render(request, 'index.html', {'form': form})
