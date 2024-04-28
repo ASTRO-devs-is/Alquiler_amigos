@@ -16,7 +16,7 @@ from django.core import serializers
 
 def buscarAmigos(request):
     nombre = request.GET.get('nombre')
-    amigos = Amigo.objects.all()
+    amigos = Amigo.objects.all().order_by('id')
 
     if nombre:
         lista = nombre.split(' ', 1)
