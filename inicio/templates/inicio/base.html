@@ -47,9 +47,15 @@
               <li class="nav-item">
                   <a class="nav-link mx-lg-2 active " aria-current="page" href="{% url 'Inicio' %}" style="color: #fff8e7;">Home</a>
               </li>
+              {% if user.is_authenticated %}
               <li class="nav-item">
-                  <a class="nav-link mx-lg-2" href="/cuenta">Crear cuenta</a>
+                <a class="nav-link mx-lg-2" href="registroAmigo/aniadirHoras">Añadir horarios de amigo</a>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link mx-lg-2" href="/cuenta">Crear cuenta</a>
+              </li>
+              {% endif %}
               </ul>
           </div>
           </div>
