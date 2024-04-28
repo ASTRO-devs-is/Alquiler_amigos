@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.registrarseComo, name="crearCuenta"), 
+    path('cuenta/', views.crearCuenta, name="crearCuenta"), 
 ]
