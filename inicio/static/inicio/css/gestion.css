@@ -1,5 +1,6 @@
 body {
   position: relative;
+  margin-top: 80px;
 }
 
 h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
@@ -157,21 +158,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
-#formRegAmigo {
-  min-height: calc(125vh);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-}
-
-#progSalida {
-  min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-}
 
 .remove-btn {
   position: absolute;
@@ -295,6 +281,7 @@ dialog p {
 
 .navbar {
   background-color: #2F4858;
+  top: 0;
   height: 80px;
   width: 100%;
 }
@@ -468,24 +455,6 @@ dialog p {
     font-size: 2rem; /* Ajusta el tamaño según tus preferencias */
     margin-right: 10rem; /* Espacio entre el ícono y el texto */
   }
-  #visPerfAmigo {
-    min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-
-  }
-
-  #formSubirFotoAmigo {
-    min-height: calc(100vh); /* Ajusta el 100px según la altura de tu footer */
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-
-  }
-
 
   #flechaAtras{
     color: white;cursor: pointer;

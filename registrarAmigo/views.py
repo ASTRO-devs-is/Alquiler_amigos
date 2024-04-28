@@ -37,6 +37,7 @@ def aniadirHoras(request):
     #print (usuarioAmigo)
     if request.method == 'POST':
         horasParaGuardar = DisponibilidadHoras
+        horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()
         horarios_seleccionados = []
         #print(horas)
         for i in range(1, len(horas)+1):

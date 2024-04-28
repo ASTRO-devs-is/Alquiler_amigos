@@ -10,12 +10,10 @@ def inicio_login(request):
     return render(request, 'index.html')
 
 def login_view(request):
-    #form = LoginForm(request.POST or None)
-    print("Hola hola hola")
+   
     if request.method == 'POST':
         print("Handling POST request!!! estamos aqui estamo aqui")
         form = LoginForm(request.POST)
-       # print("Datos del formulario:", request.POST)  # Esto imprimirá los datos del formulario en la consola.
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
@@ -30,6 +28,7 @@ def login_view(request):
             except User.DoesNotExist:
                 messages.error(request, 'Usuario no encontrado')
                
+
         else:
             print("Errores del formulario:", form.errors)
     return render(request, 'index.html', {'form': form})

@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static#importamos estos dos para poder mostrar las imagenes
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
-    path('buscar/', views.buscarAmigos, name="Buscar")
+    path('buscar/', views.buscarAmigos, name="Buscar"),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout')
 ]

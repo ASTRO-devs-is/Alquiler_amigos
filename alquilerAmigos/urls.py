@@ -28,6 +28,7 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('cuenta/', include('crearCuenta.urls')),#incluye todas las urls de la app creada
     path('registroCliente/',include('registrarCliente.urls')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
