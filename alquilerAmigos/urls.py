@@ -25,6 +25,7 @@ urlpatterns = [
     path('registroAmigo/', include('registrarAmigo.urls')),#incluye todas las urls de la app creada
     path('subir_fotos/', include('subir_fotos.urls')),#incluye todas las urls de la app creada
     path('perfil/', include('visualizarPerfil.urls')),#incluye todas las urls de la app creada
+    path('cuenta/', include('crearCuenta.urls')),#incluye todas las urls de la app creada
     path('login/', include('login.urls')),
 ]
 if settings.DEBUG:
