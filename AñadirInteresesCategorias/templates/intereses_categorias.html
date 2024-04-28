@@ -1,178 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intereses y Categorias</title>
-    <!-- Enlace a styles css -->
+    <title>Intereses</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 </head>
 
 <body>
     <div class="container">
-        <div class="container-intereses">
-            <h2>Intereses</h2>
-            <input type="text" class="form-control mb-3" placeholder="Buscar">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Artes</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Musica</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Deportes</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Karaoke</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Moda</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Fotografia</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Maquillaje</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Escribir</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Dibujar</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Pintar</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Anime</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Baile</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Comida y bebida</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Bienestar y fitness</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes1">
-                        <label class="form-check-label" for="interes1">Coches</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="interes2">
-                        <label class="form-check-label" for="interes2">Videojuegos</label>
-                    </div>
+        <h1 class="mt-5">Intereses</h1>
+        <div class="row">
+            <div class="col-md-6 input-group">
+                <input type="text" id="searchInput" class="form-control mb-4" placeholder="Buscar">
+                <div class="input-group-btn">
+                    <button class="btn btn-default btn-bordered" type="submit">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
                 </div>
             </div>
-
-
+            <div id="messageBox" class="alert alert-warning" style="display: none;"></div>
         </div>
-        <div class="container contenedor-categorias">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>Categorías</h4>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Casual</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Cosplay</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Deporte</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Arte y cultura</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Viajes</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Turismo</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Eventos sociales</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Aventuras</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Experiencias extremas</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Actividades al aire libre</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Gastronomía</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Aprendizaje</label>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Videojuegos</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Bienestar y fitness</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria1">
-                        <label class="form-check-label" for="categoria1">Voluntariados</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="categoria2">
-                        <label class="form-check-label" for="categoria2">Formal</label>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h5>Intereses seleccionados:</h5>
+                <div id="selectedInterests" class="mb-3"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>Seleccione sus intereses personales:</p>
+                <ul id="interestsList" class="list-group"></ul>
+            </div>
+        </div>
+        <h2 class="mt-5">Categorías</h2>
+        <p>Seleccione el tipo de salidas que está dispuesto a tener de las siguientes categorías:</p>
+        <div class="row">
+            <div class="col-md-12">
+                <ul id="categoriesList" class="list-group"></ul>
+            </div>
+            <div class="container-fluid container-center">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button id="continueBtn" class="btn btn-warning active mt-3" type="submit">
+                        CONTINUAR
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-primary btn-block mt-3" onclick="mostrarSeleccion()">CONTINUAR</button>
-    </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Script JS -->
+        <script src="app.js"></script>
 </body>
+
 </html>

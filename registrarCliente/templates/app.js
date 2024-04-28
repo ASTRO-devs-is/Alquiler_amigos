@@ -1,20 +1,100 @@
 // Función para alternar la visibilidad de la contraseña
 function togglePasswordVisibility() {
-  var passwordInput = document.getElementById("contrasena");
+  var passwordInput = document.getElementById("contrasena1");
   var toggleIcon = document.getElementById("togglePasswordIcon");
+
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
-    toggleIcon.classList.remove("fa-eye");
-    toggleIcon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
     toggleIcon.classList.remove("fa-eye-slash");
     toggleIcon.classList.add("fa-eye");
+  } else {
+    passwordInput.type = "password";
+    toggleIcon.classList.remove("fa-eye");
+    toggleIcon.classList.add("fa-eye-slash");
   }
+}
+
+// Configurar el estado inicial del input y el icono
+var passwordInput = document.getElementById("contrasena1");
+var toggleIcon = document.getElementById("togglePasswordIcon");
+
+passwordInput.type = "password"; // Iniciar con la contraseña oculta
+toggleIcon.classList.remove("fa-eye"); // Iniciar con el ojo cerrado
+
+// Agregar el evento onclick al icono para alternar la visibilidad de la contraseña
+toggleIcon.addEventListener("click", togglePasswordVisibility);
+
+
+// Ontenemos los valores de los campos de contraseñas 
+pass1 = document.getElementById('contrasena1');
+pass2 = document.getElementById('contrasena2');
+
+// Verificamos si las constraseñas no coinciden
+if (pass1.value != pass2.value) {
+
+  // Si las constraseñas no coinciden mostramos un mensaje
+  document.getElementById("error").classList.add("mostrar");
+
+  return false;
+}
+
+else {
+
+  // Si las contraseñas coinciden ocultamos el mensaje de error
+  document.getElementById("error").classList.remove("mostrar");
+
+  // Mostramos un mensaje mencionando que las Contraseñas coinciden
+  document.getElementById("ok").classList.remove("ocultar");
+
+  // Desabilitamos el botón de login
+  document.getElementById("login").disabled = true;
+
+  // Refrescamos la página (Simulación de envío del formulario)
+  setTimeout(function() {
+  location.reload();
+  }, 3000);
+
+  return true;
+}
+
+function verificarPasswords() {
+
+  // Ontenemos los valores de los campos de contraseñas 
+  pass1 = document.getElementById('contrasena1');
+  pass2 = document.getElementById('contrasena2');
+
+  // Verificamos si las constraseñas no coinciden 
+  if (pass1.value != pass2.value) {
+
+      // Si las constraseñas no coinciden mostramos un mensaje 
+      document.getElementById("error").classList.add("mostrar");
+
+      return false;
+  } else {
+
+      // Si las contraseñas coinciden ocultamos el mensaje de error
+      document.getElementById("error").classList.remove("mostrar");
+
+      // Mostramos un mensaje mencionando que las Contraseñas coinciden 
+      document.getElementById("ok").classList.remove("ocultar");
+
+      // Desabilitamos el botón de login 
+      document.getElementById("login").disabled = true;
+
+      // Refrescamos la página (Simulación de envío del formulario) 
+      setTimeout(function() {
+          location.reload();
+      }, 3000);
+
+      return true;
+  }
+
 }
 
 // Función para validar campos antes de enviar el formulario
 document.getElementById("registroForm").addEventListener("submit", function (event) {
+  var nombreInput = document.getElementById("nombre").value;
+  var apellidoInput = document.getElementById("apellido").value;
   var telefonoInput = document.getElementById("telefono").value;
   var emailInput = document.getElementById("email").value;
   var descripcionInput = document.getElementById("descripcion").value;
@@ -23,9 +103,7 @@ document.getElementById("registroForm").addEventListener("submit", function (eve
   var ciudadInput = document.getElementById("ciudad").value;
   var paisInput = document.getElementById("pais").value;
   var localidadInput = document.getElementById("localidad").value;
-  var nombreInput = document.getElementById("nombre").value;
-  var apellidoInput = document.getElementById("apellido").value;
-
+  
   // Validar que los campos no estén vacíos
   if (!telefonoInput || !emailInput || !descripcionInput || !contrasenaInput || generoInputs.length !== 1 ||
     !ciudadInput || !paisInput || !localidadInput || !nombreInput || !apellidoInput) {
