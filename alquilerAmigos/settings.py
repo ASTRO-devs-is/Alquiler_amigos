@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'registrarAmigo',
     'subir_fotos',
     'visualizarPerfil',
+    'crearCuenta',
     'login',
+    'registrarCliente',
     'widget_tweaks',
-
 
 ]
 
@@ -124,6 +125,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [ BASE_DIR / "inicio", "inicio/static/", ]
 
 STATIC_URL = '/static/'
 
