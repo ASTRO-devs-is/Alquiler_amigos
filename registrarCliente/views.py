@@ -5,7 +5,7 @@ from alquilarAmigo.models import Cliente, Direccion
 def registrar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
-        print(form.is_valid())
+        #print(form.is_valid())
         if form.is_valid():
             telefono = form.cleaned_data['telefono']
             cliente = form.save(commit=False)
@@ -22,9 +22,9 @@ def registrar_cliente(request):
                 cliente.save()
                 return redirect('Inicio')
             
-        else:
-            print(form.errors) 
-            
+        #else:
+        #    print(form.errors) 
+        #    
     else:
 
         form = ClienteForm()
