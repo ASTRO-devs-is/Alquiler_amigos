@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'alquilarAmigo',
     'inicio',
     'registrarAmigo',
+    'registrarCliente',
     'subir_fotos',
     'visualizarPerfil',
     'crearCuenta',
