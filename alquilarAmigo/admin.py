@@ -28,7 +28,7 @@ class DireccionAdmin(admin.ModelAdmin):
         verbose_name = "Direccion"
         verbose_name_plural = "Direcciones"
 
-
+admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Salida, SalidaAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Amigo, AmigoAdmin)

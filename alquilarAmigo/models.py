@@ -28,16 +28,23 @@ class Categoria(models.Model):
         return self.nombre
     
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    correo = models.EmailField()
-    fecha_nacimiento = models.DateField()
-    genero = models.IntegerField()
+    nombre = models.CharField(max_length=100, blank=False)
+    apellido = models.CharField(max_length=100, blank=False)
+    contrasena = models.CharField(max_length=128)
+    telefono = models.CharField(max_length=8, blank=True)
+    ubicacion = models.ForeignKey("Direccion", on_delete=models.PROTECT)
+    correo = models.EmailField(blank=False, unique=True) 
+    fecha_nacimiento = models.DateField(blank = False)
+    descripcion = models.TextField(max_length=500, blank = False)
+    genero = models.IntegerField(blank = False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.nombre
-    
+    def save(self, *args, **kwargs):
+        self.contrasena = make_password(self.contrasena)
+        super().save(*args, **kwargs)
+
 class Amigo(models.Model):
 
     nombre = models.CharField(max_length=50, blank = False)
@@ -117,8 +124,7 @@ class User (models.Model):
             return user.name_user
         except cls.DoesNotExist:
             return None
-        
-    
+
 
 class Rol (models.Model):
     rol = models.CharField(max_length=255)
