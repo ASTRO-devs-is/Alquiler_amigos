@@ -1,18 +1,23 @@
 from django import forms
 from alquilarAmigo.models import Cliente
 
-GENERO_CHOICES = (
-    (1, 'Femenino'),
-    (2, 'Masculino'),
-    (3, 'No binario/Otro'),
-    (4, 'Prefiero no decir'),
-)
+
 class ClienteForm(forms.ModelForm):
+    GENERO_CHOICES = [
+        (1, 'Masculino'),
+        (2, 'Femenino'),
+        (3, 'No binario/otro'),
+        (4, 'Prefiero no decir'),
+    ]
+    genero = forms.ChoiceField(choices=GENERO_CHOICES, widget=forms.RadioSelect)
+    pais = forms.CharField(max_length=100)
+    ciudad = forms.CharField(max_length=100)
+    localidad = forms.CharField(max_length=100)
     class Meta:
         model = Cliente
         fields = [
             'nombre', 'apellido', 'telefono', 'fecha_nacimiento',
-            'ubicacion', 'correo', 'contrasena',
+            'pais', 'ciudad', 'localidad', 'correo', 'contrasena',
             'genero', 'descripcion'
             #, 'aviso_legal_aceptado','terminos_condiciones_aceptados'
         ]
