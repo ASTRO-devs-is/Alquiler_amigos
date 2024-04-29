@@ -191,14 +191,46 @@ $(document).ready(function () {
     $('#continueBtn').click(function () {
         if (selectedInterests.length === 0) {
             showMessage("Por favor, selecciona al menos 1 interés");
-        }
-        if (selectedCategories.length === 0) {
+        } else if (selectedCategories.length === 0) {
             showMessage("Por favor, selecciona al menos 1 categoría.");
-        }
-        else {
-            console.log("Intereses seleccionados:", selectedInterests);
-            console.log("Categorías seleccionadas:", selectedCategories);
-            // Aquí puedes agregar cualquier otra acción que desees realizar cuando el usuario continúe
+        } else {
+            // Mostrar confirmación al usuario antes de continuar
+            var confirmacion = confirm("¿Estás seguro de continuar?");
+            if (confirmacion) {
+                console.log("Intereses seleccionados:", selectedInterests);
+                console.log("Categorías seleccionadas:", selectedCategories);
+    
+                // Crear un objeto con los datos a enviar al backend
+                var dataToSend = {
+                    'intereses': selectedInterests,
+                    'categorias': selectedCategories
+                };
+    
+                // Enviar la solicitud AJAX al backend
+                $.ajax({
+                    type: 'POST',
+                    url: '/guardar-intereses-categorias/',  // URL definida en las URLs de Django
+                    data: dataToSend,
+                    success: function (response) {
+                        // Manejar la respuesta del backend
+                        showMessage(response.message);
+                        console.log("Datos enviados al backend:", dataToSend);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Manejar el error de la solicitud
+                        showMessage("Error al enviar datos al backend.");
+                        console.log("Error:", errorThrown);
+                    }
+                });
+            } else {
+                // El usuario canceló la acción
+                showMessage("Acción cancelada.");
+            }
         }
     });
+    
+
 });
+
+
+
