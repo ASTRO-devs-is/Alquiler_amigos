@@ -117,8 +117,7 @@ class User (models.Model):
             return user.name_user
         except cls.DoesNotExist:
             return None
-        
-    
+
 
 class Rol (models.Model):
     rol = models.CharField(max_length=255)
