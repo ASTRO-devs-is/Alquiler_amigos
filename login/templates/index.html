@@ -9,16 +9,55 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #0a0a0a;
+			margin-right: 15px;
+        }
+		.nav-link:last-child {
+        margin-right: 0; /* Remueve el margen derecho del último enlace para alineación estética */
+    	}
+		
+		.nav-link:hover, .nav-link:focus {
+        color: #a09e9e; /* Color más claro o más oscuro cuando el cursor esté encima */
+        text-decoration: none; /* Importante mantener esto para evitar el subrayado predeterminado */
+        border-bottom: 2px solid #55DDE0; /* Añade una línea debajo del texto */
+    	}
+    </style>
 </head>
+
 <body>
+
+	<div class="nav-container">
+        <a class="nav-link" href="{% url 'Inicio' %}">Home</a>
+		<a class="nav-link" href="{% url 'crearCuenta' %}">Crear Cuenta</a>
+    </div>
 	
+	<!--li class="nav-item">
+		<a class="nav-link mx-lg-2 active " aria-current="page" href="{% url 'Inicio' %}" style="color: #333;">Home</a>
+	</li-->
 	<img class="wave" src="{% static 'img/wave.png' %}">
 	<div class="container">
 		<div class="img">
 			<img src="{% static 'img/bg.svg' %}">
 		</div>
-		<div class="login-container">
 		
+		<div class="login-container">
+			
 			<form method="post" action="{% url 'login' %}">
 				{% csrf_token %}	
 				
@@ -38,7 +77,6 @@
            		   </div>
            		</div>
 				
-
            		<div class="input-div two">
            		   <div class="i"> 
            		    	<i class="fas fa-lock"></i>
