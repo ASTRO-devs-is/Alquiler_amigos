@@ -189,3 +189,19 @@ function validarUbicacion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+// scripts.js
+function togglePasswordVisibility() {
+  var passwordInput = document.getElementById("contrasena1");
+  var icon = document.getElementById("togglePasswordIcon");
+
+  if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+  } else {
+      passwordInput.type = "password";
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+  }
+}
