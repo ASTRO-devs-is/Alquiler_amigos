@@ -30,6 +30,7 @@ class Categoria(models.Model):
 class Cliente(models.Model):
     nombre = models.CharField(max_length=100, blank=False)
     apellido = models.CharField(max_length=100, blank=False)
+    contrasena = models.CharField(max_length=128)
     telefono = models.CharField(max_length=8, blank=True)
     ubicacion = models.ForeignKey("Direccion", on_delete=models.PROTECT)
     correo = models.EmailField(blank=False, unique=True) 
@@ -40,7 +41,10 @@ class Cliente(models.Model):
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.nombre
-    
+    def save(self, *args, **kwargs):
+        self.contrasena = make_password(self.contrasena)
+        super().save(*args, **kwargs)
+
 class Amigo(models.Model):
 
     nombre = models.CharField(max_length=50, blank = False)
