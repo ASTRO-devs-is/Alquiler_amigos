@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import LoginForm
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate
 from alquilarAmigo.models import Cliente, Amigo, User
+
+#from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
@@ -15,13 +17,15 @@ def login_view(request):
         print("Handling POST request!!! estamos aqui estamo aqui")
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            if email.endswith('@gmail.com') or email.endswith('@hotmail.com'):
+            email_log = form.cleaned_data.get('email')
+            contra = form.cleaned_data.get('password')
+            if email_log.endswith('@gmail.com') or email_log.endswith('@hotmail.com'):
                 try:
-                    user = User.objects.get(name_user=email)
+                    #user = User.objects.get(name_user=email)
+                    user = authenticate(email=email_log, password=contra)
                     
-                    if user.password==password:
+                    #if user.password==password:
+                    if user is not None:
                         messages.success(request, 'Login exitoso')
                         return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
                     else:

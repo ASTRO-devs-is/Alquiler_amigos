@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
+from django.utils.translation import gettext_lazy as __
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Salida(models.Model):
@@ -94,7 +96,8 @@ class Tarifa(models.Model):
     tarifa = models.IntegerField()
 
 
-class User (models.Model):
+class User (AbstractUser):
+    """
     name_user = models.EmailField(blank=False, unique=True)
     password = models.CharField(max_length=128)
     activado = models.BooleanField(default = True)
@@ -117,7 +120,13 @@ class User (models.Model):
             return user.name_user
         except cls.DoesNotExist:
             return None
-        
+   """
+    email = models.EmailField(
+        ('email address'),
+        unique=True,
+    )     
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     
 
 class Rol (models.Model):
