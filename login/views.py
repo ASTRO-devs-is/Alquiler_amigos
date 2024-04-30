@@ -17,6 +17,7 @@ def login_view(request):
         print("Handling POST request!!! estamos aqui estamo aqui")
         form = LoginForm(request.POST)
         if form.is_valid():
+
             email_log = form.cleaned_data.get('email')
             contra = form.cleaned_data.get('password')
             if email_log.endswith('@gmail.com') or email_log.endswith('@hotmail.com'):
@@ -34,6 +35,7 @@ def login_view(request):
                     messages.error(request, 'El correo o contraseña son incorrectos, usuario no encontrado')
             else: 
                  messages.error(request, 'Registrate con correo válido @gmail o @hotmail')
+
 
         else:
             print("Errores del formulario:", form.errors)

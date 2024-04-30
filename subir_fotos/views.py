@@ -18,6 +18,7 @@ def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email
         direccion = Direccion(ciudad=ciudad, pais=pais, localidad=localidad)
         direccion.save()
         id_ubicacion = direccion.id
+        
         amigo = Amigo(nombre=nombre, apellido=apellido, telefono=telefono, 
                     ubicacion_id= id_ubicacion, correo=email,
                     descripcion=descripcion_decodificada, fecha_nacimiento=fecha, id_tarifa=tarifa, genero = genero)

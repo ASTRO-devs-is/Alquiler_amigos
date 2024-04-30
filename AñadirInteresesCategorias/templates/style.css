@@ -1,0 +1,55 @@
+/* Estilos adicionales para centrar y hacer responsive */
+body {
+    background-color: #f8f9fa; /* Color de fondo */
+}
+.container {
+    margin-top: 10px; /* Espacio desde arriba */
+    background-color: #ffffff; /* Fondo del contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espaciado interno */
+}
+h1, h2 {
+    margin-bottom: 20px; /* Espacio abajo de títulos */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Espacio abajo de input-group */
+}
+#messageBox {
+    margin-bottom: 20px; /* Espacio abajo del mensaje */
+}
+.btn-bordered {
+    border-color: #f26419; /* Color del borde del botón */
+    color: #f26419; /* Color del texto del botón */
+}
+.btn-bordered:hover {
+    background-color: #f26419; /* Color de fondo al pasar el ratón */
+    color: #ffffff; /* Color del texto al pasar el ratón */
+}
+/* Estilos personalizados para el botón Continuar */
+#continueBtn {
+    margin-top: 50px;
+    background-color: #f26419; /* Color de fondo del botón */
+    border-color: #f26419; /* Color del borde del botón */
+    color: #ffffff; /* Color del texto del botón */
+    transition: all 0.3s ease-in-out; /* Transición suave al pasar el ratón */
+    width:250px; /* Ancho del botón */
+    height: 40px; /* Alto del botón */
+    font-size: 16px; /* Tamaño de fuente */
+    border-radius: 60px; 
+}
+#continueBtn:hover {
+    background-color: #ff8c00; /* Color de fondo al pasar el ratón */
+    border-color: #ff8c00; /* Color del borde al pasar el ratón */
+}
+/* Estilos para el input de búsqueda */
+#searchInput {
+    border-color: #f26419;  /*Color del borde */
+    /*color: #f26419; Color del texto */
+    transition: border-color 0.3s ease-in-out; /* Transición suave del borde */
+}
+#searchInput:focus {
+    border-color: #ff8c00; /* Color del borde al enfocar */
+    box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25); /* Sombra al enfocar */
+}
