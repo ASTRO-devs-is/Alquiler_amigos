@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
+from django.utils.translation import gettext_lazy as __
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Salida(models.Model):
@@ -28,16 +30,23 @@ class Categoria(models.Model):
         return self.nombre
     
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    correo = models.EmailField()
-    fecha_nacimiento = models.DateField()
-    genero = models.IntegerField()
+    nombre = models.CharField(max_length=100, blank=False)
+    apellido = models.CharField(max_length=100, blank=False)
+    contrasena = models.CharField(max_length=128)
+    telefono = models.CharField(max_length=8, blank=True)
+    ubicacion = models.ForeignKey("Direccion", on_delete=models.PROTECT)
+    correo = models.EmailField(blank=False, unique=True) 
+    fecha_nacimiento = models.DateField(blank = False)
+    descripcion = models.TextField(max_length=500, blank = False)
+    genero = models.IntegerField(blank = False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.nombre
-    
+    def save(self, *args, **kwargs):
+        self.contrasena = make_password(self.contrasena)
+        super().save(*args, **kwargs)
+
 class Amigo(models.Model):
 
     nombre = models.CharField(max_length=50, blank = False)
@@ -94,31 +103,17 @@ class Tarifa(models.Model):
     tarifa = models.IntegerField()
 
 
-class User (models.Model):
-    name_user = models.EmailField(blank=False, unique=True)
-    password = models.CharField(max_length=128)
-    activado = models.BooleanField(default = True)
+class User (AbstractUser):
+    
 
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
-        self.save()
-        
-    def check_password(self, raw_password):
-        return check_password(raw_password, self.password)
+    email = models.EmailField(
+        ('email address'),
+        unique=True,
+    )     
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     
-    def __str__(self):
-        return f"Nombre: {self.name_user} - Activo: {self.activado}"
 
-    
-    @classmethod
-    def get_id_user(cls, nombre):
-        try:
-            user = cls.objects.get(name_user=nombre)
-            return user.name_user
-        except cls.DoesNotExist:
-            return None
-        
-    
 
 class Rol (models.Model):
     rol = models.CharField(max_length=255)

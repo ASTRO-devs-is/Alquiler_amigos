@@ -16,7 +16,7 @@ from django.core import serializers
 
 def buscarAmigos(request):
     nombre = request.GET.get('nombre')
-    amigos = Amigo.objects.all()
+    amigos = Amigo.objects.all().order_by('id')
 
     if nombre:
         lista = nombre.split(' ', 1)
@@ -30,7 +30,7 @@ def buscarAmigos(request):
     paginator = Paginator(amigos, 6)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    print(page_number)
+    #print(page_number)
 
     amigos_serialized = []
     for amigo in page:
@@ -55,7 +55,7 @@ def buscarAmigos(request):
         else:
             amigo_data['foto'] = None
         amigos_serialized.append(amigo_data)
-        print(amigo_data)
+        #print(amigo_data)
 
     data = {
         'amigos': amigos_serialized,

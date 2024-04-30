@@ -18,7 +18,7 @@
         </div>
         <div style="text-align: center;margin: 10% 0px;">
             <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Aceptar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
         </div>
     </div>
 </form>
@@ -38,15 +38,18 @@
         }
         document.getElementById('form-escoger-horas').addEventListener('submit', function(event) {
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
-            if (!checkedOne) {
+            var checkedCount = Array.prototype.slice.call(checkboxes).filter(x => x.checked).length;
+            if (checkedCount < 1) {
                 event.preventDefault();
                 alert('Por favor, selecciona al menos un horario.');
+            }else if (checkedCount > 8) {
+                event.preventDefault();
+                alert('Por favor, selecciona no más de 8 horarios.');
             }else if(confirm("¿Guardar horario seleccionado?")){
-                    alert("Horario guardado con éxito.");
-                }else {
-                    event.preventDefault();  
-                }
+                alert("Horario guardado con éxito.");
+            }else {
+                event.preventDefault();  
+            }
         });
     </script>
 {% endblock extrajs %}
