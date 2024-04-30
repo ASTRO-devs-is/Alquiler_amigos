@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ClienteForm
-from alquilarAmigo.models import Cliente, Direccion
+from alquilarAmigo.models import Cliente, Direccion, User
+from django.contrib.auth.hashers import make_password
 
 def registrar_cliente(request):
     if request.method == 'POST':
@@ -19,6 +20,13 @@ def registrar_cliente(request):
             if Cliente.objects.filter(telefono=telefono).exists():
                 return render(request, 'registro_cliente.html', {'form': form, 'error_mesage': 'El telefono ya esta registrado'})
             else:
+                user = User.objects.create_user(
+                    username=form.cleaned_data['correo'],
+                    password=form.cleaned_data['contrasena'],
+                    email=form.cleaned_data['correo']
+                )
+                user.password = make_password(form.cleaned_data['contrasena'])
+                user.save()
                 cliente.save()
                 return redirect('Inicio')
             

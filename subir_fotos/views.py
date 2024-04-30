@@ -6,6 +6,7 @@ from urllib.parse import unquote
 
 
 
+
 def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email, localidad, descripcion, fecha, tarifa, genero):
 
     
