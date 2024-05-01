@@ -132,6 +132,8 @@ STATICFILES_DIRS = [ BASE_DIR / "inicio", "inicio/static/", ]
 
 STATIC_URL = '/static/'
 
+#custom user model
+AUTH_USER_MODEL = 'alquilarAmigo.User'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
