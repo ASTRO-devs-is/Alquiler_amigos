@@ -299,6 +299,20 @@ function togglePasswordVisibility(inputId, iconId) {
   }
 }
 
+// Oculta las contraseñas al cargar la página
+document.getElementById("contrasena1").type = "password";
+document.getElementById("contrasena2").type = "password";
+
+document.getElementById("togglePasswordIconR").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena1", "togglePasswordIconR");
+});
+
+document.getElementById("togglePasswordIcon").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena2", "togglePasswordIcon");
+});
+
 
 
 
