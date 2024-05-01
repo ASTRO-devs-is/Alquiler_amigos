@@ -257,6 +257,20 @@ function validarFechaNacimiento(elemento) {
     }
 }
 
+// Función para validar la ubicación (país, ciudad, localidad)
+function validarUbicacion(elemento) {
+  const ubicacionInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(ubicacionInput)) {
+    elemento.nextElementSibling.textContent = 'Este campo debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
 
 
 
