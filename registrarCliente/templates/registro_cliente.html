@@ -208,6 +208,20 @@ function validarNombre(elemento) {
   }
 }
 
+// Función para validar el apellido
+function validarApellido(elemento) {
+  const apellidoInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(apellidoInput)) {
+    document.getElementById('apellidoError').textContent = 'El apellido debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    document.getElementById('apellidoError').textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
 
 
 
