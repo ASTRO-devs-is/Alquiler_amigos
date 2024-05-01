@@ -119,42 +119,46 @@
                     <div style="width: 50%;">{{ form.email }}</div>
                     <div style="width: 50%; margin: 0px 10%;">{{ form.genero }}</div>
                 </div>
+                {% if errores %}
+                <div style="color: red;">
+                    {% for error in errores %}
+                        {% if error == 'email' %}
+                            <h5>{{ form.email.errors }}</h5>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                  {% endif %}
+                  {% if errores %}
+                  <div style="color: red;">
+                      {% for error in errores %}
+                          {% if error == 'genero' %}
+                              <h5>{{ form.genero.errors }}</h5>
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+                {% endif %}
                 <!-- para la contaseña -->
                 <div class="col-lg-6">
                 <label>Contraseña: <span style="color: red;">*</span></label>
                 <div class="input-group">
                 <input type="password" id="contrasena" name="contrasena" class="paswd form-control" required>
+                
                 <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('contrasena', 'togglePasswordIcon1')">
                 <i class="fas fa-eye" id="togglePasswordIcon"></i>
               </button>
             </div>
             <label> Repetir contraseña: <span style="color: red;">*</span></label>
             <div class="input-group">
-              <input type="password" id="repetir-contrasena" name="repetir-contrasena" class="paswd form-control" required>
+              <input type="password" id="repetir-contrasena" name="repetir-contrasena" class="paswd form-control" required data-error="cont2Error" oninput="validarContrasenas(this)">
+             
               <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('repetir-contrasena', 'togglePasswordIcon2')">
                 <i class="fas fa-eye" id="togglePasswordIcon"></i>
               </button>
             </div>
+            <small id="cont2Error" class="text-danger"></small>
             </div>
-    
-                {% if errores %}
-                    <div style="color: red;">
-                        {% for error in errores %}
-                            {% if error == 'email' %}
-                                <h5>{{ form.email.errors }}</h5>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                {% if errores %}
-                    <div style="color: red;">
-                        {% for error in errores %}
-                            {% if error == 'genero' %}
-                                <h5>{{ form.genero.errors }}</h5>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
+             
+
                 <div style="width: 200px;"><h4>{{form.tarifa.label}} en bs/hora: <span style="color: red">*</span></h4></div>
                 <div style="width: 50%;"><h2>{{ form.tarifa }}</h2></div>
                 {% if errores %}
@@ -241,6 +245,20 @@
             icon.classList.add("fa-eye");
         }
     }
+    function validarContrasenas(elemento) {
+        var contrasena1 = document.getElementById('contrasena').value;
+        var contrasena2 = document.getElementById('repetir-contrasena').value;
+        var contrasenaError = document.getElementById('cont2Error');
+
+        if (contrasena1 !== contrasena2) {
+            contrasenaError.textContent = 'No coincide con tu contraseña';
+            return false;
+        } else {
+            contrasenaError.textContent = '';
+            return true;
+        }
+    }
     </script>
+    
 
 {% endblock extrajs %}

@@ -24,8 +24,6 @@ def registrarAmigo(request):
             contraseña = request.POST['contrasena']
             descripcion_codificada = quote(descripcion)
 
-            
-
             return redirect('subir_foto', nombre=nombre, apellido=apellido, ciudad=ciudad,
                                         pais=pais, telefono=telefono, email=email, localidad=localidad,
                                         descripcion=descripcion_codificada, fecha=fecha,tarifa=tarifa, genero = genero,contraseña=contraseña)

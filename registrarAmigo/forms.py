@@ -14,17 +14,8 @@ GENERO_CHOICES = (
     (4, 'Prefiero no decir'),
 )
 class formularioRegistrarAmigo(forms.Form):
-    """
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}),
-        label='Contraseña',
-        required=True)
+   
     
-    confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmar contraseña'}),
-        label='Confirmar Contraseña',
-        required=True)
-    """ 
     genero = forms.ChoiceField(choices=GENERO_CHOICES, label='Género', 
                             widget=forms.RadioSelect())
     
@@ -84,21 +75,7 @@ class formularioRegistrarAmigo(forms.Form):
                                 widget=forms.CheckboxInput(attrs={
                                 'class': 'form-check-input'
                                 }))
-    """
-    def clean_contraseña(self):
-        #cleaned_data = super().clean()
-        contra = self.cleaned_data.get['contrasena']
-        #password = contra.get('password')
-        confirm_password = self.cleaned_data.get['repetir_contrasena']
-        if contra == "":
-            raise forms.ValidationError('la contraseña no puede estar vacio')
-       # if password and confirm_password and password != confirm_password:
-        if contra !=confirm_password:
-            raise forms.ValidationError({
-                'confirm_password': 'Las contraseñas no coinciden.'
-            })
-        return contra
-    """
+   
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
         hoy = datetime.date.today()
@@ -153,6 +130,9 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('El nombre no puede estar vacio')
         if re.search(r'\d', nombre):
             raise forms.ValidationError('El nombre no puede contener valores numéricos')
+        if not re.match(r'^[A-Za-z ]*$', nombre):
+            raise forms.ValidationError('El nombre solo puede contener letras y espacios')
+
         return nombre
     
     def clean_apellido(self):
@@ -161,6 +141,9 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('El apellido no puede estar vacio')
         if re.search(r'\d', apellido):
             raise forms.ValidationError('El apellido no puede contener valores numéricos')
+        if not re.match(r'^[A-Za-z ]*$', apellido):
+         raise forms.ValidationError('El Apellido solo puede contener letras y espacios')
+
         return apellido
     
     def clean_descripcion(self):
@@ -194,6 +177,8 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('Ciudad no puede estar vacia')
         if re.search(r'\d', ciudad):
             raise forms.ValidationError('Ciudad no puede contener valores numéricos')
+        if re.search(r'[/,:]', ciudad):
+            raise forms.ValidationError('Ciudad no puede contener los caracteres / o :')
         return ciudad
     
     def clean_localidad(self):
@@ -203,6 +188,8 @@ class formularioRegistrarAmigo(forms.Form):
         # Verificar si la localidad contiene al menos un carácter que no sea un número
         if not re.search(r'[^\d]', localidad):
             raise forms.ValidationError('La localidad debe contener al menos un carácter que no sea un número')
+        if re.search(r'[/,:]', localidad):
+            raise forms.ValidationError('Localidad no puede contener los caracteres / o :')
         return localidad
     
     def clean_pais(self):
@@ -211,6 +198,9 @@ class formularioRegistrarAmigo(forms.Form):
             raise forms.ValidationError('Paìs no puede estar vacio')
         if re.search(r'\d', pais):
             raise forms.ValidationError('Paìs no puede contener valores numéricos')
+        if not re.match(r'^[A-Za-z ]*$', pais):
+         raise forms.ValidationError('Pais solo puede contener letras y espacios')
+
         return pais
     
     def clean_politica(self):
