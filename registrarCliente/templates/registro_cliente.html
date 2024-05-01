@@ -222,6 +222,23 @@ function validarApellido(elemento) {
   }
 }
 
+function validarTelefono(elemento) {
+  const telefonoInput = elemento.value.trim();
+  const soloNumeros = /^[0-9]+$/; // Expresión regular para solo números
+
+  if (!soloNumeros.test(telefonoInput)) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe contener solo números.';
+    elemento.classList.add('is-invalid');
+  } else if (telefonoInput.length !== 8) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe tener exactamente 8 dígitos.';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+
 
 
 
