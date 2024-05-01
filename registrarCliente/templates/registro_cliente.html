@@ -194,6 +194,21 @@ function validarFormulario() {
   return formValido;
 }
 
+// Función para validar el nombre
+function validarNombre(elemento) {
+  const nombreInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(nombreInput)) {
+    document.getElementById('nombreError').textContent = 'El nombre debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    document.getElementById('nombreError').textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+
 
 
 function validarDescripcion(elemento) {
