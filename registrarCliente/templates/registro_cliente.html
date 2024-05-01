@@ -271,6 +271,19 @@ function validarUbicacion(elemento) {
   }
 }
 
+function validarCorreo(elemento) {
+  const correoInput = elemento.value.trim();
+  const correoRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/;
+
+  if (!correoRegex.test(correoInput)) {
+    elemento.nextElementSibling.textContent = 'Ingrese un correo de dominio gmail.com o hotmail.com';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
 
 
 
