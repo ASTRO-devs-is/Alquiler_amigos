@@ -238,6 +238,25 @@ function validarTelefono(elemento) {
   }
 }
 
+function validarFechaNacimiento(elemento) {
+    var fechaNacimiento = new Date(elemento.value);
+    var hoy = new Date();
+    var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    var mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+
+    if (edad < 18) {
+        elemento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+        elemento.classList.add('is-invalid');
+    } else {
+        elemento.nextElementSibling.textContent = '';
+        elemento.classList.remove('is-invalid');
+    }
+}
+
 
 
 
