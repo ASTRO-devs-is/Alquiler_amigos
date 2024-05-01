@@ -14,6 +14,17 @@ GENERO_CHOICES = (
     (4, 'Prefiero no decir'),
 )
 class formularioRegistrarAmigo(forms.Form):
+    """
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}),
+        label='Contraseña',
+        required=True)
+    
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmar contraseña'}),
+        label='Confirmar Contraseña',
+        required=True)
+    """ 
     genero = forms.ChoiceField(choices=GENERO_CHOICES, label='Género', 
                             widget=forms.RadioSelect())
     
@@ -73,7 +84,21 @@ class formularioRegistrarAmigo(forms.Form):
                                 widget=forms.CheckboxInput(attrs={
                                 'class': 'form-check-input'
                                 }))
-
+    """
+    def clean_contraseña(self):
+        #cleaned_data = super().clean()
+        contra = self.cleaned_data.get['contrasena']
+        #password = contra.get('password')
+        confirm_password = self.cleaned_data.get['repetir_contrasena']
+        if contra == "":
+            raise forms.ValidationError('la contraseña no puede estar vacio')
+       # if password and confirm_password and password != confirm_password:
+        if contra !=confirm_password:
+            raise forms.ValidationError({
+                'confirm_password': 'Las contraseñas no coinciden.'
+            })
+        return contra
+    """
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
         hoy = datetime.date.today()
