@@ -156,7 +156,19 @@
       alert("Reserva exitosa");
   }
 
+  function validarContrasenas(elemento) {
+    var contrasena1 = document.getElementById('contrasena1').value;
+    var contrasena2 = document.getElementById('contrasena2').value;
+    var contrasenaError = document.getElementById('cont2Error');
 
+    if (contrasena1 !== contrasena2) {
+        contrasenaError.textContent = 'No coincide con tu contraseña';
+        return false;
+    } else {
+        contrasenaError.textContent = '';
+        return true;
+    }
+}
 
 
 function validarDescripcion(elemento) {
