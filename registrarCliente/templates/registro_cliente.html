@@ -170,6 +170,31 @@
     }
 }
 
+function validarFormulario() {
+  var campos = document.querySelectorAll('input, textarea, select');
+  var formValido = true;
+
+  campos.forEach(function (campo) {
+    if (campo.required && campo.value.trim() === '') {
+      var errorMsgId = campo.getAttribute('data-error');
+      var errorMsg = 'El campo ' + campo.id + ' no puede estar vacío.';
+      document.getElementById(errorMsgId).textContent = errorMsg;
+      formValido = false;
+    }
+  });
+
+  // Verificar si hay algún mensaje de error presente
+  var mensajesError = document.querySelectorAll('.text-danger');
+    mensajesError.forEach(function (mensaje) {
+        if (mensaje.textContent !== '') {
+            formValido = false;
+        }
+    });
+
+  return formValido;
+}
+
+
 
 function validarDescripcion(elemento) {
   const descripcionInput = elemento.value.trim();
