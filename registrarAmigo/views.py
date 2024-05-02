@@ -3,30 +3,40 @@ from .forms import formularioRegistrarAmigo
 from urllib.parse import quote, unquote
 from alquilarAmigo.models import DisponibilidadHoras, Amigo
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 # Create your views here.
 def registrarAmigo(request):
     formulario = formularioRegistrarAmigo()
+    print('aquiesta')
+    print(formulario['contrasena'])
     if request.method == 'POST':
         form = formularioRegistrarAmigo(request.POST)
         if form.is_valid():
-            nombre =request.POST['nombre']
-            apellido = request.POST['apellido']
-            ciudad = request.POST['ciudad']
-            pais = request.POST['pais']
-            telefono = request.POST['telefono']
-            email = request.POST['email']
-            localidad = request.POST['localidad']
-            tarifa = request.POST['tarifa']
-            genero = request.POST['genero']  #agregar campo genero y obtenerlo del formulario pero en tipo numerico
-            descripcion = request.POST['descripcion']
-            fecha = request.POST['fecha']
-            contraseña = request.POST['contrasena']
-            descripcion_codificada = quote(descripcion)
+            print(form.cleaned_data)
+           # Convertir la fecha a un formato serializable
+            fecha = form.cleaned_data['fecha'].isoformat()
 
-            return redirect('subir_foto', nombre=nombre, apellido=apellido, ciudad=ciudad,
-                                        pais=pais, telefono=telefono, email=email, localidad=localidad,
-                                        descripcion=descripcion_codificada, fecha=fecha,tarifa=tarifa, genero = genero,contraseña=contraseña)
+            # Guardar los datos del formulario en la sesión
+            request.session['datos_registro'] = {
+                'nombre': form.cleaned_data['nombre'],
+                'apellido': form.cleaned_data['apellido'],
+                'ciudad': form.cleaned_data['ciudad'],
+                'pais': form.cleaned_data['pais'],
+                'telefono': form.cleaned_data['telefono'],
+                'email': form.cleaned_data['email'],
+                'localidad': form.cleaned_data['localidad'],
+                'descripcion': quote(form.cleaned_data['descripcion']),
+                'fecha': fecha,
+                'tarifa': form.cleaned_data['tarifa'],
+                'genero': form.cleaned_data['genero'],
+                'contrasena': form.cleaned_data['contrasena']
+            }
+
+            return redirect('subir_foto')
         return render(request, "registrarAmigo/registrarAmigo.html", {'form': form, 'errores': form.errors})
     return render(request, "registrarAmigo/registrarAmigo.html", {'form': formulario})
 

@@ -128,15 +128,7 @@
                     </div>
                 `;
                     tarjetasAmigos.appendChild(card);
-                });
-
-                // Agregar clase de estilo según la disponibilidad
-                const disponibilidadElement = card.querySelector('.disponibilidad');
-                if (amigo.disponibilidad === true) {
-                    disponibilidadElement.classList.add('disponible');
-                } else {
-                    disponibilidadElement.classList.add('no-disponible');
-                }
+                }); 
 
                 // Actualizar paginación
                 const paginacion = document.querySelector('#paginacion');
