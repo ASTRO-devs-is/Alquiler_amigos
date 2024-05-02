@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo,Tarifa
+from alquilarAmigo.models import Amigo,Tarifa, User
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
@@ -17,7 +17,15 @@ from django.core import serializers
 def buscarAmigos(request):
     nombre = request.GET.get('nombre')
     amigos = Amigo.objects.all().order_by('id')
-
+    #usuario = User.objects.get(id=request.user.id)
+    #try:
+    #    usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    #except:
+    #    usuarioAmigo = None
+    #amigoA = False
+    #if(usuarioAmigo != None):
+    #    amigoA = True
+    
     if nombre:
         lista = nombre.split(' ', 1)
         if len(lista) == 2:
@@ -42,7 +50,7 @@ def buscarAmigos(request):
             'edad':  datetime.datetime.now().year - amigo.fecha_nacimiento.year,
             'disponibilidad': amigo.disponibilidad,
         }
-
+        
         amigo.tarifa = Tarifa.objects.get(id=amigo.id_tarifa_id).tarifa
         if amigo.tarifa:
             amigo_data['tarifa'] = amigo.tarifa
@@ -63,7 +71,8 @@ def buscarAmigos(request):
         'has_previous': page.has_previous(),
         'has_next': page.has_next(),
         'page_number': page.number,
-        'page_range': list(paginator.page_range)
+        'page_range': list(paginator.page_range),
+        
     }
     return JsonResponse(data)
 

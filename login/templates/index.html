@@ -5,7 +5,7 @@
 	{% load static %}
 	{% load widget_tweaks %}
 	
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'inicio/css/style.css' %}">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,10 +47,10 @@
 		<a class="nav-link" href="{% url 'crearCuenta' %}">Crear Cuenta</a>
     </div>
 	
-	<img class="wave" src="{% static 'img/wave.png' %}">
+	<img class="wave" src="{% static 'inicio/img/wave.png' %}">
 	<div class="container">
 		<div class="img">
-			<img src="{% static 'img/bg.svg' %}">
+			<img src="{% static 'inicio/img/bg.svg' %}">
 		</div>
 		
 		<div class="login-container">
@@ -58,7 +58,7 @@
 			<form method="post" action="{% url 'login' %}">
 				{% csrf_token %}	
 				
-				<img class="avatar" src="{% static 'img/avatar.svg' %}">
+				<img class="avatar" src="{% static 'inicio/img/avatar.svg' %}">
 				<h2>Welcome</h2>
 				
            		<div class="input-div one focus">

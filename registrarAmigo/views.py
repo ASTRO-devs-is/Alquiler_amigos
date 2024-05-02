@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import formularioRegistrarAmigo
 from urllib.parse import quote, unquote
-from alquilarAmigo.models import DisponibilidadHoras, Amigo
+from alquilarAmigo.models import DisponibilidadHoras, Amigo,User
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
@@ -42,8 +42,9 @@ def registrarAmigo(request):
 
 def aniadirHoras(request):
     horas = ["Desde {:02d}:00 Hasta {:02d}:00".format(h, h+1) for h in range(8, 22)]
-    usuarioAmigo = Amigo.objects.get(id=request.user.id)
-    #print (usuarioAmigo)
+    usuario = User.objects.get(id=request.user.id)
+    usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    print (usuarioAmigo)
     if request.method == 'POST':
         horasParaGuardar = DisponibilidadHoras
         horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()

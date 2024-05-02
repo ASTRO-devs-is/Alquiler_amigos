@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import LoginForm
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from alquilarAmigo.models import Cliente, Amigo, User
 
 #from django.contrib.auth.forms import AuthenticationForm
@@ -14,7 +14,6 @@ def inicio_login(request):
 def login_view(request):
    
     if request.method == 'POST':
-        print("Handling POST request!!! estamos aqui estamo aqui")
         form = LoginForm(request.POST)
         if form.is_valid():
 
@@ -27,6 +26,7 @@ def login_view(request):
                     
                     #if user.password==password:
                     if user is not None:
+                        login(request, user)  # Inicia sesión con el usuario#############################
                         messages.success(request, 'Login exitoso')
                         return redirect('Inicio')  # Asegúrate de que 'Inicio' sea una vista definida en tus URLconf.
                     else:
