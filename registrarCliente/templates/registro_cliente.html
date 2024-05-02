@@ -10,16 +10,16 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNoSoloNumeros(this)"
-              oninput="validarNombre(this)">
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             
             <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarNoSoloNumeros(this)"
-              oninput="validarApellido(this)">
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError">
+            <small id="apellidoError" class="text-danger"></small>
           </div>
         </div>
       </div>
@@ -27,29 +27,35 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
-            <input type="tel" id="telefono" name="telefono" class="telefono form-control" required pattern="[0-9]{8}"
-              title="El teléfono debe tener exactamente 8 dígitos">
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" >
+            <small id="telefonoError" class="text-danger"> </small>
+            {% if telefonoRepetido %}
+            <small class="text-danger">{{ telefonoRepetido }}</small>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
-            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required>
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)">
+            <small id="fechaError" class="text-danger"></small>
           </div>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-4">
           <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)">
+          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError">
+          <small id="paisError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)">
+          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError">
+          <small id="ciudadError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)">
+          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError">
           <!-- Agrega una pequeña etiqueta para mostrar mensajes de error -->
           <small id="localidadError" class="text-danger"></small>
         </div>
@@ -58,22 +64,28 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="email">Email: <span class="campo-obligatorio">*</span></label><br>
-            <input type="email" id="email" name="correo" class="email form-control" required
-              pattern="[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com)">
+            <input type="email" id="email" name="correo" class="email form-control" required oninput="validarCorreo(this)" required data-error="emailError">
+            <small id="emailError" class="text-danger"></small>
+            {% if correoRepetido %}
+            <small class="text-danger">{{ correoRepetido }}</small>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="contrasena">Contraseña: <span class="campo-obligatorio">*</span></label><br>
             <div class="input-group">
-              <input type="password" id="contrasena1" name="contrasena"class="paswd form-control" required>
-              <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
-                <i class="fas fa-eye" id="togglePasswordIcon"></i>
-              </button>
+              <input type="text" id="contrasena1" class="paswd form-control" required required data-error="contError">
+              <div class="btn-container" onclick="togglePasswordVisibility('contrasena1', 'togglePasswordIconR')">
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fas fa-eye" id="togglePasswordIconR"></i>
+                </button>
+              </div>
             </div>
           </div>
+          <small id="contError" class="text-danger"></small>
         </div>
-      </div>
+        </div>
       <div class="row mb-3">
         <div class="col-md-6">
           <div class="form-group">
@@ -84,37 +96,42 @@
           <div class="form-group">
             <label for="repetir-contrasena">Repetir contraseña: <span class="campo-obligatorio">*</span></label><br>
             <div class="input-group">
-              <input type="password" id="contrasena2" class="paswd form-control" required>
-              <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
-                <i class="fas fa-eye" id="togglePasswordIcon"></i>
-              </button>
+              <input type="text" id="contrasena2" class="paswd form-control" required data-error="cont2Error" oninput="validarContrasenas(this)">
+              <div class="btn-container" onclick="togglePasswordVisibility('contrasena2', 'togglePasswordIcon')">
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fas fa-eye" id="togglePasswordIcon"></i>
+                </button>
+              </div>
             </div>
+            <small id="cont2Error" class="text-danger"></small>
           </div>
         </div>
-      </div>
-
+        </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
-        <textarea id="descripcion" name="descripcion" class="desc form-control" required minlength="50" maxlength="500"
-          oninput="validarNoSoloNumeros(this)"></textarea>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
+        <small id="descripcionError" class="text-danger"></small>
       </div>
       <div class="checkbox-group mb-3">
         <div>
           <input type="checkbox" id="aviso-legal" required>
-          <label for="aviso-legal">He leído y acepto el aviso legal y la Política de privacidad. *</label>
+          <small id="avisoError" class="text-danger"></small>
+          <label for="aviso-legal">He leído y acepto el aviso legal y la Política de privacidad. <span style="color: red">*</span></label>
         </div>
         <div>
           <input type="checkbox" id="terminos-condiciones" required>
-          <label for="terminos-condiciones">Acepto los términos y condiciones. *</label>
+          <small id="termError" class="text-danger"></small>
+          <label for="terminos-condiciones">Acepto los términos y condiciones. <span style="color: red">*</span></label>
         </div>
       </div>
       <div class="button-group" style="display: flex; justify-content: space-between;">
         <button class="btn btn-secondary" type="button">CANCELAR</button>
-        <button class="btn btn-primary" type="submit">CONTINUAR</button>
+        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONTINUAR</button>
       </div>
 
     </form>
   </div>
+</form>
   <!--</form>-->
 
   {% endblock %}
@@ -138,154 +155,43 @@
   function mostrarAviso() {
       alert("Reserva exitosa");
   }
-// Función para alternar la visibilidad de la contraseña
-function togglePasswordVisibility() {
-  var passwordInput = document.getElementById("contrasena1");
-  var toggleIcon = document.getElementById("togglePasswordIcon");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleIcon.classList.remove("fa-eye-slash");
-    toggleIcon.classList.add("fa-eye");
-  } else {
-    passwordInput.type = "password";
-    toggleIcon.classList.remove("fa-eye");
-    toggleIcon.classList.add("fa-eye-slash");
-  }
+  function validarContrasenas(elemento) {
+    var contrasena1 = document.getElementById('contrasena1').value;
+    var contrasena2 = document.getElementById('contrasena2').value;
+    var contrasenaError = document.getElementById('cont2Error');
+
+    if (contrasena1 !== contrasena2) {
+        contrasenaError.textContent = 'No coincide con tu contraseña';
+        return false;
+    } else {
+        contrasenaError.textContent = '';
+        return true;
+    }
 }
 
-// Configurar el estado inicial del input y el icono
-var passwordInput = document.getElementById("contrasena1");
-var toggleIcon = document.getElementById("togglePasswordIcon");
+function validarFormulario() {
+  var campos = document.querySelectorAll('input, textarea, select');
+  var formValido = true;
 
-passwordInput.type = "password"; // Iniciar con la contraseña oculta
-toggleIcon.classList.remove("fa-eye"); // Iniciar con el ojo cerrado
+  campos.forEach(function (campo) {
+    if (campo.required && campo.value.trim() === '') {
+      var errorMsgId = campo.getAttribute('data-error');
+      var errorMsg = 'El campo ' + campo.id + ' no puede estar vacío.';
+      document.getElementById(errorMsgId).textContent = errorMsg;
+      formValido = false;
+    }
+  });
 
-// Agregar el evento onclick al icono para alternar la visibilidad de la contraseña
-toggleIcon.addEventListener("click", togglePasswordVisibility);
+  // Verificar si hay algún mensaje de error presente
+  var mensajesError = document.querySelectorAll('.text-danger');
+    mensajesError.forEach(function (mensaje) {
+        if (mensaje.textContent !== '') {
+            formValido = false;
+        }
+    });
 
-
-// Ontenemos los valores de los campos de contraseñas 
-pass1 = document.getElementById('contrasena1');
-pass2 = document.getElementById('contrasena2');
-
-// Verificamos si las constraseñas no coinciden
-if (pass1.value != pass2.value) {
-
-  // Si las constraseñas no coinciden mostramos un mensaje
-  document.getElementById("error").classList.add("mostrar");
-
-  return false;
-}
-
-else {
-
-  // Si las contraseñas coinciden ocultamos el mensaje de error
-  document.getElementById("error").classList.remove("mostrar");
-
-  // Mostramos un mensaje mencionando que las Contraseñas coinciden
-  document.getElementById("ok").classList.remove("ocultar");
-
-  // Desabilitamos el botón de login
-  document.getElementById("login").disabled = true;
-
-  // Refrescamos la página (Simulación de envío del formulario)
-  setTimeout(function() {
-  location.reload();
-  }, 3000);
-
-  return true;
-}
-
-function verificarPasswords() {
-
-  // Ontenemos los valores de los campos de contraseñas 
-  pass1 = document.getElementById('contrasena1');
-  pass2 = document.getElementById('contrasena2');
-
-  // Verificamos si las constraseñas no coinciden 
-  if (pass1.value != pass2.value) {
-
-      // Si las constraseñas no coinciden mostramos un mensaje 
-      document.getElementById("error").classList.add("mostrar");
-
-      return false;
-  } else {
-
-      // Si las contraseñas coinciden ocultamos el mensaje de error
-      document.getElementById("error").classList.remove("mostrar");
-
-      // Mostramos un mensaje mencionando que las Contraseñas coinciden 
-      document.getElementById("ok").classList.remove("ocultar");
-
-      // Desabilitamos el botón de login 
-      document.getElementById("login").disabled = true;
-
-      // Refrescamos la página (Simulación de envío del formulario) 
-      setTimeout(function() {
-          location.reload();
-      }, 3000);
-
-      return true;
-  }
-
-}
-
-// Función para validar campos antes de enviar el formulario
-document.getElementById("registroForm").addEventListener("submit", function (event) {
-  var nombreInput = document.getElementById("nombre").value;
-  var apellidoInput = document.getElementById("apellido").value;
-  var telefonoInput = document.getElementById("telefono").value;
-  var emailInput = document.getElementById("email").value;
-  var descripcionInput = document.getElementById("descripcion").value;
-  var contrasenaInput = document.getElementById("contrasena").value;
-  var generoInputs = document.querySelectorAll('input[name="genero"]:checked');
-  var ciudadInput = document.getElementById("ciudad").value;
-  var paisInput = document.getElementById("pais").value;
-  var localidadInput = document.getElementById("localidad").value;
-  
-  // Validar que los campos no estén vacíos
-  if (!telefonoInput || !emailInput || !descripcionInput || !contrasenaInput || generoInputs.length !== 1 ||
-    !ciudadInput || !paisInput || !localidadInput || !nombreInput || !apellidoInput) {
-    alert("Todos los campos son obligatorios");
-    event.preventDefault(); // Detener el envío del formulario
-    return;
-  }
-
-  // Validar género (debe haber seleccionado solo uno)
-  if (generoInputs.length !== 1) {
-    alert("Seleccione un género");
-    event.preventDefault();
-    return;
-  }
-
-  // Ejemplo de validación de longitud de descripción
-  if (descripcionInput.length < 50) {
-    alert("La descripción debe tener al menos 50 caracteres");
-    event.preventDefault();
-    return;
-  }
-});
-
-// Función para redirigir a la página principal
-function redirigirPaginaPrincipal() {
-  window.location.href = "Inicio"; // Reemplaza "URL_DE_LA_PAGINA_PRINCIPAL" con la URL correcta
-}
-
-// Agrega un evento onclick al botón cancelar que llame a la función redirigirPaginaPrincipal
-document.querySelector('.cancel-button').addEventListener('click', redirigirPaginaPrincipal);
-
-// Función para validar que el contenido no sea solo números
-function validarNoSoloNumeros(input) {
-  let contenido = input.value.trim();
-  if (/\D/.test(contenido)) {
-    // El contenido tiene al menos un carácter que no es un número, no hacemos nada
-  } else {
-    // Mostrar un mensaje de error o tomar la acción que consideres adecuada
-    alert(`El campo ${input.id} no debe contener solo números.`);
-    // Puedes también limpiar el contenido del input si lo prefieres
-    input.value = '';
-  }
+  return formValido;
 }
 
 // Función para validar el nombre
@@ -316,6 +222,41 @@ function validarApellido(elemento) {
   }
 }
 
+function validarTelefono(elemento) {
+  const telefonoInput = elemento.value.trim();
+  const soloNumeros = /^[0-9]+$/; // Expresión regular para solo números
+
+  if (!soloNumeros.test(telefonoInput)) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe contener solo números.';
+    elemento.classList.add('is-invalid');
+  } else if (telefonoInput.length !== 8) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe tener exactamente 8 dígitos.';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function validarFechaNacimiento(elemento) {
+    var fechaNacimiento = new Date(elemento.value);
+    var hoy = new Date();
+    var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    var mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+
+    if (edad < 18) {
+        elemento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+        elemento.classList.add('is-invalid');
+    } else {
+        elemento.nextElementSibling.textContent = '';
+        elemento.classList.remove('is-invalid');
+    }
+}
+
 // Función para validar la ubicación (país, ciudad, localidad)
 function validarUbicacion(elemento) {
   const ubicacionInput = elemento.value.trim();
@@ -323,6 +264,59 @@ function validarUbicacion(elemento) {
   
   if (!soloLetras.test(ubicacionInput)) {
     elemento.nextElementSibling.textContent = 'Este campo debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function validarCorreo(elemento) {
+  const correoInput = elemento.value.trim();
+  const correoRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/;
+
+  if (!correoRegex.test(correoInput)) {
+    elemento.nextElementSibling.textContent = 'Ingrese un correo de dominio gmail.com o hotmail.com';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function togglePasswordVisibility(inputId, iconId) {
+  var passwordInput = document.getElementById(inputId);
+  var toggleIcon = document.getElementById(iconId);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    toggleIcon.classList.remove("fa-eye");
+    toggleIcon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    toggleIcon.classList.remove("fa-eye-slash");
+    toggleIcon.classList.add("fa-eye");
+  }
+}
+
+// Oculta las contraseñas al cargar la página
+document.getElementById("contrasena1").type = "password";
+document.getElementById("contrasena2").type = "password";
+
+document.getElementById("togglePasswordIconR").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena1", "togglePasswordIconR");
+});
+
+document.getElementById("togglePasswordIcon").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena2", "togglePasswordIcon");
+});
+
+function validarDescripcion(elemento) {
+  const descripcionInput = elemento.value.trim();
+  if (descripcionInput.length < 50) {
+    elemento.nextElementSibling.textContent = 'La descripción debe tener al menos 50 caracteres';
     elemento.classList.add('is-invalid');
   } else {
     elemento.nextElementSibling.textContent = '';

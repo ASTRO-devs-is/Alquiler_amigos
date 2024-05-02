@@ -8,28 +8,31 @@ from django.contrib.auth.hashers import make_password
 
 
 
-def cargar_fotos_perfil(request, nombre, apellido, ciudad, pais, telefono, email, localidad, descripcion, fecha, tarifa, genero,contraseña):
-
-    
+def cargar_fotos_perfil(request):
     if request.method == 'POST':
-        
+        # Recuperar los datos del formulario de la sesión
+        datos_registro = request.session.get('datos_registro')
+        if not datos_registro:
+            # Redirigir o manejar el caso en que los datos no estén disponibles en la sesión
+            pass
+
         # Obtener archivos subidos
-        descripcion_decodificada = unquote(descripcion)
+        descripcion_decodificada = unquote(datos_registro['descripcion'])
         uploaded_files = request.FILES.getlist('file-input')
-        tarifa = Tarifa.objects.get(tarifa=tarifa)
-        direccion = Direccion(ciudad=ciudad, pais=pais, localidad=localidad)
+        tarifa = Tarifa.objects.get(tarifa=datos_registro['tarifa'])
+        direccion = Direccion(ciudad=datos_registro['ciudad'], pais=datos_registro['pais'], localidad=datos_registro['localidad'])
         direccion.save()
         id_ubicacion = direccion.id
         
-        amigo = Amigo(nombre=nombre, apellido=apellido, telefono=telefono, 
-                    ubicacion_id= id_ubicacion, correo=email,
-                    descripcion=descripcion_decodificada, fecha_nacimiento=fecha, id_tarifa=tarifa, genero = genero)
+        amigo = Amigo(nombre=datos_registro['nombre'], apellido=datos_registro['apellido'], telefono=datos_registro['telefono'], 
+                    ubicacion_id= id_ubicacion, correo=datos_registro['email'],
+                    descripcion=descripcion_decodificada, fecha_nacimiento=datos_registro['fecha'], id_tarifa=tarifa, genero = datos_registro['genero'])
         amigo.save()
         
         user = User.objects.create_user(
-                    username=email,
-                    password=contraseña,
-                    email=email
+                    username=datos_registro['email'],
+                    password=datos_registro['contrasena'],
+                    email=datos_registro['email']
                 )
         print ('Contraseña con hash')
         print(user.password)

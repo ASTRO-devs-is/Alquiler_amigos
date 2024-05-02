@@ -13,12 +13,16 @@ def registrar_cliente(request):
             direccion = Direccion.objects.create(
                 pais=form.cleaned_data['pais'],
                 ciudad=form.cleaned_data['ciudad'],
-                localidad=form.cleaned_data['localidad']
+                localidad=form.cleaned_data['localidad'],
+                correo=form.cleaned_data['email']
             )
             cliente.ubicacion = direccion
             #Verificamos si el telefono existe en la base de datos
+            print("se llego")
             if Cliente.objects.filter(telefono=telefono).exists():
-                return render(request, 'registro_cliente.html', {'form': form, 'error_mesage': 'El telefono ya esta registrado'})
+                return render(request, 'registro_cliente.html', {'form': form, 'telefonoRepetido': 'Este telefono ya esta registrado'})
+            elif Cliente.objects.filter(correo=correo).exists():
+                return render(request, 'registro_cliente.html', {'form': form, 'correoRepetido': 'Este correo ya esta registrado'})
             else:
                 user = User.objects.create_user(
                     username=form.cleaned_data['correo'],
