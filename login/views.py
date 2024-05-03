@@ -4,8 +4,6 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from alquilarAmigo.models import Cliente, Amigo, User
 
-#from django.contrib.auth.forms import AuthenticationForm
-
 # Create your views here.
 
 def inicio_login(request):
