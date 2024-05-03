@@ -36,7 +36,7 @@ def registrarAmigo(request):
 def aniadirHoras(request):
     horas = ["Desde {:02d}:00 Hasta {:02d}:00".format(h, h+1) for h in range(8, 22)]
     usuarioAmigo = Amigo.objects.get(id=request.user.id)
-    #print (usuarioAmigo)
+    
     if request.method == 'POST':
         horasParaGuardar = DisponibilidadHoras
         horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()
