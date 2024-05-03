@@ -20,7 +20,7 @@ def login_view(request):
             contra = form.cleaned_data.get('password')
             if email_log.endswith('@gmail.com') or email_log.endswith('@hotmail.com'):
                 try:
-                    #user = User.objects.get(name_user=email)
+                   
                     user = authenticate(email=email_log, password=contra)
                     
                     #if user.password==password:
