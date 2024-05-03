@@ -29,7 +29,7 @@ def registrarAmigo(request):
                                         descripcion=descripcion_codificada, fecha=fecha,tarifa=tarifa, genero = genero,contraseña=contraseña)
             
            
-            #return redirect('subir_foto')
+        
         return render(request, "registrarAmigo/registrarAmigo.html", {'form': form, 'errores': form.errors})
     return render(request, "registrarAmigo/registrarAmigo.html", {'form': formulario})
 
