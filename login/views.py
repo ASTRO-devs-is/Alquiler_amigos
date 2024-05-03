@@ -23,7 +23,6 @@ def login_view(request):
                    
                     user = authenticate(email=email_log, password=contra)
                     
-                    #if user.password==password:
                     if user is not None:
                         login(request, user)  # Inicia sesión con el usuario
                         messages.success(request, 'Login exitoso')
