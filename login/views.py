@@ -12,7 +12,7 @@ def inicio_login(request):
 def login_view(request):
    
     if request.method == 'POST':
-        print("Handling POST request!!! estamos aqui estamo aqui")
+       
         form = LoginForm(request.POST)
         if form.is_valid():
 
