@@ -1,9 +1,14 @@
 body {
   position: relative;
   margin-top: 80px;
+  font-family: "Helvetica Now", sans-serif;
+  line-height: 1.5;
+  background-color: #f7f7f7;
+  color: #333;
 }
 
-h1{font-size: 30px;cursor:default}h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
+h1{font-size: 30px;cursor:default;text-align: center;}
+h2{font-size: 26px;cursor:default}h3{font-size: 20px;cursor:default}
 h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size: 10px;cursor:default}
 
 
@@ -83,22 +88,6 @@ h4{font-size: 15px;cursor:default}h5{font-size: 13px;cursor:default}h6{font-size
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-
-h1 {
-  font-family: "Helvetica Now", sans-serif;
-  font-size: 30px;
-  text-align: center;
-  margin-top: 30px;
-}
-
-body {
-  font-family: "Helvetica Now", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #f7f7f7;
-  color: #333;
-}
-
 .cargar-button{
   background-color: #F26419;
   color: #EEEEEE;
@@ -257,9 +246,6 @@ dialog p {
 .page-link:hover {
   color: #33658A; /* Color del texto al pasar el ratón */
 }
-
-
-
 
 /*INICIO DE CSS PARA LA BASE*/
 .bg-img {
