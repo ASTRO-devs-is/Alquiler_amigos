@@ -185,7 +185,7 @@
             <div style="display: block;margin: 0.5% 2%;">
                 <div style="display: flex;">
                     <div>{{ form.politica }}</div>
-                    <div><h4>He leìdo y acepto el aviso legal y la Polìtica de privacidad. <span style="color: red">*</span></h4></div>
+                    <div><h4>He leìdo y acepto el <a href="{% url 'politicas' %}" target="_blank">aviso legal y la Polìtica de privacidad.</a> <span style="color: red">*</span></h4></div>
                 </div>
                 {% if errores %}
                     <div style="color: red;">
@@ -198,7 +198,7 @@
                 {% endif %}
                 <div style="display: flex;">
                     <div>{{ form.terminos }}</div>
-                    <div><h4>Acepto los tèrminos y condiciones. <span style="color: red">*</span></h4></div>
+                    <div><h4>Acepto los <a href="{% url 'terminos' %}" target="_blank">tèrminos y condiciones.</a> <span style="color: red">*</span></h4></div>
                 </div>    
                     {% if errores %}
                     <div style="color: red; width: 300px;">

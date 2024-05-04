@@ -113,16 +113,24 @@
         <small id="descripcionError" class="text-danger"></small>
       </div>
       <div class="checkbox-group mb-3">
-        <div>
-          <input type="checkbox" id="aviso-legal" required>
-          <small id="avisoError" class="text-danger"></small>
-          <label for="aviso-legal">He leído y acepto el aviso legal y la Política de privacidad. <span style="color: red">*</span></label>
+        <div class="row align-items-center">
+          <div class="col-auto">
+              <input type="checkbox" id="aviso-legal" required>
+              <small id="avisoError" class="text-danger"></small>
+          </div>
+          <div class="col">
+              <h4>He leído y acepto el <a href="{% url 'politicas' %}" target="_blank">aviso legal y la Política de privacidad.</a> <span style="color: red">*</span></h4>
+          </div>
         </div>
-        <div>
-          <input type="checkbox" id="terminos-condiciones" required>
-          <small id="termError" class="text-danger"></small>
-          <label for="terminos-condiciones">Acepto los términos y condiciones. <span style="color: red">*</span></label>
+        <div class="row align-items-center">
+          <div class="col-auto">
+              <input type="checkbox" id="terminos-condiciones" required>
+              <small id="termError" class="text-danger"></small>
+          </div>
+          <div class="col">
+              <h4>Acepto los <a href="{% url 'terminos' %}" target="_blank">términos y condiciones.</a> <span style="color: red">*</span></h4>
         </div>
+      </div>
       </div>
       <div class="button-group" style="display: flex; justify-content: space-between;">
         <button class="btn btn-secondary" type="button">CANCELAR</button>

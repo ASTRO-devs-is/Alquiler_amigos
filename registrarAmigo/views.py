@@ -68,3 +68,9 @@ def aniadirHoras(request):
 
 def cancelar_aniadir_horas(request):
     return render(request, 'aniadirHoras/cancelar.html')
+
+def politicadeprivacidad(request):
+    return render(request, 'legal/politica.html')
+
+def terminosycondiciones(request):
+    return render(request, 'legal/terminos.html')
