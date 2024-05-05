@@ -52,7 +52,7 @@ def aniadirHoras(request):
         
         for i in range(1, len(horas)+1):
             horario = request.POST.get('horario_seleccionado_{}'.format(i))
-            #print(horario)
+            
             if horario:
                 horarios_seleccionados.append(horario)
         #print(horarios_seleccionados)
