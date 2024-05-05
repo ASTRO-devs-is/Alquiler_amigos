@@ -55,13 +55,13 @@ def aniadirHoras(request):
             
             if horario:
                 horarios_seleccionados.append(horario)
-        #print(horarios_seleccionados)
+        
         # Aquí puedes procesar los horarios seleccionados
         for horario in horarios_seleccionados:
             horaInicio, horaFin = horario.split(" Hasta ")
             horaInicio = horaInicio.replace("Desde ", "")
             horasParaGuardar.objects.create(amigo=usuarioAmigo, horaInicio=horaInicio, horaFin=horaFin)
-            #print("HOLA",horaInicio, horaFin, usuarioAmigo,"FINHOLA")
+           
             
         return redirect('Inicio')
     return render(request, "aniadirHoras/aniadirHoras.html", {'horas': horas})
