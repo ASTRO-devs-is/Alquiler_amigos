@@ -486,3 +486,34 @@ dialog p {
   .campo-obligatorio {
     color: red; /* Color del asterisco */
   }  
+
+  /* Crear cuenta */
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    min-height: 100vh;
+}
+
+.row {
+    width: 100%;
+}
+
+.col-md-10 {
+    margin-top: 5rem;
+    padding-top: 5rem;
+}
+
+.z-depth-3 {
+    display: flex;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
