@@ -49,7 +49,7 @@ def aniadirHoras(request):
         horasParaGuardar = DisponibilidadHoras
         horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()
         horarios_seleccionados = []
-        #print(horas)
+        
         for i in range(1, len(horas)+1):
             horario = request.POST.get('horario_seleccionado_{}'.format(i))
             #print(horario)
