@@ -44,7 +44,7 @@ def aniadirHoras(request):
     horas = ["Desde {:02d}:00 Hasta {:02d}:00".format(h, h+1) for h in range(8, 22)]
     usuario = User.objects.get(id=request.user.id)
     usuarioAmigo = Amigo.objects.get(correo=usuario.email)
-    #print (usuarioAmigo)
+  
     if request.method == 'POST':
         horasParaGuardar = DisponibilidadHoras
         horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()
