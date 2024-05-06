@@ -1,0 +1,63 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row align-items-center" style="padding-top: 2%;">
+            <div class="col text-center">
+                <h1 class="text-white" style="padding-left: 5%;">Salidas</h1>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'Inicio' %}" class="btn btn-primary mt-3" style="width: 50px;"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nombre del Cliente:</strong> {{ alquiler.cliente }}</p>
+                                <p><strong>Fecha de Inicio:</strong> {{ alquiler.fecha_inicio }}</p>
+                                <p><strong>Fecha de Fin:</strong> {{ alquiler.fecha_fin }}</p>
+                                <p><strong>Valor del Alquiler:</strong> ${{ alquiler.valor_alquiler }}</p>
+                                <p><strong>Estado del Alquiler:</strong> {{ alquiler.estado }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Nombre del Vehículo:</strong> {{ alquiler.vehiculo }}</p>
+                                <p><strong>Placa del Vehículo:</strong> {{ alquiler.placa }}</p>
+                                <p><strong>Marca del Vehículo:</strong> {{ alquiler.marca }}</p>
+                                <p><strong>Modelo del Vehículo:</strong> {{ alquiler.modelo }}</p>
+                                <p><strong>Color del Vehículo:</strong> {{ alquiler.color }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="" class="btn btn-primary">Volver</a>
+                                <button class="btn btn-danger" onclick="abrir_modal_cancelacion()">Cancelar Alquiler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+
+{% block extrajs %}
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+        function abrir_modal_cancelacion(){
+            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+{% endblock extrajs %}
