@@ -6,23 +6,43 @@
         <title></title>
         
     </head>
+
+    <style>
+        .categoria.seleccionada {
+            background-color: #f0ad4e; /* Color especial para categorías seleccionadas */
+        }
+    </style>
     <body>
 
         <!--barra de busqueda-->
         <nav class="navbar navbar-expand-lg bg-transparent" id="navBuscador" style="background-color: #33658A;">
               <!--contenedor colapsable-->
               <div class="collapse navbar-collapse container" >
-              
+                 
+               <!-- Dropdown de Categorías -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu ml-auto">
+                        {% for categoria in categorias %}
+                        <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                    </ul>
+                </li>
                 <!--Buscador-->
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" id="formBusqueda">                  
+
                   <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
-                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                  <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 
                 </form>
 
               </div>
         </nav>
-    
+         
     </body>
 </html>
 
