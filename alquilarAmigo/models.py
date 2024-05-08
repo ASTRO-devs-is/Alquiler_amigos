@@ -159,6 +159,14 @@ class User_Categoria (models.Model):
     class Meta: 
         unique_together = ('user','categoria')
 
+class User_Interes (models.Model):
+    user = models.ForeignKey('User', on_delete= models.CASCADE)
+    interes = models.ForeignKey(Interes, on_delete= models.CASCADE)
+    activo_uc = models.BooleanField(default=True)
+
+    class Meta: 
+        unique_together = ('user','interes')
+
 class Categoria_Interes(models.Model):
     categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
     interes = models.ForeignKey('Interes', on_delete=models.CASCADE)
