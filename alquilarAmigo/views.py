@@ -86,7 +86,7 @@ def confirmar_programar_cita(request, datos=None):
             nueva_salida = Salida()
             nueva_salida.cliente_id = dato['cliente_id']
             nueva_salida.amigo_id = dato['amigo_id']
-            nueva_salida.descripcion = dato['descripcion']
+            nueva_salida.descripcion_salida = dato['descripcion']
             nueva_salida.categoria_salida_id = Categoria.objects.get(nombre=dato['categoria']).id
             nueva_salida.fecha_salida = datetime.strptime(dato['fecha'], '%Y-%m-%d')
             nueva_salida.hora_inicio_salida = datetime.strptime(dato['hora_inicio'], '%H:%M:%S')

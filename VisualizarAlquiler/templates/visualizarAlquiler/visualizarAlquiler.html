@@ -30,7 +30,9 @@
                                 <p><strong>Categoria:</strong> {{ amigo.categoria_salida.nombre }}</p>
                                 <p><strong>Fecha y hora:</strong> {{amigo.fecha_salida}} Desde: {{ amigo.hora_inicio_salida }} hasta:{{ amigo.hora_fin_salida }}</p>
                                 <p><strong>Costo:</strong> {{ amigo.amigo.id_tarifa.tarifa }} BOB</p>
-                                <p><strong>Descripción:</strong> {{ amigo.descripcion_salida }}</p>
+                                <div class="card-alquileres-descripcion">
+                                    <p><strong>Descripción:</strong> {{ amigo.descripcion_salida }}</p>
+                                </div>
                                 
                             </div>
                         </div>
