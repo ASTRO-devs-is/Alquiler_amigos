@@ -18,27 +18,25 @@
                     
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>Nombre del Cliente:</strong> {{ alquiler.cliente }}</p>
-                                <p><strong>Fecha de Inicio:</strong> {{ alquiler.fecha_inicio }}</p>
-                                <p><strong>Fecha de Fin:</strong> {{ alquiler.fecha_fin }}</p>
-                                <p><strong>Valor del Alquiler:</strong> ${{ alquiler.valor_alquiler }}</p>
-                                <p><strong>Estado del Alquiler:</strong> {{ alquiler.estado }}</p>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <img src="{{amigo.foto}}" alt="imgPerfil" class="img-fluid mx-auto d-block">
+                                    <p><a href="">Ver perfil</a></p>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <p><strong>Nombre del Vehículo:</strong> {{ alquiler.vehiculo }}</p>
-                                <p><strong>Placa del Vehículo:</strong> {{ alquiler.placa }}</p>
-                                <p><strong>Marca del Vehículo:</strong> {{ alquiler.marca }}</p>
-                                <p><strong>Modelo del Vehículo:</strong> {{ alquiler.modelo }}</p>
-                                <p><strong>Color del Vehículo:</strong> {{ alquiler.color }}</p>
+                            <div class="col-md-">
+                                <p><strong>Cliente:</strong> {{ amigo.nombre }}</p>
+                                <p><strong>Fecha y hora:</strong> {{ amigo.fecha }} {{ amigo.hora }}</p>
+                                <p><strong>Costo:</strong> {{ amigo.costo }} BOB</p>
+                                <p><strong>Descripción:</strong> {{ amigo.descripcion }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <div class="col-md-12">
-                                <a href="" class="btn btn-primary">Volver</a>
-                                <button class="btn btn-danger" onclick="abrir_modal_cancelacion()">Cancelar Alquiler</button>
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-secondary" onclick="">Rechazar</button>
+                                <button class="btn btn-primary">Confirmar</button>
                             </div>
                         </div>
                     </div>
@@ -53,11 +51,6 @@
 
 {% block extrajs %}
     <script type="text/javascript">
-        var $ = jQuery.noConflict();
-        function abrir_modal_cancelacion(){
-            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
-                $(this).modal('show');
-            });
-        }
+        
     </script>
 {% endblock extrajs %}
