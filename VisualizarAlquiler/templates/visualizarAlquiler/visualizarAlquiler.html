@@ -14,7 +14,8 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                {% for amigo in salidas %}
+                <div class="card" style="margin-top: 2%;">
                     
                     <div class="card-body">
                         <div class="row">
@@ -25,10 +26,14 @@
                                 </div>
                             </div>
                             <div class="col-md-">
-                                <p><strong>Cliente:</strong> {{ amigo.nombre }}</p>
-                                <p><strong>Fecha y hora:</strong> {{ amigo.fecha }} {{ amigo.hora }}</p>
-                                <p><strong>Costo:</strong> {{ amigo.costo }} BOB</p>
-                                <p><strong>Descripción:</strong> {{ amigo.descripcion }}</p>
+                                <p><strong>Cliente:</strong> {{ amigo.cliente.nombre }} {{ amigo.cliente.apellido }}</p>
+                                <p><strong>Categoria:</strong> {{ amigo.categoria_salida.nombre }}</p>
+                                <p><strong>Fecha y hora:</strong> {{amigo.fecha_salida}} Desde: {{ amigo.hora_inicio_salida }} hasta:{{ amigo.hora_fin_salida }}</p>
+                                <p><strong>Costo:</strong> {{ amigo.amigo.id_tarifa.tarifa }} BOB</p>
+                                <div class="card-alquileres-descripcion">
+                                    <p><strong>Descripción:</strong> {{ amigo.descripcion_salida }}</p>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -41,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>

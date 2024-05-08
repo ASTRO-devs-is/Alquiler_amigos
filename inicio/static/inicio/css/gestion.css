@@ -517,3 +517,7 @@ dialog p {
     margin-left: auto;
     margin-right: auto;
 }
+
+.card-alquileres-descripcion{
+  width: 500px; word-wrap: break-word; text-align: justify;
+}

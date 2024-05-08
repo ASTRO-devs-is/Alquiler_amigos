@@ -17,5 +17,5 @@ def visualizarAlquiler(request):
     
     amigo = {'salidas': salidas, 'tieneSalida': amigoTieneSalida}
     
-
+    #print (amigo)
     return render(request, 'VisualizarAlquiler/visualizarAlquiler.html', amigo)

@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from .forms import formularioProgramarCita
 from datetime import datetime
-from .models import DisponibilidadHoras, Salida, Categoria
+from .models import DisponibilidadHoras, Salida, Categoria,Amigo, Cliente
 import json
 # Create your views here.
 
-def programarSalida(request, amigo_id=None, cliente_id=1):
-    
+def programarSalida(request, amigo_id=None ):
+    usuario=request.user
+    try:
+        usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    except:
+        usuarioAmigo = None
+    if(usuarioAmigo == None):
+        usuarioAmigo = Cliente.objects.get(correo=usuario.email)
+    cliente_id = usuarioAmigo.id
     formulario_programarSalida = formularioProgramarCita()
     if request.method == 'POST':
         formulario_datos = formularioProgramarCita(request.POST)
@@ -79,7 +86,7 @@ def confirmar_programar_cita(request, datos=None):
             nueva_salida = Salida()
             nueva_salida.cliente_id = dato['cliente_id']
             nueva_salida.amigo_id = dato['amigo_id']
-            nueva_salida.descripcion = dato['descripcion']
+            nueva_salida.descripcion_salida = dato['descripcion']
             nueva_salida.categoria_salida_id = Categoria.objects.get(nombre=dato['categoria']).id
             nueva_salida.fecha_salida = datetime.strptime(dato['fecha'], '%Y-%m-%d')
             nueva_salida.hora_inicio_salida = datetime.strptime(dato['hora_inicio'], '%H:%M:%S')
