@@ -6,9 +6,11 @@ import json
 # Create your views here.
 
 def programarSalida(request, amigo_id=None ):
-    usuario=request.user.id
-    
-    usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    usuario=request.user
+    try:
+        usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    except:
+        usuarioAmigo = None
     if(usuarioAmigo == None):
         usuarioAmigo = Cliente.objects.get(correo=usuario.email)
     cliente_id = usuarioAmigo.id
