@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from .forms import formularioProgramarCita
 from datetime import datetime
-from .models import DisponibilidadHoras, Salida, Categoria
+from .models import DisponibilidadHoras, Salida, Categoria,Amigo, Cliente
 import json
 # Create your views here.
 
-def programarSalida(request, amigo_id=None, cliente_id=1):
+def programarSalida(request, amigo_id=None ):
+    usuario=request.user.id
     
+    usuarioAmigo = Amigo.objects.get(correo=usuario.email)
+    if(usuarioAmigo == None):
+        usuarioAmigo = Cliente.objects.get(correo=usuario.email)
+    cliente_id = usuarioAmigo.id
     formulario_programarSalida = formularioProgramarCita()
     if request.method == 'POST':
         formulario_datos = formularioProgramarCita(request.POST)

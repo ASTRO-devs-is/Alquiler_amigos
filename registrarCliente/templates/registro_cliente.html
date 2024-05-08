@@ -10,7 +10,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -75,7 +75,7 @@
           <div class="form-group">
             <label for="contrasena">Contraseña: <span class="campo-obligatorio">*</span></label><br>
             <div class="input-group">
-              <input type="text" id="contrasena1" class="paswd form-control" required required data-error="contError">
+              <input type="text" id="contrasena1" name="contrasena" class="paswd form-control" required required data-error="contError">
               <div class="btn-container" onclick="togglePasswordVisibility('contrasena1', 'togglePasswordIconR')">
                 <button type="button" class="btn btn-outline-secondary">
                   <i class="fas fa-eye" id="togglePasswordIconR"></i>
@@ -151,8 +151,8 @@
 <script type="text/javascript">
   document.getElementById('registroForm').addEventListener('submit', function(event) {
   
-    if(confirm("¿Guardar horario seleccionado?")){
-        alert("Horario guardado con éxito.");
+    if(confirm("¿Crear cliente con estos datos?")){
+        alert("Cliente creado con éxito.");
     }else {
         event.preventDefault();  
     }
