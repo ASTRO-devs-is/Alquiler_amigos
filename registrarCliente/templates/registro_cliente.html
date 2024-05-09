@@ -133,7 +133,7 @@
       </div>
       </div>
       <div class="button-group" style="display: flex; justify-content: space-between;">
-        <button class="btn btn-secondary" type="button">CANCELAR</button>
+        <button id="cancelar" class="btn btn-secondary" type="button">CANCELAR</button>
         <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONTINUAR</button>
       </div>
 
@@ -331,6 +331,10 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+document.getElementById("cancelar").addEventListener("click", function() {
+    window.location.href = "{% url 'Inicio' %}";
+});
 
 </script>
 {% endblock extrajs %}
