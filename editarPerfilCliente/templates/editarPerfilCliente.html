@@ -1,0 +1,311 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+<!-- <style>
+  .pergilconiner{
+
+    display: flex;
+    align-items: center;
+  }
+</style> -->
+  <div class="container mt-5 my-5 border" id="formulario-container">
+    <a href="../../inCat/guardar-intereses-categorias" style="font-size: 18px; display: block; text-align: center;">
+      Categorias e intereses
+    </a>
+    <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
+    <p> Cambia tu foto de verfil y tu informacion personal</p>
+    <div class="perfil_container">
+      <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
+      </div>
+        <p style="text-align: center;">Tu foto se recortara automaticamente</p>
+    <form method="POST" action="{% url 'registrar_cliente' %}" id="registroForm">
+     </div> 
+
+    {% csrf_token %}
+      <div class="row mb-3">
+        
+        <div class="col-md-6">
+          
+          <div class="form-group">
+            <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <small id="nombreError" class="text-danger"></small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            
+            <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError">
+            <small id="apellidoError" class="text-danger"></small>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" >
+            <small id="telefonoError" class="text-danger"> </small>
+            {% if telefonoRepetido %}
+            <small class="text-danger">{{ telefonoRepetido }}</small>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)">
+            <small id="fechaError" class="text-danger"></small>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
+          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError">
+          <small id="paisError" class="text-danger"></small>
+        </div>
+        <div class="col-md-4">
+          <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
+          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError">
+          <small id="ciudadError" class="text-danger"></small>
+        </div>
+        <div class="col-md-4">
+          <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
+          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError">
+          <!-- Agrega una pequeña etiqueta para mostrar mensajes de error -->
+          <small id="localidadError" class="text-danger"></small>
+        </div>
+      </div>
+      <!-- <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">Email: <span class="campo-obligatorio">*</span></label><br>
+            <input type="email" id="email" name="correo" class="email form-control" required oninput="validarCorreo(this)" required data-error="emailError">
+            <small id="emailError" class="text-danger"></small>
+            {% if correoRepetido %}
+            <small class="text-danger">{{ correoRepetido }}</small>
+            {% endif %}
+          </div>
+        </div>
+        
+        </div> -->
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">Genero: <span class="campo-obligatorio">*</span></label><br>
+            {{ form.genero }}
+          </div>
+        </div>
+        
+        </div>
+      <div class="form-group mb-3">
+        <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
+        <small id="descripcionError" class="text-danger"></small>
+      </div>
+      
+      <div class="button-group" style="display: flex; justify-content: space-between;">
+        <button class="btn btn-secondary" type="button">CANCELAR</button>
+        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONTINUAR</button>
+      </div>
+
+    </form>
+  </div>
+</form>
+  <!--</form>-->
+  {% endblock %}
+  
+  {% block extrajs %}
+
+<script type="text/javascript">
+  document.getElementById('registroForm').addEventListener('submit', function(event) {
+  
+    if(confirm("¿Guardar horario seleccionado?")){
+        alert("Horario guardado con éxito.");
+    }else {
+        event.preventDefault();  
+    }
+  });
+  function volverAtras() {
+      window.history.back();
+  }
+  function mostrarAviso() {
+      alert("Reserva exitosa");
+  }
+
+  function validarContrasenas(elemento) {
+    var contrasena1 = document.getElementById('contrasena1').value;
+    var contrasena2 = document.getElementById('contrasena2').value;
+    var contrasenaError = document.getElementById('cont2Error');
+
+    if (contrasena1 !== contrasena2) {
+        contrasenaError.textContent = 'No coincide con tu contraseña';
+        return false;
+    } else {
+        contrasenaError.textContent = '';
+        return true;
+    }
+}
+
+function validarFormulario() {
+  var campos = document.querySelectorAll('input, textarea, select');
+  var formValido = true;
+
+  campos.forEach(function (campo) {
+    if (campo.required && campo.value.trim() === '') {
+      var errorMsgId = campo.getAttribute('data-error');
+      var errorMsg = 'El campo ' + campo.id + ' no puede estar vacío.';
+      document.getElementById(errorMsgId).textContent = errorMsg;
+      formValido = false;
+    }
+  });
+
+  // Verificar si hay algún mensaje de error presente
+  var mensajesError = document.querySelectorAll('.text-danger');
+    mensajesError.forEach(function (mensaje) {
+        if (mensaje.textContent !== '') {
+            formValido = false;
+        }
+    });
+
+  return formValido;
+}
+
+// Función para validar el nombre
+function validarNombre(elemento) {
+  const nombreInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(nombreInput)) {
+    document.getElementById('nombreError').textContent = 'El nombre debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    document.getElementById('nombreError').textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+// Función para validar el apellido
+function validarApellido(elemento) {
+  const apellidoInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(apellidoInput)) {
+    document.getElementById('apellidoError').textContent = 'El apellido debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    document.getElementById('apellidoError').textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function validarTelefono(elemento) {
+  const telefonoInput = elemento.value.trim();
+  const soloNumeros = /^[0-9]+$/; // Expresión regular para solo números
+
+  if (!soloNumeros.test(telefonoInput)) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe contener solo números.';
+    elemento.classList.add('is-invalid');
+  } else if (telefonoInput.length !== 8) {
+    elemento.nextElementSibling.textContent = 'El teléfono debe tener exactamente 8 dígitos.';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function validarFechaNacimiento(elemento) {
+    var fechaNacimiento = new Date(elemento.value);
+    var hoy = new Date();
+    var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    var mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+
+    if (edad < 18) {
+        elemento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+        elemento.classList.add('is-invalid');
+    } else {
+        elemento.nextElementSibling.textContent = '';
+        elemento.classList.remove('is-invalid');
+    }
+}
+
+// Función para validar la ubicación (país, ciudad, localidad)
+function validarUbicacion(elemento) {
+  const ubicacionInput = elemento.value.trim();
+  const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+  
+  if (!soloLetras.test(ubicacionInput)) {
+    elemento.nextElementSibling.textContent = 'Este campo debe contener solo letras y espacios';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function validarCorreo(elemento) {
+  const correoInput = elemento.value.trim();
+  const correoRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/;
+
+  if (!correoRegex.test(correoInput)) {
+    elemento.nextElementSibling.textContent = 'Ingrese un correo de dominio gmail.com o hotmail.com';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+function togglePasswordVisibility(inputId, iconId) {
+  var passwordInput = document.getElementById(inputId);
+  var toggleIcon = document.getElementById(iconId);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    toggleIcon.classList.remove("fa-eye");
+    toggleIcon.classList.add("fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    toggleIcon.classList.remove("fa-eye-slash");
+    toggleIcon.classList.add("fa-eye");
+  }
+}
+
+// Oculta las contraseñas al cargar la página
+document.getElementById("contrasena1").type = "password";
+document.getElementById("contrasena2").type = "password";
+
+document.getElementById("togglePasswordIconR").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena1", "togglePasswordIconR");
+});
+
+document.getElementById("togglePasswordIcon").addEventListener("click", function(event) {
+  event.stopPropagation();
+  togglePasswordVisibility("contrasena2", "togglePasswordIcon");
+});
+
+function validarDescripcion(elemento) {
+  const descripcionInput = elemento.value.trim();
+  if (descripcionInput.length < 50) {
+    elemento.nextElementSibling.textContent = 'La descripción debe tener al menos 50 caracteres';
+    elemento.classList.add('is-invalid');
+  } else {
+    elemento.nextElementSibling.textContent = '';
+    elemento.classList.remove('is-invalid');
+  }
+}
+
+</script>
+{% endblock extrajs %}

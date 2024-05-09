@@ -29,6 +29,7 @@ urlpatterns = [
     path('cuenta/', include('crearCuenta.urls')),#incluye todas las urls de la app creada
     path('registroCliente/',include('registrarCliente.urls')),
     path('intCat/',include('AñadirInteresesCategorias.urls')),
+    path('editar/', include('editarPerfilCliente.urls')),#incluye todas las urls de la app creada
 
 ]
 if settings.DEBUG:
