@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria
+from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria, Interes
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
@@ -10,19 +10,24 @@ from django.core.paginator import Paginator
 
 def inicio(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
+    intereses = Interes.objects.all()
     respuestajson = buscarAmigos(request)
     
-    return render(request, 'inicio/inicio.html', {'categorias': categorias, 'respuestajson': respuestajson})
+    return render(request, 'inicio/inicio.html', {'categorias': categorias, 'intereses': intereses, 'respuestajson': respuestajson})
 
 def buscarAmigos(request):
     nombre = request.GET.get('nombre')
     categorias_raw = request.GET.get('categorias', '')
-    # Dividir la cadena de categorías en una lista
+    intereses_raw = request.GET.get('intereses', '')
+    
+    # Dividir las cadenas de categorías e intereses en listas
     categorias = categorias_raw.split(',')
-     # Intentar convertir cada valor a entero, ignorando los valores no válidos
+    intereses = intereses_raw.split(',')
+    
+    # Intentar convertir cada valor a entero, ignorando los valores no válidos
     categorias = [int(c) for c in categorias if c.strip() and c.strip().isdigit()]
+    intereses = [int(i) for i in intereses if i.strip() and i.strip().isdigit()]
 
-    print(categorias)
     amigos = Amigo.objects.all().order_by('id')
     if nombre:
         lista = nombre.split(' ', 1)
@@ -32,15 +37,26 @@ def buscarAmigos(request):
             amigos = amigos.filter(Q(nombre__icontains=nombre) & Q(apellido__icontains=apellido))
         else:
             amigos = amigos.filter(nombre__icontains=nombre)
+
+    # Verificar si la lista de categorías no está vacía
     if categorias:
-        # Verificar si la lista de categorías no está vacía
-        if categorias:
-            usuarios_con_categorias = User_Categoria.objects.filter(categoria_id__in=categorias).values_list('user_id', flat=True)
-            correos = User.objects.filter(id__in=usuarios_con_categorias).values_list('email', flat=True)
-            amigos = amigos.filter(correo__in=correos)
-        else:
-            # Si la lista de categorías está vacía, no aplicar ningún filtro
-            pass
+        usuarios_con_categorias = User_Categoria.objects.filter(categoria__in=categorias).values_list('user', flat=True)
+        correos = User.objects.filter(id__in=usuarios_con_categorias).values_list('email', flat=True)
+        amigos = amigos.filter(correo__in=correos)
+    else:
+        # Si la lista de categorías está vacía, no aplicar ningún filtro
+        pass
+
+    # Verificar si la lista de intereses no está vacía
+    if intereses:
+        categorias_con_intereses= Categoria_Interes.objects.filter(interes__in=intereses).values_list('categoria', flat=True)
+        usuarios_con_intereses = User_Categoria.objects.filter(categoria__in=categorias_con_intereses).values_list('user', flat=True)
+        correos = User.objects.filter(id__in=usuarios_con_intereses).values_list('email', flat=True)
+        amigos = amigos.filter(correo__in=correos)
+    else:
+        # Si la lista de intereses está vacía, no aplicar ningún filtro
+        pass
+
     amigos = amigos.order_by('nombre')
     paginator = Paginator(amigos, 6)
     page_number = request.GET.get('page')

@@ -32,6 +32,21 @@
                         <li><a class="dropdown-item todas" href="#">Todas</a></li>
                     </ul>
                 </li>
+
+               <!-- Dropdown de Categorías -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Intereses
+                    </a>
+                    <ul class="dropdown-menu ml-auto">
+                        {% for interes in Intereses %}
+                        <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{ interes.interes }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                    </ul>
+                </li>
+
                 <!--Buscador-->
                 <form class="form-inline my-2 my-lg-0" id="formBusqueda">                  
 
