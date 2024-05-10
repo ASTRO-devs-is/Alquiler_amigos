@@ -14,24 +14,26 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                {% for amigo in salidas %}
+                {% for salida_con_foto in contexto.salidas_con_fotos %}
                 <div class="card" style="margin-top: 2%;">
                     
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="text-center">
-                                    <img src="{{amigo.foto}}" alt="imgPerfil" class="img-fluid mx-auto d-block">
-                                    <p><a href="">Ver perfil</a></p>
+                                    <img src="{{salida_con_foto.foto.image.url}}" alt="imgPerfil" class="img-fluid mx-auto d-block rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+                                    <p style="margin-top: 5%;">
+                                        <a href="" class="btn btn-primary">Ver perfil</a>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-md-">
-                                <p><strong>Cliente:</strong> {{ amigo.cliente.nombre }} {{ amigo.cliente.apellido }}</p>
-                                <p><strong>Categoria:</strong> {{ amigo.categoria_salida.nombre }}</p>
-                                <p><strong>Fecha y hora:</strong> {{amigo.fecha_salida}} Desde: {{ amigo.hora_inicio_salida }} hasta:{{ amigo.hora_fin_salida }}</p>
-                                <p><strong>Costo:</strong> {{ amigo.amigo.id_tarifa.tarifa }} BOB</p>
+                            <div class="col-md-8">
+                                <p><strong>Cliente:</strong> {{ salida_con_foto.salida.cliente.nombre }} {{ salida_con_foto.salida.cliente.apellido }}</p>
+                                <p><strong>Categoria:</strong> {{ salida_con_foto.salida.categoria_salida.nombre }}</p>
+                                <p><strong>Fecha y hora:</strong> {{salida_con_foto.salida.fecha_salida}} Desde: {{ salida_con_foto.salida.hora_inicio_salida }} hasta:{{ salida_con_foto.salida.hora_fin_salida }}</p>
+                                <p><strong>Costo:</strong> {{ salida_con_foto.salida.amigo.id_tarifa.tarifa }} BOB</p>
                                 <div class="card-alquileres-descripcion">
-                                    <p><strong>Descripción:</strong> {{ amigo.descripcion_salida }}</p>
+                                    <p><strong>Descripción:</strong> {{ salida_con_foto.salida.descripcion_salida }}</p>
                                 </div>
                                 
                             </div>
