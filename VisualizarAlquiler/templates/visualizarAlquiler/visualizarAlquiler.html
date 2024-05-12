@@ -3,6 +3,7 @@
 
 {% block content %}
     <div class="container">
+        {% csrf_token %}
         <div class="row align-items-center" style="padding-top: 2%;">
             <div class="col text-center">
                 <h1 class="text-white" style="padding-left: 5%;">Salidas</h1>
@@ -35,15 +36,15 @@
                                 <div class="card-alquileres-descripcion">
                                     <p><strong>Descripción:</strong> {{ salida_con_foto.salida.descripcion_salida }}</p>
                                 </div>
-                                
+                                <p>{{ salida_con_foto.salida.id }} id SALIDA</p>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button class="btn btn-secondary rechazar" onclick="" data-id="{{ amigo.id }}">Rechazar</button>
-                                <button class="btn btn-primary confirmar" data-id="{{ amigo.id }}">Confirmar</button>
+                                <button class="btn btn-secondary rechazar" data-id="{{ salida_con_foto.salida.id }}">Rechazar</button>
+                                <button class="btn btn-primary confirmar" data-id="{{ salida_con_foto.salida.id }}">Confirmar</button>
                             </div>
                         </div>
                     </div>
@@ -59,10 +60,15 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-    $(document).ready(function(){
+$(document).ready(function(){
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     $(".rechazar").click(function(){
         var id = $(this).data('id');
         $.ajax({
+            type: 'POST', 
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
             url: '/cambiar_estado_salida/',
             data: {
                 'id': id,
@@ -80,7 +86,11 @@
     $(".confirmar").click(function(){
         var id = $(this).data('id');
         $.ajax({
-            url: '/cambiar_estado_salida/',
+            type: 'POST', 
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            url: 'cambiar_estado_salida/',
             data: {
                 'id': id,
                 'estado': 'Confirmado'
