@@ -16,6 +16,7 @@
         <div class="row">
             <div class="col-md-12">
                 {% for salida_con_foto in contexto.salidas_con_fotos %}
+                {% if salida_con_foto.salida.estado_salida == "Pendiente" %}
                 <div class="card" style="margin-top: 2%;" id="card-{{ salida_con_foto.salida.id }}">
                     
                     <div class="card-body">
@@ -49,6 +50,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
