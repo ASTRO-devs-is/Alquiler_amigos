@@ -243,13 +243,30 @@
                 });
             });
 
-        // Acción para "Todas"
-        document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
+            let categoriasEliminadas = [];
+
+            // Acción para "Ninguno"
+            document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
                 event.preventDefault();
                 categorias.forEach(function (categoria) {
                     categoria.classList.remove('seleccionada');
                 });
+
+                // Eliminar los botones de categorías seleccionadas
+                document.querySelectorAll('.categoria-seleccionada').forEach(boton => {
+                    boton.remove();
+                    categoriasEliminadas.push(boton.dataset.categoriaId); // Guardar la categoría eliminada
+                });
+
+                // Agregar de nuevo las categorías eliminadas al dropdown
+                categoriasEliminadas.forEach(id => {
+                    const categoriaDropdown = document.querySelector(`.categoria[data-categoria-id="${id}"]`);
+                    categoriaDropdown.classList.remove('d-none');
+                });
+
+                actualizarFiltrosYBuscar();
             });
+
         });
         
         //buscar por categorias e intereses
@@ -310,13 +327,28 @@
                     actualizarFiltrosYBuscar();
                 });
             });
-
-            // Acción para "Todos"
+            
+            let interesesEliminados = [];
+            // Acción para "Ninguno"
             document.querySelector('.dropdown-item.todos-intereses').addEventListener('click', function (event) {
                 event.preventDefault();
                 intereses.forEach(function (interes) {
                     interes.classList.remove('seleccionado');
                 });
+
+                // Eliminar los botones de intereses seleccionados
+                document.querySelectorAll('.interes-seleccionado').forEach(boton => {
+                    boton.remove();
+                    interesesEliminados.push(boton.dataset.interesId); // Guardar el interés eliminado
+                });
+
+                // Agregar de nuevo los intereses eliminados al dropdown
+                interesesEliminados.forEach(id => {
+                    const interesDropdown = document.querySelector(`.interes[data-interes-id="${id}"]`);
+                    interesDropdown.classList.remove('d-none');
+                });
+
+                actualizarFiltrosYBuscar();
             });
         });
 
