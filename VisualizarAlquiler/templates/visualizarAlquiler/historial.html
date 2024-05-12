@@ -1,0 +1,59 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        {% csrf_token %}
+        <div class="row align-items-center" style="padding-top: 2%;">
+            <div class="col text-center">
+                <h1 class="text-white" style="padding-left: 5%;">Historial de salidas</h1>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'Inicio' %}" class="btn btn-primary mt-3" style="width: 50px;"><i class="fas fa-arrow-left"></i></a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                {% for salida_con_foto in contexto.salidas_con_fotos %}
+                {% if salida_con_foto.salida.estado_salida != "Pendiente" %}
+                <div class="card" style="margin-top: 2%;" id="card-{{ salida_con_foto.salida.id }}">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <img src="{{salida_con_foto.foto.image.url}}" alt="imgPerfil" class="img-fluid mx-auto d-block rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+                                    <p style="margin-top: 5%;">
+                                        <a href="{% url 'Visualizar_cliente' salida_con_foto.salida.cliente.id %}" class="btn btn-primary">Ver perfil</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>Cliente:</strong> {{ salida_con_foto.salida.cliente.nombre }} {{ salida_con_foto.salida.cliente.apellido }}</p>
+                                <p><strong>Categoria:</strong> {{ salida_con_foto.salida.categoria_salida.nombre }}</p>
+                                <p><strong>Fecha y hora:</strong> {{salida_con_foto.salida.fecha_salida}} Desde: {{ salida_con_foto.salida.hora_inicio_salida }} hasta:{{ salida_con_foto.salida.hora_fin_salida }}</p>
+                                <p><strong>Costo:</strong> {{ salida_con_foto.salida.amigo.id_tarifa.tarifa }} BOB</p>
+                                <div class="card-alquileres-descripcion">
+                                    <p><strong>Descripción:</strong> {{ salida_con_foto.salida.descripcion_salida }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <h5>{{ salida_con_foto.salida.updated }}</h5>
+                                <h5><b>{{ salida_con_foto.salida.estado_salida }}</b></h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

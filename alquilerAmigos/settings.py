@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crearCuenta',
     'login',
     'AñadirInteresesCategorias',
+    'VisualizarAlquiler',
     'widget_tweaks',
 
 ]

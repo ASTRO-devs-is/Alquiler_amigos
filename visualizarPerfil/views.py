@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo, Direccion, Tarifa
+from alquilarAmigo.models import Amigo, Direccion, Tarifa, Cliente
 from subir_fotos.models import FotoPerfil
 from datetime import date
 
 # Create your views here.
-def visualizarPerfilAmigo(request, amigo_id=None, cliente_id=1):
+def visualizarPerfilAmigo(request, amigo_id=None):
     amigo = Amigo.objects.get(id=amigo_id)
     edad = date.today().year - amigo.fecha_nacimiento.year
     foto_perfil = FotoPerfil.objects.filter(fotos=amigo).first()
@@ -22,3 +22,13 @@ def mostrarGenero(genero):
         return 'Femenino'
     else:
         return 'Otro'
+    
+def visualizarPerfilCliente(request, cliente_id=None):
+    cliente = Cliente.objects.get(id=cliente_id)
+    edad = date.today().year - cliente.fecha_nacimiento.year
+    foto_perfil = FotoPerfil.objects.filter(fotosCliente=cliente).first()
+    cliente.foto = foto_perfil.image.url
+    cliente.edad = edad
+    cliente.pais = Direccion.objects.get(id=cliente.ubicacion_id).pais
+    cliente.genero = mostrarGenero(cliente.genero)
+    return render(request, 'visualizarPerfil/perfilCliente.html', {'amigo': cliente})
