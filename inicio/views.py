@@ -49,8 +49,7 @@ def buscarAmigos(request):
 
     # Verificar si la lista de intereses no está vacía
     if intereses:
-        categorias_con_intereses= Categoria_Interes.objects.filter(interes__in=intereses).values_list('categoria', flat=True)
-        usuarios_con_intereses = User_Categoria.objects.filter(categoria__in=categorias_con_intereses).values_list('user', flat=True)
+        usuarios_con_intereses = User_Interes.objects.filter(interes__in=intereses).values_list('user', flat=True)
         correos = User.objects.filter(id__in=usuarios_con_intereses).values_list('email', flat=True)
         amigos = amigos.filter(correo__in=correos)
     else:
