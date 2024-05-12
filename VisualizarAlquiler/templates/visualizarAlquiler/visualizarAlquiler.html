@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12">
                 {% for salida_con_foto in contexto.salidas_con_fotos %}
-                <div class="card" style="margin-top: 2%;">
+                <div class="card" style="margin-top: 2%;" id="card-{{ salida_con_foto.salida.id }}">
                     
                     <div class="card-body">
                         <div class="row">
@@ -69,7 +69,7 @@ $(document).ready(function(){
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             },
-            url: '/cambiar_estado_salida/',
+            url: 'cambiar_estado_salida/',
             data: {
                 'id': id,
                 'estado': 'Rechazado'
