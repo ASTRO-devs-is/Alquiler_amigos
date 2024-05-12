@@ -9,6 +9,7 @@ class Salida(models.Model):
     fecha_salida = models.DateField()
     hora_inicio_salida = models.TimeField()
     hora_fin_salida = models.TimeField()
+    estado_salida = models.CharField(default='Pendiente', max_length=50)
     cita_realizada = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
