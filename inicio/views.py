@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria, Interes
+from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria, Interes, Categoria_Interes
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
