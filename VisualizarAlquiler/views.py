@@ -24,9 +24,9 @@ def visualizarAlquiler(request):
 
 @csrf_exempt
 def cambiar_estado_salida(request):
-    print("primera prueba")
+    #print("primera prueba")
     if request.method == 'POST':
-        print("segunda prueba")
+        #print("segunda prueba")
         id = request.POST.get('id')
         estado = request.POST.get('estado')
 
@@ -35,8 +35,8 @@ def cambiar_estado_salida(request):
                 salida = Salida.objects.get(id=id)
                 salida.estado_salida = estado
                 salida.save()
-                print(estado)
-                print("Cuadrta prueba")
+                #print(estado)
+                #print("Cuadrta prueba")
                 return JsonResponse({'success': True})
                 
             except Salida.DoesNotExist:

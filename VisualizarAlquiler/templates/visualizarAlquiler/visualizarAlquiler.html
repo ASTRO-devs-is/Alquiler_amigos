@@ -37,7 +37,6 @@
                                 <div class="card-alquileres-descripcion">
                                     <p><strong>Descripción:</strong> {{ salida_con_foto.salida.descripcion_salida }}</p>
                                 </div>
-                                <p>{{ salida_con_foto.salida.id }} id SALIDA</p>
                             </div>
                         </div>
                     </div>
@@ -62,49 +61,52 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-$(document).ready(function(){
+$(".rechazar, .confirmar").click(function(){
     var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    $(".rechazar").click(function(){
-        var id = $(this).data('id');
-        $.ajax({
-            type: 'POST', 
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            url: 'cambiar_estado_salida/',
-            data: {
-                'id': id,
-                'estado': 'Rechazado'
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.success) {
-                    $("#card-" + id).remove();
+    var id = $(this).data('id');
+    var action = $(this).hasClass('rechazar') ? 'rechazar' : 'confirmar';
+    var confirmed = confirm('¿Estás seguro de ' + action + ' la salida?');
+    
+    if (confirmed) {
+        if(action == 'rechazar'){
+            $.ajax({
+                type: 'POST', 
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                url: 'cambiar_estado_salida/',
+                data: {
+                    'id': id,
+                    'estado': 'Rechazado'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        $("#card-" + id).remove();
+                    }
                 }
-            }
-        });
-    });
-
-    $(".confirmar").click(function(){
-        var id = $(this).data('id');
-        $.ajax({
-            type: 'POST', 
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            url: 'cambiar_estado_salida/',
-            data: {
-                'id': id,
-                'estado': 'Confirmado'
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.success) {
-                    $("#card-" + id).remove();
+            });
+        }else{
+            $.ajax({
+                type: 'POST', 
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                url: 'cambiar_estado_salida/',
+                data: {
+                    'id': id,
+                    'estado': 'Confirmado'
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        $("#card-" + id).remove();
+                    }
                 }
-            }
-        });
-    });
+            });
+        }
+    }
 });
+
 </script>
 {% endblock extrajs %}
