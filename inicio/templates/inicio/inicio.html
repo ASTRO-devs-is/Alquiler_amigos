@@ -45,6 +45,11 @@
 
     <!-- incluimos el buscador -->
 {% include 'inicio/searchBar.html' %}
+<div class="container" id="categoriasContainer">
+    <div id="categoriasSeleccionadas" class="d-flex flex-wrap">
+
+    </div>
+</div>
 
 <!-- seccion tarjetas perfil -->
 <div class="container-fluid" id="fondoTarjetas">
@@ -200,15 +205,19 @@
             .then(response => response.json())
             .then(data => mostrarAmigos(data));
         });
-
+        
         // Buscar amigos al cambiar el valor del input
         const input = document.querySelector('#inputBuscador');
         input.addEventListener('keyup', function() {
             const nombre = input.value;
-            fetch(`{% url 'Buscar' %}?nombre=${nombre}`)
+            const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
+            const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
+
+
         // agregar evento a las paginas para que muestren alos amigos correspondientes a dicha pagina al hacer click
         const paginacion = document.querySelector('#paginacion');
         paginacion.addEventListener('click', function(event) {
@@ -221,6 +230,72 @@
                     .then(data => mostrarAmigos(data));
             }
         });
+
+        // Script para marcar/desmarcar categorías al hacer clic
+        document.addEventListener("DOMContentLoaded", function () {
+            const categorias = document.querySelectorAll('.dropdown-item.categoria');
+            categorias.forEach(function (categoria) {
+                categoria.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    categoria.classList.toggle('seleccionada');
+                });
+            });
+
+        // Acción para "Todas"
+        document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
+                event.preventDefault();
+                categorias.forEach(function (categoria) {
+                    categoria.classList.remove('seleccionada');
+                });
+            });
+        });
+        //buscar por categoria
+        const formBusqueda = document.querySelector('#formBusqueda');
+        formBusqueda.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nombre = document.querySelector('#inputBuscador').value;
+            const categoriasSeleccionadas = document.querySelectorAll('.dropdown-item.categoria.seleccionada');
+            const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
+                .then(response => response.json())
+                .then(data => mostrarAmigos(data));
+        });
+
+        const colores = ['success', 'danger', 'warning', 'info', 'light', 'dark'];
+        let colorIndex = 0;
+
+        document.querySelectorAll('.categoria').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                const categoriaId = item.dataset.categoriaId;
+                const categoriaNombre = item.textContent;
+                const botonCategoria = document.createElement('button');
+                const color = colores[colorIndex % colores.length];
+                colorIndex++;
+                botonCategoria.classList.add('btn', `btn-${color}`, 'btn-sm', 'categoria-seleccionada');
+                botonCategoria.dataset.categoriaId = categoriaId;
+                botonCategoria.innerHTML = `${categoriaNombre} <span class="eliminar">&times;</span>`;
+                document.getElementById('categoriasSeleccionadas').appendChild(botonCategoria);
+                item.classList.add('d-none');
+            });
+        });
+
+        document.getElementById('categoriasSeleccionadas').addEventListener('click', event => {
+            if (event.target.classList.contains('eliminar')) {
+                const categoriaId = event.target.parentNode.dataset.categoriaId;
+                const categoriaDropdown = document.querySelector(`.categoria[data-categoria-id="${categoriaId}"]`);
+                categoriaDropdown.classList.remove('d-none');
+                event.target.parentNode.remove();
+
+                // Desmarcar la categoría en el dropdown
+                categoriaDropdown.classList.remove('seleccionada');
+            }
+        })
+
+
+
+
+
 
 
 

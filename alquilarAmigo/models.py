@@ -13,6 +13,7 @@ class Salida(models.Model):
     fecha_salida = models.DateField()
     hora_inicio_salida = models.TimeField()
     hora_fin_salida = models.TimeField()
+    estado_salida = models.CharField(default='Pendiente', max_length=50)
     cita_realizada = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -158,6 +159,14 @@ class User_Categoria (models.Model):
 
     class Meta: 
         unique_together = ('user','categoria')
+
+class User_Interes (models.Model):
+    user = models.ForeignKey('User', on_delete= models.CASCADE)
+    interes = models.ForeignKey(Interes, on_delete= models.CASCADE)
+    activo_uc = models.BooleanField(default=True)
+
+    class Meta: 
+        unique_together = ('user','interes')
 
 class Categoria_Interes(models.Model):
     categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
