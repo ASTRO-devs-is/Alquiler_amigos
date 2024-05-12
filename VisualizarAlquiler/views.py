@@ -13,7 +13,7 @@ def visualizarAlquiler(request):
     except:
         usuarioAmigo = None
     if(usuarioAmigo != None):
-        salidas = Salida.objects.filter(amigo_id=usuarioAmigo.id)
+        salidas = Salida.objects.filter(amigo_id=usuarioAmigo.id).order_by('-created')
         amigoTieneSalida = True
         salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in salidas]
     else:
@@ -45,3 +45,19 @@ def cambiar_estado_salida(request):
             return JsonResponse({'success': False, 'error': 'ID o estado no proporcionado'})
     else:
         return JsonResponse({'success': False, 'error': 'Método no permitido'})
+    
+def historial(request):
+    usuarioA = User.objects.get(id=request.user.id)
+    
+    try:
+        usuarioAmigo = Amigo.objects.get(correo=usuarioA.email)
+    except:
+        usuarioAmigo = None
+    if(usuarioAmigo != None):
+        salidas = Salida.objects.filter(amigo_id=usuarioAmigo.id).order_by('-updated')
+        amigoTieneSalida = True
+        salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in salidas]
+    else:
+        amigoTieneSalida = False
+    
+    return render(request, 'VisualizarAlquiler/historial.html', {'contexto': {'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
