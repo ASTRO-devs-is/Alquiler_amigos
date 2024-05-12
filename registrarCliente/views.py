@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ClienteForm
 from alquilarAmigo.models import Cliente, Direccion, User
+from subir_fotos.models import FotoPerfil
 from django.contrib.auth.hashers import make_password
 
 def registrar_cliente(request):
@@ -30,7 +31,7 @@ def registrar_cliente(request):
                 user.password = make_password(form.cleaned_data['contrasena'])
                 user.save()
                 cliente.save()
-                return redirect('Inicio')
+                return redirect('fotoCliente', idCliente=cliente.id)
             
         else:
             print(form.errors) 
@@ -40,3 +41,14 @@ def registrar_cliente(request):
         form = ClienteForm()
     return render(request, 'registro_cliente.html', {'form': form})
 
+def cargar_fotos_perfil(request, idCliente):
+    if request.method == 'POST':
+        # Recuperar los datos del formulario de la sesión
+        cliente = Cliente.objects.get(id = idCliente)
+        uploaded_files = request.FILES.getlist('file-input')
+        for uploaded_file in uploaded_files:
+            profile_photo = FotoPerfil(image=uploaded_file, fotosCliente = cliente)
+            profile_photo.save()
+        return redirect('Inicio')
+    else:
+        return render(request, 'formulario.html') # Renderizar la plantilla del formulario de subida
