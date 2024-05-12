@@ -1,0 +1,81 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" id="visPerfAmigo">
+    <div class="row d-flex justify-content-center ">
+        <div class="col-md-10 mt-5 pt-5 ">
+            <div class="row z-depth-3">
+                <div class="col-sm-4 rounded-left border border-5 border-light" style="background-color: #55DDE0;">
+                    <div class="card-block text-center text-white">
+                        <img src="{{amigo.foto}}" alt="imgPerfil" class="img-fluid">
+                        <ul class="list-unstyled d-flex justify-content-center mt-4">
+                            {%for _ in "12345"%}
+                            <li><i class="fas fa-star fa-star" style="color: gold;"></i></li>
+                            {%endfor%}
+                        </ul>
+                        <h2 class="font-weight-bold mt-4">{{amigo.nombre}} {{amigo.apellido}}</h2>                                                                           
+                        <h4>{{amigo.edad}} Años</h4>                 
+                    </div>                   
+                </div>
+                <div class="col-sm-8 bg-white rounded-right border border-5 border-light">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2 class="mt-3 text-center text'b justify-content-center"><u>Información del cliente</u></h2>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <a href="javascript:history.back()" class="btn btn-primary mt-3" style="width: 50px;"><i class="fas fa-arrow-left"></i></a>
+                            </div>
+                        </div>
+                        <hr class="badge-primary mt-0 w-25">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold">E-mail:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.correo}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold">Teléfono:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">(+591) {{amigo.telefono}}</h6>
+                            </div>               
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold">Género:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.genero}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold">Edad:</p>
+                                <h6 class="text-muted " style="font-size: 18px;">{{amigo.edad}} Años</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold">Nacionalidad:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.pais}}</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold"> Precio:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.tarifa}} bs/h</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="font-weight-bold"> Idioma:</p>
+                                <h6 class="text-muted" style="font-size: 18px;">Español</h6>
+                            </div>
+                        </div>
+                        <hr class="bg-primary">
+                        <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="font-weight-bold">Descripción:</p>
+                                    <h6 class="text-muted" style="font-size: 18px;">{{amigo.descripcion}}</h6>
+                                </div>         
+                        </div>
+                        
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
