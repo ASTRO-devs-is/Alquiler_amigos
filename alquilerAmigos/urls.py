@@ -31,6 +31,9 @@ urlpatterns = [
     path('intCat/',include('AñadirInteresesCategorias.urls')),
     path('editar/', include('editarPerfilCliente.urls')),#incluye todas las urls de la app creada
     path('alquiler/',include('VisualizarAlquiler.urls')),
+    path('editarPerfilCliente/',include('editarPerfilCliente.urls')),
+    path('editarPerfilAmigo/',include('editarPerfilAmigo.urls')),
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
