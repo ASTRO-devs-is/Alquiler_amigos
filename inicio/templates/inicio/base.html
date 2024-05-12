@@ -36,7 +36,7 @@
           <a class="navbar-brand me-auto" href="{% url 'Inicio' %}">FriendlyHire</a>
           {% if user.is_authenticated %}
             {% if usuario.esAmigo %}
-              <h3 class="text-white">Bienvenido {{usuario.nombre}}</h3>
+              <h3 class="text-white" style="margin: 0% 2%;">Bienvenido {{usuario.nombre}}</h3>
             {% else %}
               <h3 class="text-white">Busca amigos</h3>
             {% endif %}
@@ -49,12 +49,17 @@
               </li>
               {% if user.is_authenticated %}
                 {% if usuario.esAmigo %}
-                  <li class="nav-item">
-                    <a class="nav-link mx-lg-2" href="{% url 'AniadirHoras' %}">Añadir horarios de amigo</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link mx-lg-2" href="{% url 'guardar_intereses_categorias' %}">Añadir interese y categorias</a>
-                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Amigo
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'AniadirHoras' %}">Añadir horarios de amigo</a>
+                      <a class="dropdown-item" href="{% url 'guardar_intereses_categorias' %}">Añadir interese y categorias</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{% url 'visualizarAlquiler' %}">Alquileres pendientes</a>
+                      <a class="dropdown-item" href="{% url 'historial' %}">Historial de alquileres</a>
+                    </div>
                 {% else %}
                   <li class="nav-item">
                     <a class="nav-link mx-lg-2" href="{% url 'AniadirHoras' %}">Cliente</a>
