@@ -42,8 +42,8 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button class="btn btn-secondary" onclick="">Rechazar</button>
-                                <button class="btn btn-primary">Confirmar</button>
+                                <button class="btn btn-secondary rechazar" onclick="" data-id="{{ amigo.id }}">Rechazar</button>
+                                <button class="btn btn-primary confirmar" data-id="{{ amigo.id }}">Confirmar</button>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,41 @@
 
 
 {% block extrajs %}
-    <script type="text/javascript">
-        
-    </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $(".rechazar").click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/cambiar_estado_salida/',
+            data: {
+                'id': id,
+                'estado': 'Rechazado'
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $("#card-" + id).remove();
+                }
+            }
+        });
+    });
+
+    $(".confirmar").click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/cambiar_estado_salida/',
+            data: {
+                'id': id,
+                'estado': 'Confirmado'
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $("#card-" + id).remove();
+                }
+            }
+        });
+    });
+});
+</script>
 {% endblock extrajs %}
