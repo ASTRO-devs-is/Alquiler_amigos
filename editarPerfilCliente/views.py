@@ -29,13 +29,6 @@ def actualizar_datos (request,id_usuario):
             elif Cliente.objects.filter(correo=direccion.correo).exists():
                 return render(request, 'editarPerfilCliente.html', {'form': form, 'correoRepetido': 'Este correo ya esta registrado'})
             else:
-                user = User.objects.create_user(
-                    username=form.cleaned_data['correo'],
-                    password=form.cleaned_data['contrasena'],
-                    email=form.cleaned_data['correo']
-                )
-                user.password = make_password(form.cleaned_data['contrasena'])
-                user.save()
                 cliente.save()
                 return redirect('Inicio')
     
