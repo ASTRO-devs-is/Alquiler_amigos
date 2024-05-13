@@ -106,9 +106,11 @@
 
 <script type="text/javascript">
   document.getElementById('registroForm').addEventListener('submit', function(event) {
-  
+    console.log("Evento de envío del formulario activado");
     if(confirm("¿Está seguro que quiere cambiar datos del perfil?")){
-        alert("Datos personales actualizados con éxito.");
+      console.log("Confirmación aceptada, enviando formulario...");
+    } else {
+        console.log("Confirmación cancelada");
     }
   });
   function volverAtras() {
