@@ -34,7 +34,7 @@
           <div class="form-group">
             
             <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{cliente.apellido}}">
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ cliente.apellido}}">
             <small id="apellidoError" class="text-danger"></small>
           </div>
         </div>
