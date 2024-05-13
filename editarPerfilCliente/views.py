@@ -5,7 +5,8 @@ from django.contrib.auth.hashers import make_password
 
 def editar_datos_cliente(request, id_usuario):
     cliente = Cliente.objects.get(id=id_usuario)
-    return render(request, 'editarPerfilCliente.html', {'cliente': cliente})
+    form = ClienteForm(instance=cliente)
+    return render(request, 'editarPerfilCliente.html', {'form': form})
 
 
 def actualizar_datos (request,id_usuario):
