@@ -26,7 +26,7 @@
           
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError",value="{{cliente.nombre}}">
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ cliente.nombre }}">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
