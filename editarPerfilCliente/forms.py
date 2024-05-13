@@ -23,4 +23,5 @@ class ClienteForm(forms.ModelForm):
         ]
         widgets = {
             'contrasena': forms.PasswordInput(),
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'})
         }
