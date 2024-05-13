@@ -53,7 +53,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
-            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)" value="{{ cliente.fecha_nacimiento}}">
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput=" validarFechaNacimiento(this)" value="{{ cliente.fecha_nacimiento}}">
             <small id="fechaError" class="text-danger"></small>
           </div>
         </div>
@@ -61,7 +61,7 @@
       <div class="row mb-3">
         <div class="col-md-4">
           <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError">
+          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError" value="{{ cliente.ubicacion.pais }}">
           <small id="paisError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
