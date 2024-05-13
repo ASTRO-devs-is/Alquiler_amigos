@@ -72,9 +72,18 @@
                         </div>
                         <hr class="bg-primary">
                         {% if user.is_authenticated %}
-                        <div class="d-flex justify-content-center">
-                            <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="margin: 5% auto;">Alquilar Amigo</a>
-                        </div>
+                            {% if usuario.esAmigo %}
+                                <div class="d-flex justify-content-center">
+                                    <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary disabled" style="margin: 5% auto;">Alquilar Amigo</a>                               
+                                </div>
+
+                                <h5 class="text-center" style="color: red;">Necesita ser un cliente</h5>
+                            {% else %}
+                                
+                                <div class="d-flex justify-content-center">
+                                    <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="margin: 5% auto;">Alquilar Amigo</a>
+                                </div>
+                            {% endif %}                            
                         {% else %}
                         <div class="d-flex justify-content-center">
                             <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary disabled" style="margin: 5% auto;">Alquilar Amigo</a>
