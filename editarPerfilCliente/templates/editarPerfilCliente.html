@@ -66,7 +66,7 @@
         </div>
         <div class="col-md-4">
           <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError">
+          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError" value="{{ cliente.ubicacion.ciudad }}">
           <small id="ciudadError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
