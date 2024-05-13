@@ -3,7 +3,13 @@ from .forms import ClienteForm
 from alquilarAmigo.models import Cliente, Direccion, User
 from django.contrib.auth.hashers import make_password
 
-def registrar_cliente(request):
+def editar_datos_cliente(request,id_usuario):
+   cliente = Cliente.objects. get(id_usuario= id_usuario)
+    
+   return render(request, 'editarPerfilCliente.html', {'cliente': cliente})
+
+
+def actualizar_datos (request,id_usuario):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         #print(form.is_valid())
@@ -32,12 +38,9 @@ def registrar_cliente(request):
                 user.save()
                 cliente.save()
                 return redirect('Inicio')
-            
-        #else:
-        #    print(form.errors) 
-        #    
+    
     else:
 
         form = ClienteForm()
     return render(request, 'editarPerfilCliente.html', {'form': form})
-
+ 

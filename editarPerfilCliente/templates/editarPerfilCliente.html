@@ -16,7 +16,7 @@
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
         <p style="text-align: center;">Tu foto se recortara automaticamente</p>
-    <form method="POST" action="{% url 'registrar_cliente' %}" id="registroForm">
+    <form method="POST" action="{% url 'actualizar_datos' %}" id="registroForm">
      </div> 
 
     {% csrf_token %}
@@ -26,7 +26,7 @@
           
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError",value="{{cliente.nombre}}">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -34,7 +34,7 @@
           <div class="form-group">
             
             <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError">
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{cliente.apellido}}">
             <small id="apellidoError" class="text-danger"></small>
           </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" >
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" value="{{cliente.telefono}}">
             <small id="telefonoError" class="text-danger"> </small>
             {% if telefonoRepetido %}
             <small class="text-danger">{{ telefonoRepetido }}</small>
@@ -53,7 +53,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
-            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)">
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)" value="{{cliente.fecha_nacimiento}}">
             <small id="fechaError" class="text-danger"></small>
           </div>
         </div>
@@ -87,7 +87,7 @@
         </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
-        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" value="{{cliente.descripcion}}" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
         <small id="descripcionError" class="text-danger"></small>
       </div>
       
