@@ -2,15 +2,31 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
   <div class="container mt-5 my-5 border" id="formulario-container">
-    <h2 class="mb-4 text-center">REGISTRAR CLIENTE</h2>
+    <a href="../../../intCat/guardar-intereses-categorias/" style="font-size: 18px; display: block; text-align: center;">
+      Categorias e intereses
+    </a>
+    <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
+    <p> Cambia tu foto de verfil y tu informacion personal</p>
+    
+    <div class="perfil_container">
+      <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
+      </div>
+        <p style="text-align: center;">Tu foto se recortara automaticamente</p>
     <form method="POST" action="{% url 'registrar_cliente' %}" id="registroForm">
+     </div> 
+
     {% csrf_token %}
       <div class="row mb-3">
+        
         <div class="col-md-6">
+          
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -63,98 +79,36 @@
       <div class="row mb-3">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="email">Email: <span class="campo-obligatorio">*</span></label><br>
-            <input type="email" id="email" name="correo" class="email form-control" required oninput="validarCorreo(this)" required data-error="emailError">
-            <small id="emailError" class="text-danger"></small>
-            {% if correoRepetido %}
-            <small class="text-danger">{{ correoRepetido }}</small>
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="contrasena">Contraseña: <span class="campo-obligatorio">*</span></label><br>
-            <div class="input-group">
-              <input type="text" id="contrasena1" name="contrasena" class="paswd form-control" required required data-error="contError">
-              <div class="btn-container" onclick="togglePasswordVisibility('contrasena1', 'togglePasswordIconR')">
-                <button type="button" class="btn btn-outline-secondary">
-                  <i class="fas fa-eye" id="togglePasswordIconR"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <small id="contError" class="text-danger"></small>
-        </div>
-        </div>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <div class="form-group">
+            <label for="email">Genero: <span class="campo-obligatorio">*</span></label><br>
             {{ form.genero }}
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="repetir-contrasena">Repetir contraseña: <span class="campo-obligatorio">*</span></label><br>
-            <div class="input-group">
-              <input type="text" id="contrasena2" class="paswd form-control" required data-error="cont2Error" oninput="validarContrasenas(this)">
-              <div class="btn-container" onclick="togglePasswordVisibility('contrasena2', 'togglePasswordIcon')">
-                <button type="button" class="btn btn-outline-secondary">
-                  <i class="fas fa-eye" id="togglePasswordIcon"></i>
-                </button>
-              </div>
-            </div>
-            <small id="cont2Error" class="text-danger"></small>
-          </div>
-        </div>
+        
         </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
         <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
         <small id="descripcionError" class="text-danger"></small>
       </div>
-      <div class="checkbox-group mb-3">
-        <div class="row align-items-center">
-          <div class="col-auto">
-              <input type="checkbox" id="aviso-legal" required>
-              <small id="avisoError" class="text-danger"></small>
-          </div>
-          <div class="col">
-              <h4>He leído y acepto el <a href="{% url 'politicas' %}" target="_blank">aviso legal y la Política de privacidad.</a> <span style="color: red">*</span></h4>
-          </div>
-        </div>
-        <div class="row align-items-center">
-          <div class="col-auto">
-              <input type="checkbox" id="terminos-condiciones" required>
-              <small id="termError" class="text-danger"></small>
-          </div>
-          <div class="col">
-              <h4>Acepto los <a href="{% url 'terminos' %}" target="_blank">términos y condiciones.</a> <span style="color: red">*</span></h4>
-        </div>
-      </div>
-      </div>
+      
       <div class="button-group" style="display: flex; justify-content: space-between;">
-        <button id="cancelar" class="btn btn-secondary" type="button">CANCELAR</button>
+        <button class="btn btn-secondary" type="button">CANCELAR</button>
         <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONTINUAR</button>
       </div>
-      <a href="../../inCat/guardar-intereses-categorias" style="font-size: 18px; display: block; text-align: center;">
-        Categorias e intereses
-      </a>
+
     </form>
   </div>
 </form>
   <!--</form>-->
-
   {% endblock %}
-
-
-
+  
   {% block extrajs %}
 
 <script type="text/javascript">
   document.getElementById('registroForm').addEventListener('submit', function(event) {
   
-    if(confirm("¿Crear cliente con estos datos?")){
-        alert("Cliente creado con éxito.");
+    if(confirm("¿Guardar horario seleccionado?")){
+        alert("Horario guardado con éxito.");
     }else {
         event.preventDefault();  
     }
@@ -333,10 +287,6 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
-
-document.getElementById("cancelar").addEventListener("click", function() {
-    window.location.href = "{% url 'Inicio' %}";
-});
 
 </script>
 {% endblock extrajs %}
