@@ -7,7 +7,7 @@ def editar_datos_cliente(request, id_usuario):
     cliente = Cliente.objects.get(id=id_usuario)
     form = ClienteForm(instance=cliente)
    
-    return render(request, 'editarPerfilCliente.html', {'form': form, 'cliente': cliente})
+    return render(request, 'editarPerfilCliente.html', {'form': form, 'cliente': cliente, 'id_usuario': id_usuario})
 
 
 def actualizar_datos (request,id_usuario):
