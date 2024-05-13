@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ClienteForm
 from alquilarAmigo.models import Cliente, Direccion, User
-from django.contrib.auth.hashers import make_password
+from django.shortcuts import get_object_or_404
 
 def editar_datos_cliente(request, id_usuario):
     cliente = Cliente.objects.get(id=id_usuario)
@@ -11,6 +11,9 @@ def editar_datos_cliente(request, id_usuario):
 
 
 def actualizar_datos (request,id_usuario):
+        
+    cliente = get_object_or_404(Cliente, id=id_usuario)
+
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         #print(form.is_valid())
