@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-4">
           <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError">
+          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError" value="{{ cliente.ubicacion.localidad }}">
           <!-- Agrega una pequeña etiqueta para mostrar mensajes de error -->
           <small id="localidadError" class="text-danger"></small>
         </div>
