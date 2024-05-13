@@ -87,7 +87,7 @@
         </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
-        <textarea id="descripcion" name="descripcion" class="desc form-control" value="{{cliente.descripcion}}" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ cliente.descripcion }}</textarea>
         <small id="descripcionError" class="text-danger"></small>
       </div>
       
