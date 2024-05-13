@@ -43,7 +43,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" value="{{cliente.telefono}}">
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError"value="{{ cliente.telefono}}">
             <small id="telefonoError" class="text-danger"> </small>
             {% if telefonoRepetido %}
             <small class="text-danger">{{ telefonoRepetido }}</small>
