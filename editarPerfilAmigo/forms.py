@@ -72,11 +72,7 @@ class formularioRegistrarAmigo(forms.Form):
                                 widget=forms.CheckboxInput(attrs={
                                 'class': 'form-check-input'
                                 }))
-    contrasena = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Contraseña'
-    }))
-   
+    
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
         hoy = datetime.date.today()
