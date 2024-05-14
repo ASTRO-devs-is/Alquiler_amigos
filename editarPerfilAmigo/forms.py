@@ -87,24 +87,7 @@ class formularioRegistrarAmigo(forms.Form):
         
         return fecha
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if email == "":
-            raise forms.ValidationError('El email no puede estar vacio')
-        if '@' not in email:
-            raise forms.ValidationError('El email debe contener tener un formato valido')
-        # Verificar si el correo electrónico termina con "@gmail.com" o "@hotmail.com"
-        if not email.endswith('@gmail.com') and not email.endswith('@hotmail.com'):
-            raise forms.ValidationError('El email debe ser de dominio @gmail.com o @hotmail.com')
-        
-        # Verificar si el correo electrónico contiene caracteres no permitidos
-        if not re.match(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]+$', email):
-            raise forms.ValidationError('Lo siento el correo electronico, solo se permiten letras (a-z), números (0-9), y el punto "."')
-
-        if Amigo.correo_duplicado(email):
-            raise forms.ValidationError('El correo electrónico ya está registrado')
-
-        return email
+    
     
     def clean_telefono(self):
         telefono = self.cleaned_data['telefono']
