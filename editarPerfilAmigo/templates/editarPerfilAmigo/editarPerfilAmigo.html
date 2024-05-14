@@ -117,22 +117,14 @@
                 </div> 
                 
                 <div style="display: flex; margin-top: 5px;" >
-                    <div style="width: 200px; margin-right: 9%;"><h4>{{ form.email.label }}: <span style="color: red">*</span></h4></div>
+                   
                     <div style="width: 100px; margin: 0px 9%; text-align: right;"><h4>{{ form.genero.label }}: <span style="color: red">*</span></h4></div> 
                 </div>
                 <div style="display: flex; margin-bottom: 10px;">
-                    <div style="width: 50%;">{{ form.email }}</div>
+                 
                     <div style="width: 50%; margin: 0px 10%;">{{ form.genero }}</div>
                 </div>
-                {% if errores %}
-                <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'email' %}
-                            <h5>{{ form.email.errors }}</h5>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                  {% endif %}
+               
                   {% if errores %}
                   <div style="color: red;">
                       {% for error in errores %}
