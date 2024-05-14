@@ -56,10 +56,7 @@ class formularioRegistrarAmigo(forms.Form):
                                 'class': 'form-control',
                                 'placeholder': 'Teléfono'
                                 }))
-    email = forms.CharField(required=False, label='Email', widget=forms.EmailInput(attrs={
-                                'class': 'form-control',
-                                'placeholder': 'Email'
-                                }))
+    
     localidad = forms.CharField(required=False, label='Localidad',
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
