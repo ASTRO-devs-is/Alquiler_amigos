@@ -1,63 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
-        
-    </head>
 
-    <style>
-        .categoria.seleccionada {
-            background-color: #f0ad4e; /* Color especial para categorías seleccionadas */
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<style>
+    .categoria.seleccionada {
+        background-color: #f0ad4e;
+        /* Color especial para categorías seleccionadas */
+    }
+
+    .filter-group {
+        margin-bottom: 20px;
+    }
+
+    .filter-icon {
+        margin-right: 5px;
+    }
+
+    .filter-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .navbar .container {
+        justify-content: flex-start;
+        /* Alinear los elementos a la izquierda */
+    }
+
+    .navbar .collapse {
+        flex-grow: unset;
+        /* Evitar que el contenido colapse en pantallas pequeñas */
+    }
+
+    .form-inline .form-control {
+        width: 100%;
+        /* Ocupar todo el ancho disponible */
+        margin-bottom: 10px;
+        /* Espacio entre elementos */
+    }
+
+    .form-inline .btn {
+        width: 100%;
+        /* Botón ocupa todo el ancho */
+    }
+
+    @media (min-width: 768px) {
+        .navbar .container {
+            justify-content: space-between;
+            /* Separar los elementos */
         }
-    </style>
-    <body>
+    }
+</style>
 
+<body>
+    <div class="container mt-5">
+        <h1 class="filter-title"><i class="fas fa-filter filter-icon"></i> Busca con quien y donde quieras alquilar un
+            amigo
+            o encontrar amigo</h1>
         <!--barra de busqueda-->
         <nav class="navbar navbar-expand-lg bg-transparent" id="navBuscador" style="background-color: #33658A;">
-              <!--contenedor colapsable-->
-              <div class="collapse navbar-collapse container" >
-                 
-               <!-- Dropdown de Categorías -->
+            <!--contenedor colapsable-->
+            <div class="collapse navbar-collapse container">
+
+                <!-- Dropdown de Categorías -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Categorías
                     </a>
                     <ul class="dropdown-menu ml-auto">
                         {% for categoria in categorias %}
-                        <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
+                        <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{
+                                categoria.nombre }}</a></li>
                         {% endfor %}
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item todas" href="#">Todas</a></li>
                     </ul>
                 </li>
 
-               <!-- Dropdown de Categorías -->
+                <!-- Dropdown de Categorías -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         Intereses
                     </a>
                     <ul class="dropdown-menu ml-auto">
                         {% for interes in Intereses %}
-                        <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{ interes.interes }}</a></li>
+                        <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{
+                                interes.interes }}</a></li>
                         {% endfor %}
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item todas" href="#">Todas</a></li>
                     </ul>
                 </li>
 
-                <!--Buscador-->
-                <form class="form-inline my-2 my-lg-0" id="formBusqueda">                  
+                <!-- Combo box de Ubicación -->
 
-                  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
-                  <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                <div class="col-lg-3 filter-group">
+                    <label for="option1"><i class="fas fa-map-marker-alt filter-icon"></i>Ubicación</label>
+                    <select class="form-control" id="option1">
+                        <option value="option1_value1"><i class="fas fa-map-marker-alt filter-icon"></i> Local</option>
+                        <option value="option1_value2"><i class="fas fa-globe-americas filter-icon"></i> Extranjero
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Combo box de Género -->
+                <div class="col-lg-3 filter-group">
+                    <label for="option2"><i class="fas fa-venus-mars filter-icon"></i>Género</label>
+                    <select class="form-control" id="option2">
+                        <option value="all"><i class="fas fa-user-secret filter-icon"></i> Prefiero no decir</option>
+                        <option value="option2_value1"><i class="fas fa-mars filter-icon"></i> Masculino</option>
+                        <option value="option2_value2"><i class="fas fa-venus filter-icon"></i> Femenino</option>
+                        <option value="option2_value3"><i class="fas fa-transgender-alt filter-icon"></i> No
+                            binario/otro</option>
+                    </select>
+                </div>
+
+                <!-- Combo box de Edad -->
+
+                <div class="col-md-6 col-lg-3 filter-group">
+                    <label for="option3"><i class="fas fa-user-clock filter-icon"></i>Edad</label>
+                    <select class="form-control" id="option3">
+                        <option value="all"><i class="fas fa-clock filter-icon"></i> Cualquiera</option>
+                        <option value="option3_value1"><i class="fas fa-user filter-icon"></i> Entre 18 y 25</option>
+                        <option value="option3_value2"><i class="fas fa-user-tie filter-icon"></i> Entre 25 y 35
+                        </option>
+                        <option value="option3_value3"><i class="fas fa-user-secret filter-icon"></i> Entre 35 y 45
+                        </option>
+                        <option value="option3_value4"><i class="fas fa-user-ninja filter-icon"></i> Entre 55 y 65
+                        </option>
+                        <option value="option3_value5"><i class="fas fa-user-astronaut filter-icon"></i> Mas de 65
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Combo box Recientes -->
+                <div class="col-md-6 col-lg-3 filter-group">
+                    <label for="option4"><i class="fas fa-history filter-icon"></i>Recientes</label>
+                    <select class="form-control" id="option4">
+                        <option value="all"><i class="fas fa-history filter-icon"></i> Recien agregados</option>
+                        <option value="option4_value1"><i class="fas fa-users filter-icon"></i> Nuevos amigos</option>
+                        <option value="option4_value2"><i class="fas fa-heart filter-icon"></i> Populares</option>
+                        <option value="option4_value3"><i class="fas fa-search filter-icon"></i> Mas solicitados
+                        </option>
+                        <option value="option4_value4"><i class="fas fa-star filter-icon"></i> Amigos destacados
+                        </option>
+                        <option value="option4_value5"><i class="fas fa-search-plus filter-icon"></i> Mas buscados
+                        </option>
+                    </select>
+                </div>
+
+                <!--Buscador-->
+                <form class="form-inline my-2 my-lg-0" id="formBusqueda">
+
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search"
+                        name="nombre" id="inputBuscador">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i
+                            class="fas fa-search"></i></button>
 
                 </form>
 
-              </div>
+            </div>
         </nav>
-         
-    </body>
-</html>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            // Event listener for option selection
+            $('select').change(function () {
+                filterItems();
+            });
+
+            // Function to filter items based on selected options
+            function filterItems() {
+                var option1 = $('#option1').val();
+                var option2 = $('#option2').val();
+                var option3 = $('#option3').val();
+                var option4 = $('#option4').val();
+
+                // Implement filtering logic based on selected options
+                // Here you would hide or show items based on the selected options
+            }
+        });
+    </script>
+</body>
+
+</html>
