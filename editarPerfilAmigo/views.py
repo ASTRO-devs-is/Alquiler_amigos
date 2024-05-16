@@ -36,41 +36,7 @@ def registrarAmigo(request):
                 'contrasena': form.cleaned_data['contrasena']
             }
 
-            return redirect('subir_foto')
+            #return redirect('subir_foto')
         return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form, 'errores': form.errors})
     return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': formulario})
 
-def aniadirHoras(request):
-    horas = ["Desde {:02d}:00 Hasta {:02d}:00".format(h, h+1) for h in range(8, 22)]
-    usuario = User.objects.get(id=request.user.id)
-    usuarioAmigo = Amigo.objects.get(correo=usuario.email)
-    #print (usuarioAmigo)
-    if request.method == 'POST':
-        horasParaGuardar = DisponibilidadHoras
-        horasParaGuardar.objects.filter(amigo=usuarioAmigo).delete()
-        horarios_seleccionados = []
-        #print(horas)
-        for i in range(1, len(horas)+1):
-            horario = request.POST.get('horario_seleccionado_{}'.format(i))
-            #print(horario)
-            if horario:
-                horarios_seleccionados.append(horario)
-        #print(horarios_seleccionados)
-        # Aquí puedes procesar los horarios seleccionados
-        for horario in horarios_seleccionados:
-            horaInicio, horaFin = horario.split(" Hasta ")
-            horaInicio = horaInicio.replace("Desde ", "")
-            horasParaGuardar.objects.create(amigo=usuarioAmigo, horaInicio=horaInicio, horaFin=horaFin)
-            #print("HOLA",horaInicio, horaFin, usuarioAmigo,"FINHOLA")
-            
-        return redirect('Inicio')
-    return render(request, "aniadirHoras/aniadirHoras.html", {'horas': horas})
-
-def cancelar_aniadir_horas(request):
-    return render(request, 'aniadirHoras/cancelar.html')
-
-def politicadeprivacidad(request):
-    return render(request, 'legal/politica.html')
-
-def terminosycondiciones(request):
-    return render(request, 'legal/terminos.html')
