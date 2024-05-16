@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import formularioRegistrarAmigo
+from .forms import formularioAmigo
 from urllib.parse import quote, unquote
 from alquilarAmigo.models import DisponibilidadHoras, Amigo,User
 
@@ -9,12 +9,13 @@ from django.core.serializers.json import DjangoJSONEncoder
 import json
 
 # Create your views here.
+'''
 def registrarAmigo(request):
-    formulario = formularioRegistrarAmigo()
+    formulario = formularioAmigo()
     print('aquiesta')
     print(formulario['contrasena'])
     if request.method == 'POST':
-        form = formularioRegistrarAmigo(request.POST)
+        form = formularioAmigo(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
            # Convertir la fecha a un formato serializable
@@ -39,4 +40,9 @@ def registrarAmigo(request):
             #return redirect('subir_foto')
         return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form, 'errores': form.errors})
     return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': formulario})
+'''
 
+def editar (request, id_amigo):
+    amigo = Amigo.objects.filter(id=id_amigo).first()
+    form = formularioAmigo(instance=amigo)
+    return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form})

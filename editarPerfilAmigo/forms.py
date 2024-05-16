@@ -13,7 +13,7 @@ GENERO_CHOICES = (
     (3, 'No binario/Otro'),
     (4, 'Prefiero no decir'),
 )
-class formularioRegistrarAmigo(forms.Form):
+class formularioAmigo(forms.Form):
    
     
     genero = forms.ChoiceField(choices=GENERO_CHOICES, label='Género', 
