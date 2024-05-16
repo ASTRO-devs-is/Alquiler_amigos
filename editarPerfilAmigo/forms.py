@@ -13,7 +13,7 @@ GENERO_CHOICES = (
     (3, 'No binario/Otro'),
     (4, 'Prefiero no decir'),
 )
-class formularioAmigo(forms.Form):
+class formularioAmigo(forms.ModelForm):
    
     
     genero = forms.ChoiceField(choices=GENERO_CHOICES, label='Género', 
@@ -73,6 +73,10 @@ class formularioAmigo(forms.Form):
                                 'class': 'form-check-input'
                                 }))
     
+    class Meta:
+        model = Amigo
+        fields = ['nombre', 'apellido', 'fecha', 'ciudad', 'pais', 'telefono', 'localidad', 'genero', 'tarifa', 'descripcion', 'politica', 'terminos']
+
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
         hoy = datetime.date.today()

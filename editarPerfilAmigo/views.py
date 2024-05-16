@@ -1,12 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import formularioAmigo
-from urllib.parse import quote, unquote
-from alquilarAmigo.models import DisponibilidadHoras, Amigo,User
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
-from django.core.serializers.json import DjangoJSONEncoder
-import json
+from alquilarAmigo.models import  Amigo,User
 
 # Create your views here.
 '''
@@ -43,6 +38,6 @@ def registrarAmigo(request):
 '''
 
 def editar (request, id_amigo):
-    amigo = Amigo.objects.filter(id=id_amigo).first()
-    form = formularioAmigo(instance=amigo)
-    return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form})
+   amigo = get_object_or_404(Amigo, id=id_amigo)
+   form = formularioAmigo(instance=amigo)
+   return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form})
