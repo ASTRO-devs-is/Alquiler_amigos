@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 def editar_datos_cliente(request, id_usuario):
     cliente = Cliente.objects.get(id=id_usuario)
     form = ClienteForm(instance=cliente)
+    if not cliente.id:
+        return render(request, 'editarPerfilCliente.html', {'error': 'Cliente no encontrado'})
    
     return render(request, 'editarPerfilCliente.html', {'form': form, 'cliente': cliente, 'id_usuario': id_usuario})
 

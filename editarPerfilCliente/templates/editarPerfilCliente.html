@@ -16,7 +16,7 @@
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
         <p style="text-align: center;">Tu foto se recortara automaticamente</p>
-    <form method="POST" action="{% url 'actualizar_datos' cliente.id %}" id="registroForm">
+    <form method="POST" action="{% url 'actualizar_datos'  id_usuario=cliente.id %}" id="registroForm">
      </div> 
 
     {% csrf_token %}
