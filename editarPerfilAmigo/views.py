@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import formularioAmigo
-
+from django.contrib import messages
 from alquilarAmigo.models import  Amigo,User
+from subir_fotos.models import FotoPerfil
+from subir_fotos.forms import FotoPerfilForm
 
 # Create your views here.
 '''
@@ -36,7 +38,7 @@ def registrarAmigo(request):
         return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form, 'errores': form.errors})
     return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': formulario})
 '''
-
+'''
 def editar (request, id_amigo):
    amigo = get_object_or_404(Amigo, id=id_amigo)
    #amigo = Amigo.objects.get(id=id_amigo)
@@ -51,17 +53,31 @@ def editar (request, id_amigo):
    #return render(request, "editarPerfilAmigo/editarPerfilAmigo.html",data)
 '''
 def editar(request, id_amigo):
-    amigo = get_object_or_404(Amigo, pk=id_amigo)
-    form = formularioAmigo(instance=amigo)
-    if request.method == "POST":
+    amigo = get_object_or_404(Amigo, id=id_amigo)
+
+    # Verificar si el amigo ya tiene una foto de perfil o crear una nueva instancia
+    if hasattr(amigo, 'fotoperfil'):
+        foto_form = FotoPerfilForm(instance=amigo.fotoperfil)
+    else:
+        foto_form = FotoPerfilForm()
+
+    if request.method == 'POST':
         form = formularioAmigo(request.POST, instance=amigo)
-        print(request.POST)
-        if form.is_valid():
-            #form.estadoP = request.POST['estadoP']
+        foto_form = FotoPerfilForm(request.POST, request.FILES, instance=amigo.fotoperfil if hasattr(amigo, 'fotoperfil') else None)
+
+        if form.is_valid() and foto_form.is_valid():
             form.save()
-            return redirect('home')
+            foto_perfil = foto_form.save(commit=False)
+            foto_perfil.fotos = amigo
+            foto_perfil.save()
+            messages.success(request, 'Perfil actualizado con éxito')
+            return redirect('perfil', id_amigo=amigo.id)
+    else:
+        form = formularioAmigo(instance=amigo)
+
     return render(request, 'editarPerfilAmigo/editarPerfilAmigo.html', {
-        'Amigo': amigo,
         'form': form,
-})
-'''
+        'foto_form': foto_form,
+        'amigo': amigo,
+        'id_amigo': id_amigo,
+    })

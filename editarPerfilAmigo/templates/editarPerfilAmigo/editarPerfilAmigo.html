@@ -13,8 +13,11 @@
     
     <div class="perfil_container">
       <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-        <img id="perfil-img" src="{{ amigo.fotoperfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; display: block;">
-       
+        {% if amigo.fotoperfil %}
+          <img id="perfil-img" src="{{ amigo.fotoperfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; display: block;">
+        {% else %}
+          <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
+        {% endif %}
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
         <p style="text-align: center;">Tu foto se recortara automaticamente</p>
@@ -22,8 +25,9 @@
      </div> 
 
     {% csrf_token %}
-      <div class="row mb-3">
         <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+      <div class="row mb-3">
+       
       
         <div class="col-md-6">
           
@@ -236,6 +240,15 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+          };
+          reader.readAsDataURL(event.target.files[0]);
+      }
 
 </script>
 {% endblock extrajs %}
