@@ -28,13 +28,16 @@ class formularioAmigo(forms.ModelForm):
                                     'rows': 4,
                                     'style': 'resize: none;'
                                 }))
-    fecha = forms.DateField(label='Fecha de nacimiento', required=False,
-                            widget=forms.DateInput(attrs={"type": "date",'class': 'form-control'
-                            }))
+    fecha_nacimiento = forms.DateField(label='Fecha de nacimiento', required=False,
+                            widget=forms.DateInput(attrs={"type": "date",'class': 'form-control'}))
+                           # widget=forms.DateInput(attrs={"type": "date", 'class': 'form-control','format': 'm-d-Y'}))
+                            
+    
+    
     nombre = forms.CharField(required=False, label='Nombre', max_length=50,
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control',
-                                'placeholder': 'Nombre'
+                                'placeholder': 'Nombre',
                             }))
     apellido = forms.CharField(required=False, label='Apellido', 
                                 widget=forms.TextInput(attrs={
@@ -49,8 +52,9 @@ class formularioAmigo(forms.ModelForm):
     pais = forms.CharField(required=False, label='Paìs',
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control',
+       
                                 'placeholder': 'Paìs'
-                            }))
+                        }))
     telefono = forms.CharField(required=False, label='Teléfono',
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
@@ -61,8 +65,8 @@ class formularioAmigo(forms.ModelForm):
                                 widget=forms.TextInput(attrs={
                                 'class': 'form-control',
                                 'placeholder': 'Localidad'
-                                }))
-    
+                               }))
+  
     politica = forms.BooleanField(required=False, label='Acepto la politica de privacidad', 
                                 widget=forms.CheckboxInput(attrs={
                                 'class': 'form-check-input'
@@ -75,10 +79,10 @@ class formularioAmigo(forms.ModelForm):
     
     class Meta:
         model = Amigo
-        fields = ['nombre', 'apellido', 'fecha', 'ciudad', 'pais', 'telefono', 'localidad', 'genero', 'tarifa', 'descripcion', 'politica', 'terminos']
+        fields = ['nombre', 'apellido', 'telefono','fecha_nacimiento', 'pais', 'ciudad','localidad', 'genero', 'tarifa', 'descripcion']
 
     def clean_fecha(self):
-        fecha = self.cleaned_data['fecha']
+        fecha = self.cleaned_data['fecha_nacimiento']
         hoy = datetime.date.today()
         hace_18_anos = hoy - timedelta(days=18*365.25)  # Resta 18 años a la fecha actual
         hace_99_anos = hoy - datetime.timedelta(days=99*365.25)  # Resta 85 años a la fecha actual

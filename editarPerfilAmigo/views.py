@@ -39,5 +39,29 @@ def registrarAmigo(request):
 
 def editar (request, id_amigo):
    amigo = get_object_or_404(Amigo, id=id_amigo)
+   #amigo = Amigo.objects.get(id=id_amigo)
+   #data = {
+     # 'form':formularioAmigo(instance=amigo),
+   #   'fecha_nacimiento': amigo.fecha_nacimiento
+  # }
    form = formularioAmigo(instance=amigo)
-   return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form})
+   print("Fecha Nacimiento")
+   print(amigo.fecha_nacimiento)
+   return render(request, "editarPerfilAmigo/editarPerfilAmigo.html", {'form': form, 'amigo': amigo,'id_amigo': id_amigo})
+   #return render(request, "editarPerfilAmigo/editarPerfilAmigo.html",data)
+'''
+def editar(request, id_amigo):
+    amigo = get_object_or_404(Amigo, pk=id_amigo)
+    form = formularioAmigo(instance=amigo)
+    if request.method == "POST":
+        form = formularioAmigo(request.POST, instance=amigo)
+        print(request.POST)
+        if form.is_valid():
+            #form.estadoP = request.POST['estadoP']
+            form.save()
+            return redirect('home')
+    return render(request, 'editarPerfilAmigo/editarPerfilAmigo.html', {
+        'Amigo': amigo,
+        'form': form,
+})
+'''
