@@ -54,16 +54,20 @@ def editar (request, id_amigo):
 '''
 def editar(request, id_amigo):
     amigo = get_object_or_404(Amigo, id=id_amigo)
-
+   
     # Verificar si el amigo ya tiene una foto de perfil o crear una nueva instancia
-    if hasattr(amigo, 'fotoperfil'):
-        foto_form = FotoPerfilForm(instance=amigo.fotoperfil)
-    else:
-        foto_form = FotoPerfilForm()
+   # if hasattr(amigo, 'fotoperfil'):
+    #    foto_form = FotoPerfilForm(instance=amigo.fotoperfil)
+    #else:
+     #   foto_form = FotoPerfilForm()
+    foto_perfil, created = FotoPerfil.objects.get_or_create(fotos=amigo)
+    foto_form = FotoPerfilForm(instance=foto_perfil)
+
 
     if request.method == 'POST':
         form = formularioAmigo(request.POST, instance=amigo)
-        foto_form = FotoPerfilForm(request.POST, request.FILES, instance=amigo.fotoperfil if hasattr(amigo, 'fotoperfil') else None)
+        #foto_form = FotoPerfilForm(request.POST, request.FILES, instance=amigo.fotoperfil if hasattr(amigo, 'fotoperfil') else None)
+        foto_form = FotoPerfilForm(request.POST, request.FILES, instance=foto_perfil)
 
         if form.is_valid() and foto_form.is_valid():
             form.save()
@@ -79,5 +83,6 @@ def editar(request, id_amigo):
         'form': form,
         'foto_form': foto_form,
         'amigo': amigo,
+        'foto_perfil': foto_perfil,
         'id_amigo': id_amigo,
     })
