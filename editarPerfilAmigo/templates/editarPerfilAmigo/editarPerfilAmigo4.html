@@ -13,29 +13,38 @@
     
     <div class="perfil_container">
       <!--div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;"-->
+       
       <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
-          
-        {% if foto_perfil.image %}  
+           
+        {% if foto_perfil.image %}
+          <!--img id="perfil-img" src="{{ foto_perfil.image.url}}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; display: block;"-->
+          <!--img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; position: absolute; top: 0; left: 0;"-->
+           
           <img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; position: absolute; top: 0; left: 0;">
            
         {% else %}
           <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
         {% endif %}
-        
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
-        <p style="text-align: center;">Tu foto se recortara automaticamente</p>
-    <form method="POST" action="{% url 'actualizar_datos'  id_usuario=cliente.id %}" id="registroForm">
-     </div> 
+        <!--p style="text-align: center;">Tu foto se recortara automaticamente</p-->
+    <!--form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm"-->
+    <form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+      
+    </div> 
 
     {% csrf_token %}
+   
+    
+        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
       <div class="row mb-3">
-        
+       
+      
         <div class="col-md-6">
           
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ cliente.nombre }}">
+            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{amigo.nombre }}">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -43,7 +52,7 @@
           <div class="form-group">
             
             <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ cliente.apellido}}">
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ amigo.apellido}}">
             <small id="apellidoError" class="text-danger"></small>
           </div>
         </div>
@@ -52,7 +61,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError"value="{{ cliente.telefono}}">
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError"value="{{ amigo.telefono}}">
             <small id="telefonoError" class="text-danger"> </small>
             {% if telefonoRepetido %}
             <small class="text-danger">{{ telefonoRepetido }}</small>
@@ -62,7 +71,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
-            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput=" validarFechaNacimiento(this)"  value="{{ cliente.fecha_nacimiento|date:'Y-m-d' }}">
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput=" validarFechaNacimiento(this)"  value="{{ amigo.fecha_nacimiento|date:'Y-m-d' }}">
             <small id="fechaError" class="text-danger"></small>
           </div>
         </div>
@@ -70,17 +79,17 @@
       <div class="row mb-3">
         <div class="col-md-4">
           <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError" value="{{ cliente.ubicacion.pais }}">
+          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError" value="{{ amigo.ubicacion.pais }}">
           <small id="paisError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError" value="{{ cliente.ubicacion.ciudad }}">
+          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError" value="{{ amigo.ubicacion.ciudad }}">
           <small id="ciudadError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError" value="{{ cliente.ubicacion.localidad }}">
+          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError" value="{{ amigo.ubicacion.localidad }}">
           <!-- Agrega una pequeña etiqueta para mostrar mensajes de error -->
           <small id="localidadError" class="text-danger"></small>
         </div>
@@ -96,13 +105,39 @@
         </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
-        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ cliente.descripcion }}</textarea>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ amigo.descripcion }}</textarea>
         <small id="descripcionError" class="text-danger"></small>
       </div>
-      
-      <div class="button-group" style="display: flex; justify-content: space-between;">
+      <!--div class="checkbox-group mb-3">
+        <div class="row align-items-center">
+          <div class="col-auto">
+              <input type="checkbox" id="aviso-legal" required>
+              <small id="avisoError" class="text-danger"></small>
+          </div>
+          <div class="col">
+              <h4>He leído y acepto el <a href="{% url 'politicas' %}" target="_blank">aviso legal y la Política de privacidad.</a> <span style="color: red">*</span></h4>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-auto">
+              <input type="checkbox" id="terminos-condiciones" required>
+              <small id="termError" class="text-danger"></small>
+          </div>
+          <div class="col">
+              <h4>Acepto los <a href="{% url 'terminos' %}" target="_blank">términos y condiciones.</a> <span style="color: red">*</span></h4>
+        </div>
+      </div>
+      </div-->
+      <div class="form-group mb-3">
+        <input type="checkbox" id="politica" name="politica" value="aceptado" required>
+        <label for="politica">Acepto la política de privacidad</label><br>
+        <input type="checkbox" id="terminos" name="terminos" value="aceptado" required>
+        <label for="terminos">Acepto los términos y condiciones</label>
+      </div>
+
         <button class="btn btn-secondary" type="button">CANCELAR</button>
-        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button>
+        <!--button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button-->
+        <button class="btn btn-primary" type="submit">CONFIRMAR</button>
       </div>
 
     </form>
@@ -120,6 +155,7 @@
       console.log("Confirmación aceptada, enviando formulario...");
     } else {
         console.log("Confirmación cancelada");
+        event.preventDefault();
     }
   });
   function volverAtras() {
@@ -242,6 +278,16 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+              output.style.display = 'block';
+          };
+          reader.readAsDataURL(event.target.files[0]);
+      }
 
 </script>
 {% endblock extrajs %}

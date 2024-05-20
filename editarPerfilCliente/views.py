@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect
 from .forms import ClienteForm
 from alquilarAmigo.models import Cliente, Direccion, User
 from django.shortcuts import get_object_or_404
+from subir_fotos.models import FotoPerfil
+from subir_fotos.forms import FotoPerfilForm
+
 
 def editar_datos_cliente(request, id_usuario):
     cliente = Cliente.objects.get(id=id_usuario)
     form = ClienteForm(instance=cliente)
+    foto_perfil, created = FotoPerfil.objects.get_or_create(fotos=cliente)
+    foto_form = FotoPerfilForm(instance=foto_perfil)
     if not cliente.id:
         return render(request, 'editarPerfilCliente.html', {'error': 'Cliente no encontrado'})
    
-    return render(request, 'editarPerfilCliente.html', {'form': form, 'cliente': cliente, 'id_usuario': id_usuario})
+    return render(request, 'editarPerfilCliente.html', {'form': form, 'cliente': cliente, 'id_usuario': id_usuario,  'foto_form': foto_form,'foto_perfil': foto_perfil})
 
 
 def actualizar_datos (request,id_usuario):
