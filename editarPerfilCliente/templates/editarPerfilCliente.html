@@ -12,30 +12,28 @@
     <p> Cambia tu foto de verfil y tu informacion personal</p>
     
     <div class="perfil_container">
-      <!--div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;"-->
       <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
-          
-        {% if foto_perfil.image %}  
+        {% if foto_perfil.image %}
           <img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; position: absolute; top: 0; left: 0;">
-           
         {% else %}
           <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
         {% endif %}
-        
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
-        <p style="text-align: center;">Tu foto se recortara automaticamente</p>
-    <form method="POST" action="{% url 'actualizar_datos'  id_usuario=cliente.id %}" id="registroForm">
-     </div> 
-
+      <form method="POST" action="{% url 'editarCliente' id_usuario=cliente.id %}" id="registroForm" enctype="multipart/form-data">
+    </div>
+    
     {% csrf_token %}
+
+    <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+    
       <div class="row mb-3">
         
         <div class="col-md-6">
           
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ cliente.nombre }}">
+            <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ cliente.nombre }}">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -242,6 +240,16 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+              output.style.display = 'block';
+          };
+          reader.readAsDataURL(event.target.files[0]);
+  }
 
 </script>
 {% endblock extrajs %}

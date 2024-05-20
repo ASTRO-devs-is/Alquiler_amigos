@@ -198,7 +198,10 @@ def editar(request, id_amigo):
         telefono_cambiado = False
         if 'telefono' in form.changed_data:
             telefono_cambiado = True
-
+        print("Estamos en POST")
+        print(form.is_valid())
+        print(foto_form.is_valid())
+        print(form.errors)
         if form.is_valid():
             if telefono_cambiado:
                 # Validar teléfono manualmente si ha cambiado
