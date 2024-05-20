@@ -28,8 +28,10 @@
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
         <!--p style="text-align: center;">Tu foto se recortara automaticamente</p-->
-    <form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm">
-     </div> 
+    <!--form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm"-->
+    <form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+      
+    </div> 
 
     {% csrf_token %}
    
@@ -109,7 +111,8 @@
       
       <div class="button-group" style="display: flex; justify-content: space-between;">
         <button class="btn btn-secondary" type="button">CANCELAR</button>
-        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button>
+        <!--button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button-->
+        <button class="btn btn-primary" type="submit">CONFIRMAR</button>
       </div>
 
     </form>
@@ -127,6 +130,7 @@
       console.log("Confirmación aceptada, enviando formulario...");
     } else {
         console.log("Confirmación cancelada");
+        event.preventDefault();
     }
   });
   function volverAtras() {

@@ -72,10 +72,10 @@ def editar(request, id_amigo):
         if form.is_valid() and foto_form.is_valid():
             form.save()
             foto_perfil = foto_form.save(commit=False)
-            foto_perfil.fotos = amigo
+            foto_perfil.image = amigo
             foto_perfil.save()
             messages.success(request, 'Perfil actualizado con éxito')
-            return redirect('perfil', id_amigo=amigo.id)
+            return redirect('Inicio', id_amigo=amigo.id)
     else:
         form = formularioAmigo(instance=amigo)
 
