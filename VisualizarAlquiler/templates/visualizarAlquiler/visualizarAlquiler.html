@@ -51,10 +51,30 @@
                 </div>
                 {% endif %}
                 {% endfor %}
+                <div class="d-flex justify-content-center" style="margin: 2% 0%;">
+                    <div class="pagination" >
+                        <span class="step-links">
+                            {% if contexto.page_obj.has_previous %}
+                                <a href="?page=1" class="text-white">&laquo; primero</a>
+                                <a href="?page={{ contexto.page_obj.previous_page_number }}" class="text-white">anterior</a>
+                            {% endif %}
+                        
+                            <span class="current text-white">
+                                Página {{ contexto.page_obj.number }} de {{ contexto.page_obj.paginator.num_pages }}.
+                            </span>
+                        
+                            {% if contexto.page_obj.has_next %}
+                                <a href="?page={{ contexto.page_obj.next_page_number }}" class="text-white">siguiente</a>
+                                <a href="?page={{ contexto.page_obj.paginator.num_pages }}" class="text-white">último &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <div id="pagination-container"></div>
 {% endblock %}
 
 
@@ -107,6 +127,8 @@ $(".rechazar, .confirmar").click(function(){
         }
     }
 });
+
+
 
 </script>
 {% endblock extrajs %}

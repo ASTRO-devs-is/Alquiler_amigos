@@ -3,9 +3,11 @@ from alquilarAmigo.models import Salida, Amigo, User
 from subir_fotos.models import FotoPerfil
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 
 # Create your views here.
 def visualizarAlquiler(request):
+    
     usuarioA = User.objects.get(id=request.user.id)
     
     try:
@@ -14,12 +16,20 @@ def visualizarAlquiler(request):
         usuarioAmigo = None
     if(usuarioAmigo != None):
         salidas = Salida.objects.filter(amigo_id=usuarioAmigo.id).order_by('-created')
+        if len(salidas) > 5:
+            
+            paginator = Paginator(salidas, 5)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+        else:
+            page_obj = salidas
         amigoTieneSalida = True
-        salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in salidas]
+        salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in page_obj]
     else:
         amigoTieneSalida = False
     
-    return render(request, 'VisualizarAlquiler/visualizarAlquiler.html', {'contexto': {'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
+    return render(request, 'VisualizarAlquiler/visualizarAlquiler.html', 
+                    {'contexto': {'page_obj': page_obj, 'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
 
 
 @csrf_exempt
@@ -56,8 +66,17 @@ def historial(request):
     if(usuarioAmigo != None):
         salidas = Salida.objects.filter(amigo_id=usuarioAmigo.id).order_by('-updated')
         amigoTieneSalida = True
-        salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in salidas]
+        salidasNoPendientes = salidas.exclude(estado_salida='Pendiente')
+        #print(len(salidasNoPendientes))
+        if len(salidasNoPendientes) > 5:
+            
+            paginator = Paginator(salidas, 5)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+        else:
+            page_obj = salidas
+        salidas_con_fotos = [{'salida': salida, 'foto': FotoPerfil.objects.filter(fotosCliente__id=salida.cliente.id).first()} for salida in page_obj]
     else:
         amigoTieneSalida = False
     
-    return render(request, 'VisualizarAlquiler/historial.html', {'contexto': {'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
+    return render(request, 'VisualizarAlquiler/historial.html', {'contexto': {'page_obj': page_obj,'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})

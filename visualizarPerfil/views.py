@@ -16,9 +16,9 @@ def visualizarPerfilAmigo(request, amigo_id=None):
     return render(request, 'visualizarPerfil/visualizarPerfil.html', {'amigo': amigo})
 
 def mostrarGenero(genero):
-    if genero == 1:
+    if genero == 2:
         return 'Masculino'
-    elif genero == 2:
+    elif genero == 1:
         return 'Femenino'
     else:
         return 'Otro'
