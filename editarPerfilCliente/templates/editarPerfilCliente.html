@@ -99,8 +99,9 @@
       </div>
       
       <div class="button-group" style="display: flex; justify-content: space-between;">
-        <button class="btn btn-secondary" type="button">CANCELAR</button>
-        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button>
+        <button class="btn btn-secondary" type="button" onclick="volverAtras()">CANCELAR</button>
+        <!--button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button-->
+        <button class="btn btn-primary" type="submit">CONFIRMAR</button>
       </div>
 
     </form>
@@ -121,7 +122,7 @@
     }
   });
   function volverAtras() {
-      window.history.back();
+    window.location.href = "{% url 'Inicio' %}";
   }
   function mostrarAviso() {
       alert("Actualización exitosa");

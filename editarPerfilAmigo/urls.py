@@ -5,5 +5,5 @@ from django.conf.urls.static import static#importamos estos dos para poder mostr
 
 urlpatterns = [
    path('editar/<int:id_amigo>/', views.editar, name="editarAmigo"), 
-    
+   path('editar_horas/<int:id_amigo>/', views.editar_anadir_horas, name="editarHorasAmigo"),   
 ]
