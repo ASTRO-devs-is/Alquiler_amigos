@@ -4,6 +4,7 @@ from alquilarAmigo.models import Cliente, Direccion, User
 from subir_fotos.models import FotoPerfil
 from django.contrib.auth.hashers import make_password
 
+
 def registrar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
