@@ -1,291 +1,228 @@
-
 {% extends 'inicio/base.html' %}
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-<div class="container" id="formulario-container">
-        <h1 class="mt-5 ">Intereses</h1>
-        <div class="row">
-            <div class="col-md-6 input-group">
-                <input type="text" id="searchInput" class="form-control mb-4" placeholder="Buscar">
-                <div class="input-group-btn">
-                    <button class="btn btn-default btn-bordered" type="submit">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="messageBox" class="alert alert-warning" style="display: none;"></div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h5>Intereses seleccionados:</h5>
-                <div id="selectedInterests" class="mb-3"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>Seleccione sus intereses personales:</p>
-                <ul id="interestsList" class="list-group"></ul>
-            </div>
-        </div>
-        <h2 class="mt-5">Categorías</h2>
-        <p>Seleccione el tipo de salidas que está dispuesto a tener de las siguientes categorías:</p>
-        <div class="row">
-            <div class="col-md-12">
-                <ul id="categoriesList" class="list-group"></ul>
-            </div>
-            <div class="container-fluid container-center">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button id="continueBtn" class="btn btn-warning" type="submit" onclick="mostrarConfirmacion()">
-                        CONTINUAR
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="container mt-5 my-5 border" id="formulario-container">
+    <a href="{% url 'guardar_intereses_categorias'%}" style="font-size: 18px; display: block; text-align: center;">
+        Categorias e intereses
+    </a>
+    <a href="{% url 'editarHorasAmigo' id_amigo=amigo.id %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
+        <div style="text-align: center;margin: 1%;padding: 2%;"></div>
+    <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
+    <p> Cambia tu foto de verfil y tu informacion personal</p>
+    
+    <div class="perfil_container">
+        <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
         
+            {% if foto_perfil.image %}
+            <img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; position: absolute; top: 0; left: 0;">
+            
+            {% else %}
+            <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
+            {% endif %}
+            <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;"></i>
+        </div>
+    </div>
+
+    <form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+        
+    
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ amigo.nombre }}">
+                    <small id="nombreError" class="text-danger"></small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ amigo.apellido }}">
+                    <small id="apellidoError" class="text-danger"></small>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" value="{{ amigo.telefono }}">
+                    <small id="telefonoError" class="text-danger"></small>
+                    {% if telefonoRepetido %}
+                    <small class="text-danger">{{ telefonoRepetido }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" oninput="validarFechaNacimiento(this)" value="{{ amigo.fecha_nacimiento|date:'Y-m-d' }}">
+                    <small id="fechaError" class="text-danger"></small>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="paisError" value="{{ amigo.ubicacion.pais }}">
+                <small id="paisError" class="text-danger"></small>
+            </div>
+            <div class="col-md-4">
+                <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="ciudadError" value="{{ amigo.ubicacion.ciudad }}">
+                <small id="ciudadError" class="text-danger"></small>
+            </div>
+            <div class="col-md-4">
+                <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="localidadError" value="{{ amigo.ubicacion.localidad }}">
+                <small id="localidadError" class="text-danger"></small>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="genero">Género: <span class="campo-obligatorio">*</span></label><br>
+                    {{ form.genero }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
+            <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ amigo.descripcion }}</textarea>
+            <small id="descripcionError" class="text-danger"></small>
+        </div>
+
+        <!--div class="form-group mb-3">
+            <input type="checkbox" id="politica" name="politica" value="aceptado" required>
+            <label for="politica">Acepto la política de privacidad</label><br>
+            <input type="checkbox" id="terminos" name="terminos" value="aceptado" required>
+            <label for="terminos">Acepto los términos y condiciones</label>
+        </div-->
+
+        <div class="button-group" style="display: flex; justify-content: space-between;">
+            <button class="btn btn-secondary" type="button" onclick="volverAtras()">CANCELAR</button>
+            <button class="btn btn-primary" type="submit">CONFIRMAR</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
-
-
 
 {% block extrajs %}
 <script type="text/javascript">
-
-$(document).ready(function () {
-    var selectedInterests = [];
-    var selectedCategories = [];
-    var messageTimer;
-
-    // Lista de intereses
-    var interests = [
-        'Artes', 'Música', 'Deportes', 'Karaoke', 'Moda', 'Fotografía', 'Maquillaje', 'Escribir',
-        'Dibujar', 'Pintar', 'Anime', 'Baile', 'Comida y bebida', 'Bienestar y fitness', 'Coches', 'Videojuegos',
-        'Leer', 'Películas', 'Boxeo', 'K-pop', 'Manualidades', 'Fútbol', 'Acuario', 'Baloncesto', 'Negocios',
-        'Jardinería', 'Poesía', 'Redes Sociales', 'Viajar', 'Caminar', 'Intercambio de idiomas', 'E-Sports',
-        'Cosplay', 'Motociclismo', 'Carreras de bicicleta', 'Astrología', 'Tatuajes', 'Repostería', 'Inversiones',
-        'Automovilismo', 'Creación de contenido', 'Actividades al aire libre', 'Acampar', 'Artes Marciales',
-        'Ballet', 'Skateboarding', 'Programar', 'Senderismo', 'Voleibol', 'Blogger'
-    ];
-
-    var categorias = ['Casual', 'Viajes', 'Experiencias extremas', 'Videojuegos', 'Cosplay', 'Turismo', 'Actividades al aire libre', 'Bienestar y fitnnes', 'Deporte', 'Eventos sociales', 'Gastronomia', 'Voluntariados', 'Arte y cultura', 'Aventuras', 'Aprendizaje', 'Formal'];
-
-    function showMessage(message) {
-        $('#messageBox').text(message).show();
-        messageTimer = setTimeout(function () {
-            hideMessage();
-        }, 3000);
+  document.getElementById('registroForm').addEventListener('submit', function(event) {
+    console.log("Evento de envío del formulario activado");
+    if(confirm("¿Está seguro que quiere cambiar datos del perfil?")){
+      console.log("Confirmación aceptada, enviando formulario...");
+    } else {
+        console.log("Confirmación cancelada");
+        event.preventDefault();
     }
+  });
 
-    function hideMessage() {
-        $('#messageBox').hide();
-    }
-    // Función para generar la lista de intereses
-    function generateInterestsList() {
-        var interestsList = $('#interestsList');
-        interestsList.empty();
-        var row;
-        var colCount = 0;
-        interests.slice(0, 16).forEach(function (interest, index) {
-            if (index % 4 === 0) {
-                row = $('<div class="row"></div>');
-                interestsList.append(row);
-            }
-            var isChecked = selectedInterests.includes(interest) ? 'checked' : '';
-            row.append('<div class="col-md-3"><div class="form-check"><input type="checkbox" class="form-check-input interest-checkbox" value="' + interest + '" ' + isChecked + '> <label class="form-check-label">' + interest + '</label></div></div>');
-            colCount++;
-            if (colCount === 4) {
-                colCount = 0;
-            }
-        });
-    }
+  function volverAtras() {
+    window.location.href = "{% url 'Inicio' %}";
+  }
 
-    // Función para generar la lista de categorías
-    function generateCategoriesList() {
-        var categoriesList = $('#categoriesList');
-        categoriesList.empty();
-        var row;
-        var colCount = 0;
-        categorias.forEach(function (category, index) {
-            if (index % 4 === 0) {
-                row = $('<div class="row"></div>');
-                categoriesList.append(row);
-            }
-            var isChecked = selectedCategories.includes(category) ? 'checked' : '';
-            row.append('<div class="col-md-3"><div class="form-check"><input type="checkbox" class="form-check-input category-checkbox" value="' + category + '" ' + isChecked + '> <label class="form-check-label">' + category + '</label></div></div>');
-            colCount++;
-            if (colCount === 4) {
-                colCount = 0;
-            }
-        });
-    }
+  function validarFormulario() {
+      var campos = document.querySelectorAll('input, textarea, select');
+      var formValido = true;
 
-    // Generar la lista de intereses y categorías al cargar la página
-    generateInterestsList();
-    generateCategoriesList();
+      campos.forEach(function (campo) {
+          if (campo.required && campo.value.trim() === '') {
+              var errorMsgId = campo.getAttribute('data-error');
+              var errorMsg = 'El campo ' + campo.id + ' no puede estar vacío.';
+              document.getElementById(errorMsgId).textContent = errorMsg;
+              formValido = false;
+          }
+      });
 
-    // Función para contar los checkboxes seleccionados
-    function countChecked() {
-        var checked = $('.interest-checkbox:checked').length;
-        return checked;
-    }
+      // Verificar si hay algún mensaje de error presente
+      var mensajesError = document.querySelectorAll('.text-danger');
+      mensajesError.forEach(function (mensaje) {
+          if (mensaje.textContent !== '') {
+              formValido = false;
+          }
+      });
 
-    // Función para actualizar los intereses seleccionados
-    function updateSelectedInterests(interest, checked) {
-        if (checked) {
-            if (selectedInterests.length < 5) {
-                selectedInterests.push(interest);
-            } else {
-                showMessage("¡Ya has seleccionado 5 intereses!");
-                $('.interest-checkbox[value="' + interest + '"]').prop('checked', false);
-            }
-        } else {
-            var index = selectedInterests.indexOf(interest);
-            if (index !== -1) {
-                selectedInterests.splice(index, 1);
-            }
-        }
-        displaySelectedInterests();
-    }
+      return formValido;
+  }
 
-    // Función para actualizar las categorías seleccionadas
-    function updateSelectedCategories(category, checked) {
-        if (checked) {
-            if (selectedCategories.length < 5) {
-                selectedCategories.push(category);
-            } else {
-                showMessage("¡Ya has seleccionado 5 categorías!");
-                $('.category-checkbox[value="' + category + '"]').prop('checked', false);
-            }
-        } else {
-            var index = selectedCategories.indexOf(category);
-            if (index !== -1) {
-                selectedCategories.splice(index, 1);
-            }
-        }
-    }
+  function validarNombre(elemento) {
+      const nombreInput = elemento.value.trim();
+      const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+      if (!soloLetras.test(nombreInput)) {
+          document.getElementById('nombreError').textContent = 'El nombre solo puede contener letras y espacios.';
+      } else {
+          document.getElementById('nombreError').textContent = '';
+      }
+  }
 
-    // Función para mostrar los intereses seleccionados
-    function displaySelectedInterests() {
-        var selectedInterestsDiv = $('#selectedInterests');
-        selectedInterestsDiv.empty();
-        selectedInterests.forEach(function (interest) {
-            selectedInterestsDiv.append('<span style="padding-top:5px;" class="badge badge-primary mr-2 mb-2">' + interest + '<button type="button" class="close" data-interest="' + interest + '" style="color: white; margin-top: -8px;"><span aria-hidden="true">&times;</span></button></span>');
-        });
-        // Evento de clic en el botón "x" para quitar el interés seleccionado
-        selectedInterestsDiv.find('.close').click(function () {
-            var interestToRemove = $(this).data('interest');
-            var index = selectedInterests.indexOf(interestToRemove);
-            if (index !== -1) {
-                selectedInterests.splice(index, 1);
-                displaySelectedInterests();
-                // Desmarcar el checkbox correspondiente
-                $('.interest-checkbox[value="' + interestToRemove + '"]').prop('checked', false);
-            }
-        });
-    }
+  function validarApellido(elemento) {
+      const apellidoInput = elemento.value.trim();
+      const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+      if (!soloLetras.test(apellidoInput)) {
+          document.getElementById('apellidoError').textContent = 'El apellido solo puede contener letras y espacios.';
+      } else {
+          document.getElementById('apellidoError').textContent = '';
+      }
+  }
 
-    // Función para filtrar los intereses al buscar
-    function filterInterestsList(query) {
-        var filteredInterests = interests.filter(function (interest) {
-            return interest.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-        });
-        generateInterestsListFromData(filteredInterests);
-    }
+  function validarTelefono(elemento) {
+      const telefonoInput = elemento.value.trim();
+      const soloNumeros = /^[0-9]+$/; // Expresión regular para solo números
+      if (!soloNumeros.test(telefonoInput)) {
+          document.getElementById('telefonoError').textContent = 'El teléfono solo puede contener números.';
+      } else {
+          document.getElementById('telefonoError').textContent = '';
+      }
+  }
+ 
 
-    // Función para generar la lista de intereses a partir de los datos filtrados
-    function generateInterestsListFromData(data) {
-        var interestsList = $('#interestsList');
-        interestsList.empty();
-        var row;
-        var colCount = 0;
-        data.forEach(function (interest, index) {
-            if (index % 4 === 0) {
-                row = $('<div class="row"></div>');
-                interestsList.append(row);
-            }
-            var isChecked = selectedInterests.includes(interest) ? 'checked' : '';
-            row.append('<div class="col-md-3"><div class="form-check"><input type="checkbox" class="form-check-input interest-checkbox" value="' + interest + '" ' + isChecked + '> <label class="form-check-label">' + interest + '</label></div></div>');
-            colCount++;
-            if (colCount === 4) {
-                colCount = 0;
-            }
-        });
-    }
+  function validarFechaNacimiento(elemento) {
+      const fechaInput = new Date(elemento.value);
+      const hoy = new Date();
+      if (fechaInput >= hoy) {
+          document.getElementById('fechaError').textContent = 'La fecha de nacimiento no puede ser en el futuro.';
+      } else {
+          document.getElementById('fechaError').textContent = '';
+      }
+  }
 
-    // Función para filtrar los intereses al buscar
-    $('#searchInput').on('keyup', function () {
-        var query = $(this).val();
-        if (query === '') {
-            generateInterestsList();
-        } else {
-            filterInterestsList(query);
-        }
-    });
+  function validarUbicacion(elemento) {
+      const ubicacionInput = elemento.value.trim();
+      if (ubicacionInput === '') {
+          var errorMsgId = elemento.getAttribute('data-error');
+          document.getElementById(errorMsgId).textContent = 'Este campo no puede estar vacío.';
+      } else {
+          var errorMsgId = elemento.getAttribute('data-error');
+          document.getElementById(errorMsgId).textContent = '';
+      }
+  }
 
-    // Evento de cambio en los checkboxes de intereses
-    $(document).on('change', '.interest-checkbox', function () {
-        var interest = $(this).val();
-        var checked = $(this).is(':checked');
-        updateSelectedInterests(interest, checked);
-    });
+  function validarDescripcion(elemento) {
+      const descripcionInput = elemento.value.trim();
+      if (descripcionInput.length < 10) {
+          document.getElementById('descripcionError').textContent = 'La descripción debe tener al menos 10 caracteres.';
+      } else {
+          document.getElementById('descripcionError').textContent = '';
+      }
+  }
 
-    // Evento de cambio en los checkboxes de categorías
-    $(document).on('change', '.category-checkbox', function () {
-        var category = $(this).val();
-        var checked = $(this).is(':checked');
-        updateSelectedCategories(category, checked);
-    });
+  function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+              output.style.display = 'block';
+          };
+          reader.readAsDataURL(event.target.files[0]);
+  }
 
-    function hideMessage() {
-        $('#messageBox').hide();
-        clearTimeout(messageTimer); // Cancelar el temporizador
-    }
-    // Evento de clic en el botón Continuar
-    $('#continueBtn').click(function () {
-        if (selectedInterests.length === 0) {
-            showMessage("Por favor, selecciona al menos 1 interés");
-        } else if (selectedCategories.length === 0) {
-            showMessage("Por favor, selecciona al menos 1 categoría.");
-        } else {
-            // Mostrar confirmación al usuario antes de continuar
-            var confirmacion = confirm("¿Estás seguro de continuar?");
-            if (confirmacion) {
-                console.log("Intereses seleccionados:", selectedInterests);
-                console.log("Categorías seleccionadas:", selectedCategories);
-    
-                // Crear un objeto con los datos a enviar al backend
-                var dataToSend = {
-                    'intereses': selectedInterests,
-                    'categorias': selectedCategories
-                };
-    
-                // Enviar la solicitud AJAX al backend
-                $.ajax({
-                    type: 'POST',
-                    url: '/guardar-intereses-categorias/',  // URL definida en las URLs de Django
-                    data: dataToSend,
-                    success: function (response) {
-                        // Manejar la respuesta del backend
-                        showMessage(response.message);
-                        console.log("Datos enviados al backend:", dataToSend);
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        // Manejar el error de la solicitud
-                        showMessage("Error al enviar datos al backend.");
-                        console.log("Error:", errorThrown);
-                    }
-                });
-            } else {
-                // El usuario canceló la acción
-                showMessage("Acción cancelada.");
-            }
-        }
-    });
-    
-
-});
 </script>
-{% endblock extrajs %}
+{% endblock %}

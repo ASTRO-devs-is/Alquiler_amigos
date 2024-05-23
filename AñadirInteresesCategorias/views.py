@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from alquilarAmigo.models import Interes, Categoria
 from django.shortcuts import render, redirect
+import json
 
-def guardar_intereses_categorias(request):
+def saveDates(request):
     if request.method == 'POST':
         # Obtener los datos enviados desde el frontend
         intereses = request.POST.getlist('intereses[]')
@@ -27,3 +28,15 @@ def guardar_intereses_categorias(request):
     #    # La solicitud no es POST, devolver un error
     #    response_data = {'error': 'Solicitud no válida'}
     #    return JsonResponse(response_data, status=400)
+
+def categoria_Intereses(request, id_amigo):
+    categorias = list(Categoria.objects.all().values_list('nombre', flat=True))
+    intereses = list(Interes.objects.all().values_list('interes', flat=True))
+    print("hola")
+
+    context = {
+        'categorias': json.dumps(categorias),
+        'intereses': json.dumps(intereses)
+    }
+
+    return render(request, 'intereses_categorias.html', context)
