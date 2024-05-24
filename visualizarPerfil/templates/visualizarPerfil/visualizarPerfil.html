@@ -16,11 +16,11 @@
                         </ul>
                         <h2 class="font-weight-bold mt-4">{{amigo.nombre}} {{amigo.apellido}}</h2>                                                                           
                         <h4>{{amigo.edad}} Años</h4>
-                        {% if usuario.esAmigo %}
-                        <a href="{% url 'editarAmigo' amigo.id %}" class="btn btn-secondary mt-3">
-                            <i class="fas fa-edit"></i> Editar Perfil
-                        </a>                 
-                        {% endif%}
+                        {% if userEmail == amigo.correo %}
+                            <a href="{% url 'editarAmigo' amigo.id %}" class="btn btn-secondary mt-3">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </a>                 
+                        {% endif %}
                     </div>                   
                 </div>
                 <div class="col-sm-8 bg-white rounded-right border border-5 border-light">
