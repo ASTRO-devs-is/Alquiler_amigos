@@ -123,7 +123,8 @@ def editar_anadir_horas(request, id_amigo):
 
 def getCategInters(request, id_amigo):
     # Obtener el amigo
-    amigo = get_object_or_404(User, pk=id_amigo)
+    #amigo = get_object_or_404(User, pk=id_amigo)
+    amigo = request.user
 
     # Obtener los intereses del amigo
     intereses_amigo = User_Interes.objects.filter(user=amigo, activo_uc=True).values_list('interes__interes', flat=True)
@@ -148,7 +149,8 @@ def actualizar_categ_interes(request, id_amigo):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            user = get_object_or_404(User, pk=id_amigo)
+            #user = get_object_or_404(User, pk=id_amigo)
+            user = request.user
 
             # Limpiar los intereses y categorías actuales del usuario
             User_Interes.objects.filter(user=user).delete()
