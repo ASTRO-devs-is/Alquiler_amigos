@@ -36,7 +36,7 @@
           <a class="navbar-brand me-auto" href="{% url 'Inicio' %}">FriendlyHire</a>
           {% if user.is_authenticated %}
             {% if usuario.esAmigo %}
-              <h3 class="text-white" style="margin: 0% 2%;">Bienvenido {{usuario.nombre}}</h3>
+              <h3 class="text-white" style="margin: 0% 2%;">Bienvenido {{usuario.amigo.nombre}}</h3>
             {% else %}
               <h3 class="text-white">Busca amigos</h3>
             {% endif %}
@@ -54,15 +54,23 @@
                       Amigo
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{% url 'AniadirHoras' %}">Añadir horarios de amigo</a>
-                      <a class="dropdown-item" href="{% url 'guardar_intereses_categorias' %}">Añadir interese y categorias</a>
+                      {% if usuario.esAmigo %}
+                        <a class="dropdown-item" href="{% url 'Visualizar_amigo' usuario.amigo.id %}">Ver perfil</a>
+                        
+                      {% endif %}
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{% url 'visualizarAlquiler' %}">Alquileres pendientes</a>
                       <a class="dropdown-item" href="{% url 'historial' %}">Historial de alquileres</a>
                     </div>
                 {% else %}
-                  <li class="nav-item">
-                    <a class="nav-link mx-lg-2 disabled" href="">Cliente</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Cliente
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'Visualizar_cliente' usuario.cliente.id %}">Ver perfil</a>
+                    </div>
+                    
                   </li>
                 {% endif %}
               {% else %}
@@ -75,7 +83,6 @@
           </div>
         
           {% if user.is_authenticated %}
-          
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
               <button type="submit" class="login-button" onclick="event.preventDefault(); this.closest('form').submit();">Cerrar sesión</button>

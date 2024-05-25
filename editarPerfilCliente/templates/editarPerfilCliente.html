@@ -5,28 +5,35 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
   <div class="container mt-5 my-5 border" id="formulario-container">
-    <a href="../../../intCat/guardar-intereses-categorias/" style="font-size: 18px; display: block; text-align: center;">
+    <a href="{% url 'Load' id_usuario=cliente.id %}" style="font-size: 18px; display: block; text-align: center;">
       Categorias e intereses
     </a>
     <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
     <p> Cambia tu foto de verfil y tu informacion personal</p>
     
     <div class="perfil_container">
-      <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+      <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+        {% if foto_perfil.image %}
+          <img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; position: absolute; top: 0; left: 0;">
+        {% else %}
+          <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
+        {% endif %}
         <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;" ></i>
       </div>
-        <p style="text-align: center;">Tu foto se recortara automaticamente</p>
-    <form method="POST" action="{% url 'registrar_cliente' %}" id="registroForm">
-     </div> 
-
+      <form method="POST" action="{% url 'editarCliente' id_usuario=cliente.id %}" id="registroForm" enctype="multipart/form-data">
+    </div>
+    
     {% csrf_token %}
+
+    <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+    
       <div class="row mb-3">
         
         <div class="col-md-6">
           
           <div class="form-group">
             <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError">
+            <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ cliente.nombre }}">
             <small id="nombreError" class="text-danger"></small>
           </div>
         </div>
@@ -34,7 +41,7 @@
           <div class="form-group">
             
             <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError">
+            <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ cliente.apellido}}">
             <small id="apellidoError" class="text-danger"></small>
           </div>
         </div>
@@ -43,7 +50,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
-            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" >
+            <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError"value="{{ cliente.telefono}}">
             <small id="telefonoError" class="text-danger"> </small>
             {% if telefonoRepetido %}
             <small class="text-danger">{{ telefonoRepetido }}</small>
@@ -53,7 +60,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
-            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput="validarFechaNacimiento(this)">
+            <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" required oninput=" validarFechaNacimiento(this)"  value="{{ cliente.fecha_nacimiento|date:'Y-m-d' }}">
             <small id="fechaError" class="text-danger"></small>
           </div>
         </div>
@@ -61,17 +68,17 @@
       <div class="row mb-3">
         <div class="col-md-4">
           <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError">
+          <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="paisError" value="{{ cliente.ubicacion.pais }}">
           <small id="paisError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError">
+          <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="ciudadError" value="{{ cliente.ubicacion.ciudad }}">
           <small id="ciudadError" class="text-danger"></small>
         </div>
         <div class="col-md-4">
           <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
-          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError">
+          <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" required data-error="localidadError" value="{{ cliente.ubicacion.localidad }}">
           <!-- Agrega una pequeña etiqueta para mostrar mensajes de error -->
           <small id="localidadError" class="text-danger"></small>
         </div>
@@ -79,7 +86,7 @@
       <div class="row mb-3">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="email">Genero: <span class="campo-obligatorio">*</span></label><br>
+            <label for="genero">Género: <span class="campo-obligatorio">*</span></label><br>
             {{ form.genero }}
           </div>
         </div>
@@ -87,13 +94,14 @@
         </div>
       <div class="form-group mb-3">
         <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
-        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError"></textarea>
+        <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ cliente.descripcion }}</textarea>
         <small id="descripcionError" class="text-danger"></small>
       </div>
       
       <div class="button-group" style="display: flex; justify-content: space-between;">
-        <button class="btn btn-secondary" type="button">CANCELAR</button>
-        <button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONTINUAR</button>
+        <button class="btn btn-secondary" type="button" onclick="volverAtras()">CANCELAR</button>
+        <!--button class="btn btn-primary" type="submit" onclick="return validarFormulario();">CONFIRMAR</button-->
+        <button class="btn btn-primary" type="submit">CONFIRMAR</button>
       </div>
 
     </form>
@@ -106,33 +114,21 @@
 
 <script type="text/javascript">
   document.getElementById('registroForm').addEventListener('submit', function(event) {
-  
-    if(confirm("¿Guardar horario seleccionado?")){
-        alert("Horario guardado con éxito.");
-    }else {
-        event.preventDefault();  
+    console.log("Evento de envío del formulario activado");
+    if(confirm("¿Está seguro que quiere cambiar datos del perfil?")){
+      console.log("Confirmación aceptada, enviando formulario...");
+    } else {
+        console.log("Confirmación cancelada");
     }
   });
   function volverAtras() {
-      window.history.back();
+    window.location.href = "{% url 'Inicio' %}";
   }
   function mostrarAviso() {
-      alert("Reserva exitosa");
+      alert("Actualización exitosa");
   }
 
-  function validarContrasenas(elemento) {
-    var contrasena1 = document.getElementById('contrasena1').value;
-    var contrasena2 = document.getElementById('contrasena2').value;
-    var contrasenaError = document.getElementById('cont2Error');
 
-    if (contrasena1 !== contrasena2) {
-        contrasenaError.textContent = 'No coincide con tu contraseña';
-        return false;
-    } else {
-        contrasenaError.textContent = '';
-        return true;
-    }
-}
 
 function validarFormulario() {
   var campos = document.querySelectorAll('input, textarea, select');
@@ -235,48 +231,6 @@ function validarUbicacion(elemento) {
   }
 }
 
-function validarCorreo(elemento) {
-  const correoInput = elemento.value.trim();
-  const correoRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/;
-
-  if (!correoRegex.test(correoInput)) {
-    elemento.nextElementSibling.textContent = 'Ingrese un correo de dominio gmail.com o hotmail.com';
-    elemento.classList.add('is-invalid');
-  } else {
-    elemento.nextElementSibling.textContent = '';
-    elemento.classList.remove('is-invalid');
-  }
-}
-
-function togglePasswordVisibility(inputId, iconId) {
-  var passwordInput = document.getElementById(inputId);
-  var toggleIcon = document.getElementById(iconId);
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleIcon.classList.remove("fa-eye");
-    toggleIcon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
-    toggleIcon.classList.remove("fa-eye-slash");
-    toggleIcon.classList.add("fa-eye");
-  }
-}
-
-// Oculta las contraseñas al cargar la página
-document.getElementById("contrasena1").type = "password";
-document.getElementById("contrasena2").type = "password";
-
-document.getElementById("togglePasswordIconR").addEventListener("click", function(event) {
-  event.stopPropagation();
-  togglePasswordVisibility("contrasena1", "togglePasswordIconR");
-});
-
-document.getElementById("togglePasswordIcon").addEventListener("click", function(event) {
-  event.stopPropagation();
-  togglePasswordVisibility("contrasena2", "togglePasswordIcon");
-});
-
 function validarDescripcion(elemento) {
   const descripcionInput = elemento.value.trim();
   if (descripcionInput.length < 50) {
@@ -287,6 +241,16 @@ function validarDescripcion(elemento) {
     elemento.classList.remove('is-invalid');
   }
 }
+
+function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+              output.style.display = 'block';
+          };
+          reader.readAsDataURL(event.target.files[0]);
+  }
 
 </script>
 {% endblock extrajs %}

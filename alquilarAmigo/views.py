@@ -59,7 +59,7 @@ def calcularHorario(fecha, amigo_id, cliente_id):
         horas = DisponibilidadHoras.objects.filter(amigo_id=amigo_id)
 
     #horas = DisponibilidadHoras.objects.filter(amigo_id=amigo_id)  
-    salidas = Salida.objects.filter(amigo_id=amigo_id, cliente_id=cliente_id, fecha_salida=fecha)
+    salidas = Salida.objects.filter(amigo_id=amigo_id, fecha_salida=fecha)
     horas_disponibles = []
     for hora in horas:
         conflicto = False

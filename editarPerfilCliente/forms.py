@@ -17,10 +17,11 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = [
             'nombre', 'apellido', 'telefono', 'fecha_nacimiento',
-            'pais', 'ciudad', 'localidad', 'correo', 'contrasena',
+            'pais', 'ciudad', 'localidad',
             'genero', 'descripcion'
             #, 'aviso_legal_aceptado','terminos_condiciones_aceptados'
         ]
         widgets = {
-            'contrasena': forms.PasswordInput(),
+            #'contrasena': forms.PasswordInput(),
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'})
         }
