@@ -2,220 +2,227 @@
 {% load static %}
 
 {% block content %}
-<form class="form-grup " method='POST' id="formRegAmigo">
-    {% csrf_token %}
-    <div class="container justify-content-center border border-5 border-light" id="formulario-container" >
-        <a href="../../../intCat/guardar-intereses-categorias/" style="font-size: 18px; display: block; text-align: center;">
-            Categorias e intereses
-          </a>
-          <a href="{% url 'AniadirHoras' %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+<div class="container mt-5 my-5 border" id="formulario-container">
+    <a href="{% url 'Obtener' id_amigo=amigo.id %}" style="font-size: 18px; display: block; text-align: center;">
+        Categorias e intereses
+    </a>
+    <a href="{% url 'editarHorasAmigo' id_amigo=amigo.id %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
         <div style="text-align: center;margin: 1%;padding: 2%;"></div>
-         <h6 style="text-align: center; font-size: 20px; padding: 15px;"><b>EDITAR PERFIL</b></h6>
-        <div class="row">
-           
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div style="margin: 5% 0px;">
-                    <div style="width: 100px;"><h4>{{form.nombre.label}}: <span style="color: red">*</span> </h4></div>
-                    <div style="width: 80%;">{{form.nombre}}</div>
-                    {% if errores %}
-                        <div style="color: red;">
-                            {% for error in errores %}
-                                {% if error == 'nombre' %}
-                                    <h5>{{ form.nombre.errors }}</h5>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div style="margin: 5% 0px;">
-                    <div style="width: 100px;"><h4>{{form.telefono.label}}:</h4></div>
-                    <div style="width: 80%;">{{form.telefono}}</div>
-                    {% if errores %}
-                        <div style="color: red;">
-                            {% for error in errores %}
-                                {% if error == 'telefono' %}
-                                    <h5>{{ form.telefono.errors }}</h5>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                
-            </div>
+    <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
+    <p> Cambia tu foto de verfil y tu informacion personal</p>
+    
+    <div class="perfil_container">
+        <div class="circulo" style="width: 150px; height: 150px; background-color: rgba(239, 239, 239, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
         
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-8" >
-                <div style="margin: 2% 0px;">
-                    <div style="width: 200px;"><h4>{{form.apellido.label}}: <span style="color: red">*</span></h4></div>
-                    <div style="width: 80%;">{{form.apellido}}</div>
-                    {% if errores %}
-                        <div style="color: red;">
-                            {% for error in errores %}
-                                {% if error == 'apellido' %}
-                                    <h5>{{ form.apellido.errors }}</h5>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div style="margin: 5% 0px;">
-                    <div style="width: 200px;"><h4>{{form.fecha.label}}: <span style="color: red">*</span></h4></div> 
-                    <div id="fecha-registrar-amigo">{{form.fecha}}</div>
-                    {% if errores %}
-                        <div style="color: red;">
-                            {% for error in errores %}
-                                {% if error == 'fecha' %}
-                                    <h5>{{ form.fecha.errors }}</h5>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div style="padding: 1% 1.5%;">
-                <div style="margin: 2% 0px;">
-                    <div style="display: flex;">
-                        <div style="width: 200px;margin-right: 9%;" ><h4>{{form.pais.label}}: <span style="color: red">*</span></h4></div>
-                        <div style="width: 200px;margin: 0px 9%;"><h4>{{form.ciudad.label}}: <span style="color: red">*</span></h4></div> 
-                        <div style="width: 200px;margin: 0px 10%;"><h4>{{form.localidad.label}}: <span style="color: red">*</span></h4></div> 
-                    
-                    </div>
-                    <div style="display: flex;">
-                        <div style="width: 43%;">{{form.pais}}</div>
-                        <div style="width: 30%;margin: 0px 10%;">{{form.ciudad}}</div>
-                        <div style="width: 30%;margin: 0px 10%;">{{form.localidad}}</div>   
-                    </div>
-                    <div style="display: flex;">
-                        {% if errores %}
-                            <div style="color: red;width: 250px;">
-                                {% for error in errores %}
-                                    {% if error == 'pais' %}
-                                        <h5>{{ form.pais.errors }}</h5>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
+            {% if foto_perfil.image %}
+            <img id="perfil-img" src="{{ foto_perfil.image.url }}" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; position: absolute; top: 0; left: 0;">
             
-                        {% if errores %}
-                            <div style="color: red;width: 250px;margin: 0px 8%;">
-                                {% for error in errores %}
-                                    {% if error == 'ciudad' %}
-                                        <h5>{{ form.ciudad.errors }}</h5>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        {% if errores %}
-                            <div style="color: red;width: 250px;margin: 0px 5%;">
-                                {% for error in errores %}
-                                    {% if error == 'localidad' %}
-                                        <h5>{{ form.localidad.errors }}</h5>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>  
-                </div> 
-                
-                <div style="display: flex; margin-top: 5px;" >
-                    <div style="width: 200px; margin-right: 9%;"><h4>{{ form.email.label }}: <span style="color: red">*</span></h4></div>
-                    <div style="width: 100px; margin: 0px 9%; text-align: right;"><h4>{{ form.genero.label }}: <span style="color: red">*</span></h4></div> 
-                </div>
-                <div style="display: flex; margin-bottom: 10px;">
-                    <div style="width: 50%;">{{ form.email }}</div>
-                    <div style="width: 50%; margin: 0px 10%;">{{ form.genero }}</div>
-                </div>
-                {% if errores %}
-                <div style="color: red;">
-                    {% for error in errores %}
-                        {% if error == 'email' %}
-                            <h5>{{ form.email.errors }}</h5>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                  {% endif %}
-                  {% if errores %}
-                  <div style="color: red;">
-                      {% for error in errores %}
-                          {% if error == 'genero' %}
-                              <h5>{{ form.genero.errors }}</h5>
-                          {% endif %}
-                      {% endfor %}
-                  </div>
-                {% endif %}
-               
-                <div style="width: 200px;"><h4>{{form.tarifa.label}} en bs/hora: <span style="color: red">*</span></h4></div>
-                <div style="width: 50%;"><h2>{{ form.tarifa }}</h2></div>
-                {% if errores %}
-                    <div style="color: red;">
-                        {% for error in errores %}
-                            {% if error == 'tarifa' %}
-                                <h5>{{ form.tarifa.errors }}</h5>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                <div style="width: 200px;"><h4>{{form.descripcion.label}}: <span style="color: red">*</span></h4></div>
-                <div style="width: 90%;"><h2>{{ form.descripcion }}</h2></div>
-                {% if errores %}
-                    <div style="color: red;">
-                        {% for error in errores %}
-                            {% if error == 'descripcion' %}
-                                <h5>{{ form.descripcion.errors }}</h5>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-           
-        </div>
-        <div style="text-align: center;margin: 10% 0px;">
-            <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Continuar</button>
+            {% else %}
+            <img id="perfil-img" src="#" alt="Sin imagen" style="width: 100%; height: 100%; border-radius: 50%; display: none;">
+            {% endif %}
+            <i class="fa fa-camera" aria-hidden="true" style="font-size: 30px; text-align-last: right;"></i>
         </div>
     </div>
-    </form> <div class="modal fade" id="cancelar-programar-cita" role="dialog"> 
-    </div>  
-    
-{% endblock %}
-{% block extrajs %}
-    <script type="text/javascript">
-        var $ = jQuery.noConflict();
-        function abrir_modal_cancelacion(){
-            $('#cancelar-programar-cita').load("{% url 'cancelar_programar_cita' %}", function(){
-                $(this).modal('show');
-            });
-        }
-    </script>
 
-    <script>
-    function togglePasswordVisibility(inputId, iconId) {
-        var input = document.getElementById(inputId);
-        var icon = document.getElementById(iconId);
+    <form method="POST" action="{% url 'editarAmigo' id_amigo=amigo.id %}" id="registroForm" enctype="multipart/form-data">
+        {% csrf_token %}
         
-        if (input.type === "password") {
-            input.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        } else {
-            input.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-        }
-    }
-    function validarContrasenas(elemento) {
-        var contrasena1 = document.getElementById('contrasena').value;
-        var contrasena2 = document.getElementById('repetir-contrasena').value;
-        var contrasenaError = document.getElementById('cont2Error');
-
-        if (contrasena1 !== contrasena2) {
-            contrasenaError.textContent = 'No coincide con tu contraseña';
-            return false;
-        } else {
-            contrasenaError.textContent = '';
-            return true;
-        }
-    }
-    </script>
+        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)">
+        
     
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombre">Nombre: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="nombre" name="nombre" class="nombre form-control" required oninput="validarNombre(this)" data-error="nombreError" value="{{ amigo.nombre }}">
+                    <small id="nombreError" class="text-danger"></small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="apellido">Apellido: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="apellido" name="apellido" class="nombre form-control" required oninput="validarApellido(this)" data-error="apellidoError" value="{{ amigo.apellido }}">
+                    <small id="apellidoError" class="text-danger"></small>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="telefono">Teléfono: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="text" id="telefono" name="telefono" class="telefono form-control" required oninput="validarTelefono(this)" data-error="telefonoError" value="{{ amigo.telefono }}">
+                    <small id="telefonoError" class="text-danger"></small>
+                    {% if telefonoRepetido %}
+                    <small class="text-danger">{{ telefonoRepetido }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fecha-nacimiento">Fecha de Nacimiento: <span class="campo-obligatorio">*</span></label><br>
+                    <input type="date" id="fecha-nacimiento" name="fecha_nacimiento" class="fecNac form-control" required data-error="fechaError" oninput="validarFechaNacimiento(this)" value="{{ amigo.fecha_nacimiento|date:'Y-m-d' }}">
+                    <small id="fechaError" class="text-danger"></small>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="pais">País: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="pais" name="pais" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="paisError" value="{{ amigo.ubicacion.pais }}">
+                <small id="paisError" class="text-danger"></small>
+            </div>
+            <div class="col-md-4">
+                <label for="ciudad">Ciudad: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="ciudad" name="ciudad" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="ciudadError" value="{{ amigo.ubicacion.ciudad }}">
+                <small id="ciudadError" class="text-danger"></small>
+            </div>
+            <div class="col-md-4">
+                <label for="localidad">Localidad: <span class="campo-obligatorio">*</span></label><br>
+                <input type="text" id="localidad" name="localidad" class="ubicacion form-control" required oninput="validarUbicacion(this)" data-error="localidadError" value="{{ amigo.ubicacion.localidad }}">
+                <small id="localidadError" class="text-danger"></small>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="genero">Género: <span class="campo-obligatorio">*</span></label><br>
+                    {{ form.genero }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="descripcion">Descríbete: <span class="campo-obligatorio">*</span></label><br>
+            <textarea id="descripcion" name="descripcion" class="desc form-control" required oninput="validarDescripcion(this)" data-error="descripcionError">{{ amigo.descripcion }}</textarea>
+            <small id="descripcionError" class="text-danger"></small>
+        </div>
 
-{% endblock extrajs %}
+        <!--div class="form-group mb-3">
+            <input type="checkbox" id="politica" name="politica" value="aceptado" required>
+            <label for="politica">Acepto la política de privacidad</label><br>
+            <input type="checkbox" id="terminos" name="terminos" value="aceptado" required>
+            <label for="terminos">Acepto los términos y condiciones</label>
+        </div-->
+
+        <div class="button-group" style="display: flex; justify-content: space-between;">
+            <button class="btn btn-secondary" type="button" onclick="volverAtras()">CANCELAR</button>
+            <button class="btn btn-primary" type="submit">CONFIRMAR</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  document.getElementById('registroForm').addEventListener('submit', function(event) {
+    console.log("Evento de envío del formulario activado");
+    if(confirm("¿Está seguro que quiere cambiar datos del perfil?")){
+      console.log("Confirmación aceptada, enviando formulario...");
+    } else {
+        console.log("Confirmación cancelada");
+        event.preventDefault();
+    }
+  });
+
+  function volverAtras() {
+    window.location.href = "{% url 'Inicio' %}";
+  }
+
+  function validarFormulario() {
+      var campos = document.querySelectorAll('input, textarea, select');
+      var formValido = true;
+
+      campos.forEach(function (campo) {
+          if (campo.required && campo.value.trim() === '') {
+              var errorMsgId = campo.getAttribute('data-error');
+              var errorMsg = 'El campo ' + campo.id + ' no puede estar vacío.';
+              document.getElementById(errorMsgId).textContent = errorMsg;
+              formValido = false;
+          }
+      });
+
+      // Verificar si hay algún mensaje de error presente
+      var mensajesError = document.querySelectorAll('.text-danger');
+      mensajesError.forEach(function (mensaje) {
+          if (mensaje.textContent !== '') {
+              formValido = false;
+          }
+      });
+
+      return formValido;
+  }
+
+  function validarNombre(elemento) {
+      const nombreInput = elemento.value.trim();
+      const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+      if (!soloLetras.test(nombreInput)) {
+          document.getElementById('nombreError').textContent = 'El nombre solo puede contener letras y espacios.';
+      } else {
+          document.getElementById('nombreError').textContent = '';
+      }
+  }
+
+  function validarApellido(elemento) {
+      const apellidoInput = elemento.value.trim();
+      const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para letras y espacios
+      if (!soloLetras.test(apellidoInput)) {
+          document.getElementById('apellidoError').textContent = 'El apellido solo puede contener letras y espacios.';
+      } else {
+          document.getElementById('apellidoError').textContent = '';
+      }
+  }
+
+  function validarTelefono(elemento) {
+      const telefonoInput = elemento.value.trim();
+      const soloNumeros = /^[0-9]+$/; // Expresión regular para solo números
+      if (!soloNumeros.test(telefonoInput)) {
+          document.getElementById('telefonoError').textContent = 'El teléfono solo puede contener números.';
+      } else {
+          document.getElementById('telefonoError').textContent = '';
+      }
+  }
+ 
+
+  function validarFechaNacimiento(elemento) {
+      const fechaInput = new Date(elemento.value);
+      const hoy = new Date();
+      if (fechaInput >= hoy) {
+          document.getElementById('fechaError').textContent = 'La fecha de nacimiento no puede ser en el futuro.';
+      } else {
+          document.getElementById('fechaError').textContent = '';
+      }
+  }
+
+  function validarUbicacion(elemento) {
+      const ubicacionInput = elemento.value.trim();
+      if (ubicacionInput === '') {
+          var errorMsgId = elemento.getAttribute('data-error');
+          document.getElementById(errorMsgId).textContent = 'Este campo no puede estar vacío.';
+      } else {
+          var errorMsgId = elemento.getAttribute('data-error');
+          document.getElementById(errorMsgId).textContent = '';
+      }
+  }
+
+  function validarDescripcion(elemento) {
+      const descripcionInput = elemento.value.trim();
+      if (descripcionInput.length < 10) {
+          document.getElementById('descripcionError').textContent = 'La descripción debe tener al menos 10 caracteres.';
+      } else {
+          document.getElementById('descripcionError').textContent = '';
+      }
+  }
+
+  function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function(){
+              var output = document.getElementById('perfil-img');
+              output.src = reader.result;
+              output.style.display = 'block';
+          };
+          reader.readAsDataURL(event.target.files[0]);
+  }
+
+</script>
+{% endblock %}

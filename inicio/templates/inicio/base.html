@@ -75,7 +75,6 @@
           </div>
         
           {% if user.is_authenticated %}
-          
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
               <button type="submit" class="login-button" onclick="event.preventDefault(); this.closest('form').submit();">Cerrar sesión</button>

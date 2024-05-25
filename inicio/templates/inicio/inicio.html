@@ -11,7 +11,7 @@
   <div class="carousel-inner">
       <div class="carousel-inner">
       <div class="carousel-item active c-item">
-        <img src="'https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=" class="d-block w-100 c-img" alt="slide1">
+        <img src="https://media.istockphoto.com/id/870923214/es/foto/j%C3%B3venes-sentados-en-el-c%C3%A9sped-en-primer-plano-del-parque.jpg?s=2048x2048&w=is&k=20&c=EOGTOZ6ErOx2pnW-sMXcMw7r3LDFQAigcwA6uFwa-e8=" class="d-block w-100 c-img" alt="slide1">
         <div class="carousel-caption top-1 mt-4 d-none d-md-block">
           <h5 class="display-1 fw-bolder text-capitalize">Amigo Casual</h5>
           <p class="mt-5 fs-4 text-uppercase">"¡Disfruta de un día soleado en la plaza con tus amigos! Sumérgete en la alegría y la camaradería mientras paseas entre árboles frondosos y charlas animadas. Alquila un amigo para compartir risas, historias y momentos inolvidables bajo el cálido sol."</p>
@@ -211,12 +211,13 @@
         input.addEventListener('keyup', function() {
             const nombre = input.value;
             const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
+            const interesesSeleccionados = document.querySelectorAll('.interes-seleccionado');
             const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
-            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
-
 
         // agregar evento a las paginas para que muestren alos amigos correspondientes a dicha pagina al hacer click
         const paginacion = document.querySelector('#paginacion');
@@ -238,25 +239,46 @@
                 categoria.addEventListener('click', function (event) {
                     event.preventDefault();
                     categoria.classList.toggle('seleccionada');
+                    actualizarFiltrosYBuscar();
                 });
             });
 
-        // Acción para "Todas"
-        document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
+            let categoriasEliminadas = [];
+
+            // Acción para "Ninguno"
+            document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
                 event.preventDefault();
                 categorias.forEach(function (categoria) {
                     categoria.classList.remove('seleccionada');
                 });
+
+                // Eliminar los botones de categorías seleccionadas
+                document.querySelectorAll('.categoria-seleccionada').forEach(boton => {
+                    boton.remove();
+                    categoriasEliminadas.push(boton.dataset.categoriaId); // Guardar la categoría eliminada
+                });
+
+                // Agregar de nuevo las categorías eliminadas al dropdown
+                categoriasEliminadas.forEach(id => {
+                    const categoriaDropdown = document.querySelector(`.categoria[data-categoria-id="${id}"]`);
+                    categoriaDropdown.classList.remove('d-none');
+                });
+
+                actualizarFiltrosYBuscar();
             });
+
         });
-        //buscar por categoria
+        
+        //buscar por categorias e intereses
         const formBusqueda = document.querySelector('#formBusqueda');
         formBusqueda.addEventListener('submit', function(event) {
             event.preventDefault();
             const nombre = document.querySelector('#inputBuscador').value;
             const categoriasSeleccionadas = document.querySelectorAll('.dropdown-item.categoria.seleccionada');
             const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
-            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
+            const interesesSeleccionados = document.querySelectorAll('.dropdown-item.interes.seleccionado');
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
@@ -289,15 +311,90 @@
 
                 // Desmarcar la categoría en el dropdown
                 categoriaDropdown.classList.remove('seleccionada');
+
+                // Actualizar los filtros y enviar la solicitud de búsqueda
+                actualizarFiltrosYBuscar();
             }
         })
 
+        // Script para marcar/desmarcar intereses al hacer clic
+        document.addEventListener("DOMContentLoaded", function () {
+            const intereses = document.querySelectorAll('.dropdown-item.interes');
+            intereses.forEach(function (interes) {
+                interes.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    interes.classList.toggle('seleccionado');
+                    actualizarFiltrosYBuscar();
+                });
+            });
+            
+            let interesesEliminados = [];
+            // Acción para "Ninguno"
+            document.querySelector('.dropdown-item.todos-intereses').addEventListener('click', function (event) {
+                event.preventDefault();
+                intereses.forEach(function (interes) {
+                    interes.classList.remove('seleccionado');
+                });
 
+                // Eliminar los botones de intereses seleccionados
+                document.querySelectorAll('.interes-seleccionado').forEach(boton => {
+                    boton.remove();
+                    interesesEliminados.push(boton.dataset.interesId); // Guardar el interés eliminado
+                });
 
+                // Agregar de nuevo los intereses eliminados al dropdown
+                interesesEliminados.forEach(id => {
+                    const interesDropdown = document.querySelector(`.interes[data-interes-id="${id}"]`);
+                    interesDropdown.classList.remove('d-none');
+                });
 
+                actualizarFiltrosYBuscar();
+            });
+        });
 
+        document.querySelectorAll('.interes').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                const interesId = item.dataset.interesId;
+                const interesNombre = item.textContent;
+                const botonInteres = document.createElement('button');
+                const color = colores[colorIndex % colores.length];
+                colorIndex++;
+                botonInteres.classList.add('btn', `btn-${color}`, 'btn-sm', 'interes-seleccionado');
+                botonInteres.dataset.interesId = interesId;
+                botonInteres.innerHTML = `${interesNombre} <span class="eliminar">&times;</span>`;
+                document.getElementById('categoriasSeleccionadas').appendChild(botonInteres);
+                item.classList.add('d-none');
+            });
+        });
 
+        document.getElementById('categoriasSeleccionadas').addEventListener('click', event => {
+            if (event.target.classList.contains('eliminar')) {
+                const interesId = event.target.parentNode.dataset.interesId;
+                const interesBoton = event.target.parentNode;
+                const interesDropdown = document.querySelector(`.interes[data-interes-id="${interesId}"]`);
+                interesDropdown.classList.remove('d-none');
+                interesBoton.remove();
 
+                // Desmarcar el interés en el dropdown
+                interesDropdown.classList.remove('seleccionado');
+
+                // Actualizar los filtros y enviar la solicitud de búsqueda
+                actualizarFiltrosYBuscar();
+            }
+        });
+
+        function actualizarFiltrosYBuscar() {
+            const nombre = document.querySelector('#inputBuscador').value;
+            const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
+            const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
+            const interesesSeleccionados = document.querySelectorAll('.interes-seleccionado');
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
+                .then(response => response.json())
+                .then(data => mostrarAmigos(data));
+        }
 
 </script>
 

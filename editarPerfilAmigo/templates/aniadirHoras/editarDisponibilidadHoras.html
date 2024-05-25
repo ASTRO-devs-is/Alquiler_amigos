@@ -5,27 +5,27 @@
 <form class="form-group" method='POST' id="form-escoger-horas">
     {% csrf_token %}
     <div class="container" id="formulario-container" style="padding: 1% 7%;">
-        <div style="text-align: center;margin: 1%;padding: 2%; pointer-events: none;"><h2><b>Disponibilidad de tiempo</b></h2></div>
+        <div style="text-align: center; margin: 1%; padding: 2%; pointer-events: none;">
+            <h2><b>Disponibilidad de tiempo</b></h2>
+        </div>
         <div class="row">
-            {% for hora in horas %}
+            {% for hora in horas_disponibles %}
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="horario_seleccionado_{{ forloop.counter }}" value="{{ hora }}">
+                        <input class="form-check-input" type="checkbox" name="horario_seleccionado_{{ forloop.counter }}" value="{{ hora }}" {% if hora in horas_seleccionadas_dict %}checked{% endif %}>
                         <label class="form-check-label mostrarHorario" style="background-color: #55DDE0;">{{ hora }}</label>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <div style="text-align: center;margin: 10% 0px;">
+        <div style="text-align: center; margin: 10% 0px;">
             <button type="button" class="btn btn-secondary" onclick="abrir_modal_cancelacion()">Cancelar</button>
             <button type="submit" class="btn btn-primary">Confirmar</button>
         </div>
     </div>
 </form>
 
-
-<div class="modal fade" id="cancelar-aniadir-horas" role="dialog">
-</div> 
+<div class="modal fade" id="cancelar-aniadir-horas" role="dialog"></div> 
     
 {% endblock %}
 {% block extrajs %}
@@ -42,14 +42,14 @@
             if (checkedCount < 1) {
                 event.preventDefault();
                 alert('Por favor, selecciona al menos un horario.');
-            }else if (checkedCount > 8) {
+            } else if (checkedCount > 8) {
                 event.preventDefault();
                 alert('Por favor, selecciona no más de 8 horarios.');
-            }else if(confirm("¿Guardar horario seleccionado?")){
+            } else if(confirm("¿Guardar horario seleccionado?")){
                 alert("Horario guardado con éxito.");
-            }else {
+            } else {
                 event.preventDefault();  
             }
         });
     </script>
-{% endblock extrajs %}
+{% endblock %}

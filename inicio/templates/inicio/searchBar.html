@@ -24,26 +24,27 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorías
                     </a>
-                    <ul class="dropdown-menu ml-auto">
+                    <ul class="dropdown-menu">
                         {% for categoria in categorias %}
                         <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
                         {% endfor %}
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                        <li><a class="dropdown-item todas" href="#">Ninguna</a></li>
                     </ul>
                 </li>
 
-               <!-- Dropdown de Categorías -->
+                <!-- Dropdown de Intereses -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Intereses
                     </a>
-                    <ul class="dropdown-menu ml-auto">
-                        {% for interes in Intereses %}
-                        <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{ interes.interes }}</a></li>
+                    <ul class="dropdown-menu">
+                        {% for interes in intereses %}
+                        <li><a class="dropdown-item interes" href="#" data-interes-id="{{ interes.id }}">{{ interes.interes }}</a></li>
                         {% endfor %}
+
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                        <li></li><a class="dropdown-item todos-intereses" href="#">Ninguno</a></li>
                     </ul>
                 </li>
 
