@@ -1,21 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
-        
-    </head>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buscar por filtros</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <style>
         .categoria.seleccionada {
-            background-color: #f0ad4e; /* Color especial para categorías seleccionadas */
+            background-color: #f0ad4e;
+        }
+
+        .filter-group {
+            margin-bottom: 10px;
+        }
+
+        .filter-icon {
+            margin-right: 5px;
+        }
+
+        .filter-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .navbar .container {
+            justify-content: flex-start;
+        }
+
+        .navbar .collapse {
+            flex-grow: unset;
+        }
+
+        .form-inline .form-control {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .form-inline .btn {
+            width: auto;
         }
     </style>
-    <body>
+</head>
 
-        <!--barra de busqueda-->
+<body>
+    <div class="container mt-5">
+        <p><i class="fas fa-filter filter-icon"></i> Busca con quién y donde quieras <strong>alquilar un amigo</strong> o <strong>encontrar amigo</strong></p>
         <nav class="navbar navbar-expand-lg bg-transparent" id="navBuscador" style="background-color: #33658A;">
+
+            <div class="collapse navbar-collapse container">
+                <div class="container mt-3">
+                    <div class="col-lg-6 filter-group">
+                        <label for="option1"><i class="fas fa-map-marker-alt filter-icon"></i>Ubicación</label>
+                        <select class="form-control" id="option1">
+                            <option value="option1_value1">Local</option>
+                            <option value="option1_value2">Extranjero</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 filter-group">
+                        <label for="option2"><i class="fas fa-venus-mars filter-icon"></i>Género</label>
+                        <select class="form-control" id="option2">
+                            <option value="all">Prefiero no decir</option>
+                            <option value="option2_value1">Masculino</option>
+                            <option value="option2_value2">Femenino</option>
+                            <option value="option2_value3">No binario/otro</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 filter-group">
+                        <label for="option3"><i class="fas fa-user-clock filter-icon"></i>Edad</label>
+                        <select class="form-control" id="option3">
+                            <option value="all">Cualquiera</option>
+                            <option value="option3_value1">Entre 18 y 25</option>
+                            <option value="option3_value2">Entre 25 y 35</option>
+                            <option value="option3_value3">Entre 35 y 45</option>
+                            <option value="option3_value4">Entre 55 y 65</option>
+                            <option value="option3_value5">Mas de 65</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 filter-group">
+                        <label for="option4"><i class="fas fa-history filter-icon"></i>Recientes</label>
+                        <select class="form-control" id="option4">
+                            <option value="all">Recien agregados</option>
+                            <option value="option4_value1">Nuevos amigos</option>
+                            <option value="option4_value2">Populares</option>
+                            <option value="option4_value3">Mas solicitados</option>
+                            <option value="option4_value4">Amigos destacados</option>
+                            <option value="option4_value5">Mas buscados</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 filter-group">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Categorías
+                            </a>
+                            <ul class="dropdown-menu ml-auto">
+                              {% for categoria in categorias %}
+                              <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
+                              {% endfor %}
+                              <li>
+                                <hr class="dropdown-divider">
+                              </li>
+                              <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                            </ul>
+                          </li>
+                    </div>
+
+                    <div class="col-lg-4 filter-group">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Intereses
+                            </a>
+                            <ul class="dropdown-menu ml-auto">
+                              {% for interes in Intereses %}
+                              <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{ interes.interes }}</a></li>
+                              {% endfor %}
+                              <li>
+                                <hr class="dropdown-divider">
+                              </li>
+                              <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                            </ul>
+                        </li>
+                    </div>
+
+                    <form class="form-inline my-2 my-lg-0" id="formBusqueda">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
+                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+
               <!--contenedor colapsable-->
               <div class="collapse navbar-collapse container" >
                  
@@ -50,15 +170,89 @@
 
                 <!--Buscador-->
                 <form class="form-inline my-2 my-lg-0" id="formBusqueda">                  
-
                   <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
                   <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 
                 </form>
 
               </div>
+
         </nav>
-         
-    </body>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var perfiles = [
+                {
+                    nombre: "Juan",
+                    ubicacion: "local",
+                    genero: "masculino",
+                    edad: 30,
+                    reciente: "nuevos",
+                    categoria: "categoria1",
+                    interes: "interes1"
+                },
+                {
+                    nombre: "Maria",
+                    ubicacion: "extranjero",
+                    genero: "femenino",
+                    edad: 22,
+                    reciente: "populares",
+                    categoria: "categoria2",
+                    interes: "interes2"
+                },
+                // Más perfiles...
+            ];
+
+            $('#formBusqueda').submit(function (event) {
+                event.preventDefault();
+                var searchQuery = $('#inputBuscador').val().toLowerCase();
+                var location = $('#option1').val();
+                var gender = $('#option2').val();
+                var age = $('#option3').val();
+                var recent = $('#option4').val();
+                var category = $('.dropdown-categorias .categoria.seleccionada').data('categoria-id') || 'all';
+                var interest = $('.dropdown-intereses .interes.seleccionada').data('categoria-id') || 'all';
+
+                var filteredProfiles = perfiles.filter(function (perfil) {
+                    return (location === 'all' || perfil.ubicacion === location) &&
+                        (gender === 'all' || perfil.genero === gender) &&
+                        (age === 'all' || (perfil.edad >= parseInt(age.split('-')[0]) && perfil.edad <= parseInt(age.split('-')[1]))) &&
+                        (recent === 'all' || perfil.reciente === recent) &&
+                        (category === 'all' || perfil.categoria === category) &&
+                        (interest === 'all' || perfil.interes === interest) &&
+                        (searchQuery === '' || perfil.nombre.toLowerCase().includes(searchQuery));
+                });
+
+                mostrarResultados(filteredProfiles);
+            });
+
+            function mostrarResultados(perfiles) {
+                var resultados = $('#resultados');
+                resultados.empty();
+                if (perfiles.length === 0) {
+                    resultados.append('<p>No se encontraron resultados.</p>');
+                } else {
+                    perfiles.forEach(function (perfil) {
+                        var card = $('<div class="profile-card"></div>');
+                        card.append('<h5>' + perfil.nombre + '</h5>');
+                        card.append('<p>Ubicación: ' + perfil.ubicacion + '</p>');
+                        card.append('<p>Género: ' + perfil.genero + '</p>');
+                        card.append('<p>Edad: ' + perfil.edad + '</p>');
+                        card.append('<p>Reciente: ' + perfil.reciente + '</p>');
+                        card.append('<p>Categoría: ' + perfil.categoria + '</p>');
+                        card.append('<p>Intereses: ' + perfil.interes + '</p>');
+                        resultados.append(card);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
 </html>
 
