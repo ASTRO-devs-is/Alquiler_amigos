@@ -14,8 +14,11 @@ def inicio(request):
     
     # Obtener todas las combinaciones únicas de países, ciudades y localidades
     paises = Direccion.objects.values_list('pais', flat=True).distinct()
-    ciudades = Direccion.objects.values_list('ciudad', flat=True).distinct()
+    ciudades = list(Direccion.objects.values_list('ciudad', flat=True).distinct())
     localidades = Direccion.objects.values_list('localidad', flat=True).distinct()
+    print(paises)
+    print(localidades)
+    print(ciudades)
     
     return render(request, 'inicio/inicio.html', {
         'categorias': categorias,
