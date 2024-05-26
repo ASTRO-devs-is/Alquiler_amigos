@@ -24,11 +24,11 @@
                         Género
                     </a>
                     <ul class="dropdown-menu">
-                        {% for genero in generos %}
-                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">{{ genero.nombre }}</a></li>
-                        {% endfor %}
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">Femenino</a></li>
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">Masculino</a></li>
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">No binario/Otro</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item ninguno" href="#">Ninguna</a></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
                     </ul>
                 </li>
 
@@ -37,11 +37,11 @@
                         Ubicación
                     </a>
                     <ul class="dropdown-menu">
-                        {% for ubicacion in ubicaciones %}
-                        <li><a class="dropdown-item ubicacion" href="#" data-categoria-id="{{ ubicacion.id }}">{{ ubicacion.nombre }}</a></li>
+                        {% for pais in paises %}
+                        <li><a class="dropdown-item ubicacion" href="#">{{ pais }}</a></li>
                         {% endfor %}
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item ninguno" href="#">Ninguna</a></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
                     </ul>
                 </li>
                     
@@ -50,11 +50,13 @@
                         Edad
                     </a>
                     <ul class="dropdown-menu">
-                        {% for edad in edades %}
-                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">{{ edad.nombre }}</a></li>
-                        {% endfor %}
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">18-25 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">25-30 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">30-40 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">40-50 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">50-70 años</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item ninguno" href="#">Ninguna</a></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquier edad</a></li>
                     </ul>
                 </li>
                  
