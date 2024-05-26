@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 def inicio(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
     intereses = Interes.objects.all()
+    
     respuestajson = buscarAmigos(request)
     
     return render(request, 'inicio/inicio.html', {'categorias': categorias, 'intereses': intereses, 'respuestajson': respuestajson})

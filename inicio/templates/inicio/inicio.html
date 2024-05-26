@@ -337,7 +337,7 @@
                 });
 
                 // Eliminar los botones de intereses seleccionados
-                document.querySelectorAll('.interes-seleccionado').forEach(boton => {
+                document.querySelectorAll('.categoria-seleccionado').forEach(boton => {
                     boton.remove();
                     interesesEliminados.push(boton.dataset.interesId); // Guardar el interés eliminado
                 });
@@ -360,7 +360,7 @@
                 const botonInteres = document.createElement('button');
                 const color = colores[colorIndex % colores.length];
                 colorIndex++;
-                botonInteres.classList.add('btn', `btn-${color}`, 'btn-sm', 'interes-seleccionado');
+                botonInteres.classList.add('btn', `btn-${color}`, 'btn-sm', 'categoria-seleccionado');
                 botonInteres.dataset.interesId = interesId;
                 botonInteres.innerHTML = `${interesNombre} <span class="eliminar">&times;</span>`;
                 document.getElementById('categoriasSeleccionadas').appendChild(botonInteres);
@@ -388,7 +388,7 @@
             const nombre = document.querySelector('#inputBuscador').value;
             const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
             const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
-            const interesesSeleccionados = document.querySelectorAll('.interes-seleccionado');
+            const interesesSeleccionados = document.querySelectorAll('.categoria-seleccionado');
             const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
 
             fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
