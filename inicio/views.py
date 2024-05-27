@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria, Interes, Categoria_Interes, User_Interes
+from alquilarAmigo.models import Amigo,Tarifa, User, Categoria, User_Categoria, Interes, Categoria_Interes, User_Interes, Direccion
 from subir_fotos.models import FotoPerfil
 from django.db.models import Q
 from django.http import JsonResponse
@@ -11,9 +11,22 @@ from django.core.paginator import Paginator
 def inicio(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
     intereses = Interes.objects.all()
-    respuestajson = buscarAmigos(request)
     
-    return render(request, 'inicio/inicio.html', {'categorias': categorias, 'intereses': intereses, 'respuestajson': respuestajson})
+    # Obtener todas las combinaciones únicas de países, ciudades y localidades
+    paises = Direccion.objects.values_list('pais', flat=True).distinct()
+    ciudades = list(Direccion.objects.values_list('ciudad', flat=True).distinct())
+    localidades = Direccion.objects.values_list('localidad', flat=True).distinct()
+    print(paises)
+    print(localidades)
+    print(ciudades)
+    
+    return render(request, 'inicio/inicio.html', {
+        'categorias': categorias,
+        'intereses': intereses,
+        'paises': paises,
+        'ciudades': ciudades,
+        'localidades': localidades
+    })
 
 def buscarAmigos(request):
     nombre = request.GET.get('nombre')
