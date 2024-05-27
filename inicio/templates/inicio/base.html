@@ -85,10 +85,10 @@
           {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
-              <button type="submit" class="login-button" onclick="event.preventDefault(); this.closest('form').submit();">Cerrar sesión</button>
+              <button type="submit" type="button" class="btn btn-outline-warning onclick="event.preventDefault(); this.closest('form').submit();">Cerrar sesión</button>
             </form>
           {% else %}
-            <a href="{% url 'inicio_login' %}" class="login-button">Iniciar sesión</a>
+            <a href="{% url 'inicio_login' %}" type="button" class="btn btn-outline-warning" >Iniciar sesión</a>
           {% endif %}
           <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
