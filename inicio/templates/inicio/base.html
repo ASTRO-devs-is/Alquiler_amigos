@@ -68,7 +68,9 @@
                       Cliente
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% if usuario.cliente %}
                       <a class="dropdown-item" href="{% url 'Visualizar_cliente' usuario.cliente.id %}">Ver perfil</a>
+                      {% endif %}
                     </div>
                     
                   </li>
