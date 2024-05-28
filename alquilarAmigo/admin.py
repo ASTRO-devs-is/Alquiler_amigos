@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Salida, Categoria, Cliente, Amigo, DisponibilidadDias, DisponibilidadHoras, Tarifa, Direccion,User
+from .models import Salida, Categoria, Cliente, Amigo, DisponibilidadDias, DisponibilidadHoras, Tarifa, Direccion,User, Interes, User_Categoria, User_Interes
 # Register your models here.
 
 class SalidaAdmin(admin.ModelAdmin):
@@ -37,3 +37,6 @@ admin.site.register(DisponibilidadHoras, DisponibilidadHorasAdmin)
 admin.site.register(Tarifa)
 admin.site.register(Direccion, DireccionAdmin)
 admin.site.register(User)
+admin.site.register(Interes)
+admin.site.register(User_Categoria)
+admin.site.register(User_Interes)

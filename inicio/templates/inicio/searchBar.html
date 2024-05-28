@@ -18,38 +18,105 @@
         <nav class="navbar navbar-expand-lg bg-transparent" id="navBuscador" style="background-color: #33658A;">
               <!--contenedor colapsable-->
               <div class="collapse navbar-collapse container" >
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Género
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">Femenino</a></li>
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">Masculino</a></li>
+                        <li><a class="dropdown-item genero" href="#" data-categoria-id="{{ genero.id }}">No binario/Otro</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ubicación
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for pais in paises %}
+                        <li><a class="dropdown-item ubicacion" href="#">{{ pais }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ciudad
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for ciudad in ciudades %}
+                        <li><a class="dropdown-item ubicacion" href="#">{{ ciudad }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        localidad
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for localidad in localidades %}
+                        <li><a class="dropdown-item ubicacion" href="#">{{ localidad }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquiera</a></li>
+                    </ul>
+                </li>
+                    
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Edad
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">18-25 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">25-30 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">30-40 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">40-50 años</a></li>
+                        <li><a class="dropdown-item edad" href="#" data-categoria-id="{{ edad.id }}">50-70 años</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item ninguno" href="#">Cualquier edad</a></li>
+                    </ul>
+                </li>
                  
-               <!-- Dropdown de Categorías -->
+                <!-- Dropdown de Categorías -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorías
                     </a>
-                    <ul class="dropdown-menu ml-auto">
+                    <ul class="dropdown-menu">
                         {% for categoria in categorias %}
                         <li><a class="dropdown-item categoria" href="#" data-categoria-id="{{ categoria.id }}">{{ categoria.nombre }}</a></li>
                         {% endfor %}
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                        <li><a class="dropdown-item todas" href="#">Ninguna</a></li>
                     </ul>
                 </li>
 
-               <!-- Dropdown de Categorías -->
+                <!-- Dropdown de Intereses -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Intereses
                     </a>
-                    <ul class="dropdown-menu ml-auto">
-                        {% for interes in Intereses %}
-                        <li><a class="dropdown-item interes" href="#" data-categoria-id="{{ interes.id }}">{{ interes.interes }}</a></li>
+                    <ul class="dropdown-menu">
+                        {% for interes in intereses %}
+                        <li><a class="dropdown-item interes" href="#" data-interes-id="{{ interes.id }}">{{ interes.interes }}</a></li>
                         {% endfor %}
+
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item todas" href="#">Todas</a></li>
+                        <li></li><a class="dropdown-item todos-intereses" href="#">Ninguno</a></li>
                     </ul>
                 </li>
 
                 <!--Buscador-->
                 <form class="form-inline my-2 my-lg-0" id="formBusqueda">                  
-
                   <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nombre" id="inputBuscador">
                   <button class="btn btn-outline-warning my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 

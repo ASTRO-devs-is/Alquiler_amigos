@@ -15,7 +15,12 @@
                             {%endfor%}
                         </ul>
                         <h2 class="font-weight-bold mt-4">{{amigo.nombre}} {{amigo.apellido}}</h2>                                                                           
-                        <h4>{{amigo.edad}} Años</h4>                 
+                        <h4>{{amigo.edad}} Años</h4>
+                        {% if userEmail == amigo.correo %}
+                            <a href="{% url 'editarAmigo' usuario.amigo.id %}" class="btn btn-secondary mt-3">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </a>                 
+                        {% endif %}
                     </div>                   
                 </div>
                 <div class="col-sm-8 bg-white rounded-right border border-5 border-light">
@@ -72,9 +77,18 @@
                         </div>
                         <hr class="bg-primary">
                         {% if user.is_authenticated %}
-                        <div class="d-flex justify-content-center">
-                            <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="margin: 5% auto;">Alquilar Amigo</a>
-                        </div>
+                            {% if usuario.esAmigo %}
+                                <div class="d-flex justify-content-center">
+                                    <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary disabled" style="margin: 5% auto;">Alquilar Amigo</a>                               
+                                </div>
+
+                                <h5 class="text-center" style="color: red;">Necesita ser un cliente</h5>
+                            {% else %}
+                                
+                                <div class="d-flex justify-content-center">
+                                    <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary" style="margin: 5% auto;">Alquilar Amigo</a>
+                                </div>
+                            {% endif %}                            
                         {% else %}
                         <div class="d-flex justify-content-center">
                             <a href="../../alquilar/programar/{{amigo.id}}" class="btn btn-primary disabled" style="margin: 5% auto;">Alquilar Amigo</a>

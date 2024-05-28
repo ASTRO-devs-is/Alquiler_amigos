@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import formularioAmigo
 from django.contrib import messages
-from alquilarAmigo.models import  Amigo,User,Direccion,DisponibilidadHoras
+from alquilarAmigo.models import  Amigo,User,Direccion,DisponibilidadHoras, Categoria, Interes, User_Categoria, User_Interes
 from django.forms import modelformset_factory
 from subir_fotos.models import FotoPerfil
 from subir_fotos.forms import FotoPerfilForm
 from django.core.exceptions import ValidationError
+import json
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 # Create your views here.
 
 def editar(request, id_amigo):
@@ -114,3 +120,61 @@ def editar_anadir_horas(request, id_amigo):
         'horas_seleccionadas_dict': horas_seleccionadas_dict,
         'amigo': amigo
     })
+
+def getCategInters(request, id_amigo):
+    # Obtener el amigo
+    #amigo = get_object_or_404(User, pk=id_amigo)
+    amigo = request.user
+
+    # Obtener los intereses del amigo
+    intereses_amigo = User_Interes.objects.filter(user=amigo, activo_uc=True).values_list('interes__interes', flat=True)
+    # Obtener las categorías del amigo
+    categorias_amigo = User_Categoria.objects.filter(user=amigo, activo_uc=True).values_list('categoria__nombre', flat=True)
+
+    # Obtener todos los intereses y categorías disponibles
+    intereses_disponibles = list(Interes.objects.values_list('interes', flat=True))
+    categorias_disponibles = list(Categoria.objects.values_list('nombre', flat=True))
+
+    context = {
+        'intereses_amigo': json.dumps(list(intereses_amigo)),
+        'categorias_amigo': json.dumps(list(categorias_amigo)),
+        'intereses_disponibles': json.dumps(intereses_disponibles),
+        'categorias_disponibles': json.dumps(categorias_disponibles),
+        'id_amigo': id_amigo
+    }
+
+    return render(request, 'aditarCategIntereses/editarCatInt.html', context)
+
+def actualizar_categ_interes(request, id_amigo):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            #user = get_object_or_404(User, pk=id_amigo)
+            user = request.user
+
+            # Limpiar los intereses y categorías actuales del usuario
+            User_Interes.objects.filter(user=user).delete()
+            User_Categoria.objects.filter(user=user).delete()
+
+            # Añadir los nuevos intereses
+            for interes_name in data.get('interests', []):
+                interes = get_object_or_404(Interes, interes=interes_name)
+                User_Interes.objects.create(user=user, interes=interes)
+
+            # Añadir las nuevas categorías
+            for categoria_name in data.get('categories', []):
+                categoria = get_object_or_404(Categoria, nombre=categoria_name)
+                User_Categoria.objects.create(user=user, categoria=categoria)
+
+            # Construir la URL de redirección
+            redirect_url = reverse('editarAmigo', args=[id_amigo])
+            response_data = {
+                'status': 'success',
+                'message': 'Datos actualizados correctamente',
+                'redirect_url': redirect_url  # URL de redirección
+            }
+            return JsonResponse(response_data, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)

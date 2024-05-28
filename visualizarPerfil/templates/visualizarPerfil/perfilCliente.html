@@ -15,7 +15,12 @@
                             {%endfor%}
                         </ul>
                         <h2 class="font-weight-bold mt-4">{{amigo.nombre}} {{amigo.apellido}}</h2>                                                                           
-                        <h4>{{amigo.edad}} Años</h4>                 
+                        <h4>{{amigo.edad}} Años</h4>  
+                        {% if usuario.esAmigo == False %}
+                            <a href="{% url 'editarCliente' usuario.cliente.id %}" class="btn btn-secondary mt-3">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </a>                 
+                        {% endif %}               
                     </div>                   
                 </div>
                 <div class="col-sm-8 bg-white rounded-right border border-5 border-light">
@@ -53,10 +58,6 @@
                             <div class="col-sm-6">
                                 <p class="font-weight-bold">Nacionalidad:</p>
                                 <h6 class="text-muted" style="font-size: 18px;">{{amigo.pais}}</h6>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="font-weight-bold"> Precio:</p>
-                                <h6 class="text-muted" style="font-size: 18px;">{{amigo.tarifa}} bs/h</h6>
                             </div>
                             <div class="col-sm-6">
                                 <p class="font-weight-bold"> Idioma:</p>

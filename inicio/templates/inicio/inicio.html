@@ -211,12 +211,13 @@
         input.addEventListener('keyup', function() {
             const nombre = input.value;
             const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
+            const interesesSeleccionados = document.querySelectorAll('.interes-seleccionado');
             const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
-            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
-
 
         // agregar evento a las paginas para que muestren alos amigos correspondientes a dicha pagina al hacer click
         const paginacion = document.querySelector('#paginacion');
@@ -238,25 +239,46 @@
                 categoria.addEventListener('click', function (event) {
                     event.preventDefault();
                     categoria.classList.toggle('seleccionada');
+                    actualizarFiltrosYBuscar();
                 });
             });
 
-        // Acción para "Todas"
-        document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
+            let categoriasEliminadas = [];
+
+            // Acción para "Ninguno"
+            document.querySelector('.dropdown-item.todas').addEventListener('click', function (event) {
                 event.preventDefault();
                 categorias.forEach(function (categoria) {
                     categoria.classList.remove('seleccionada');
                 });
+
+                // Eliminar los botones de categorías seleccionadas
+                document.querySelectorAll('.categoria-seleccionada').forEach(boton => {
+                    boton.remove();
+                    categoriasEliminadas.push(boton.dataset.categoriaId); // Guardar la categoría eliminada
+                });
+
+                // Agregar de nuevo las categorías eliminadas al dropdown
+                categoriasEliminadas.forEach(id => {
+                    const categoriaDropdown = document.querySelector(`.categoria[data-categoria-id="${id}"]`);
+                    categoriaDropdown.classList.remove('d-none');
+                });
+
+                actualizarFiltrosYBuscar();
             });
+
         });
-        //buscar por categoria
+        
+        //buscar por categorias e intereses
         const formBusqueda = document.querySelector('#formBusqueda');
         formBusqueda.addEventListener('submit', function(event) {
             event.preventDefault();
             const nombre = document.querySelector('#inputBuscador').value;
             const categoriasSeleccionadas = document.querySelectorAll('.dropdown-item.categoria.seleccionada');
             const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
-            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}`)
+            const interesesSeleccionados = document.querySelectorAll('.dropdown-item.interes.seleccionado');
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
                 .then(response => response.json())
                 .then(data => mostrarAmigos(data));
         });
@@ -289,15 +311,90 @@
 
                 // Desmarcar la categoría en el dropdown
                 categoriaDropdown.classList.remove('seleccionada');
+
+                // Actualizar los filtros y enviar la solicitud de búsqueda
+                actualizarFiltrosYBuscar();
             }
         })
 
+        // Script para marcar/desmarcar intereses al hacer clic
+        document.addEventListener("DOMContentLoaded", function () {
+            const intereses = document.querySelectorAll('.dropdown-item.interes');
+            intereses.forEach(function (interes) {
+                interes.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    interes.classList.toggle('seleccionado');
+                    actualizarFiltrosYBuscar();
+                });
+            });
+            
+            let interesesEliminados = [];
+            // Acción para "Ninguno"
+            document.querySelector('.dropdown-item.todos-intereses').addEventListener('click', function (event) {
+                event.preventDefault();
+                intereses.forEach(function (interes) {
+                    interes.classList.remove('seleccionado');
+                });
 
+                // Eliminar los botones de intereses seleccionados
+                document.querySelectorAll('.categoria-seleccionado').forEach(boton => {
+                    boton.remove();
+                    interesesEliminados.push(boton.dataset.interesId); // Guardar el interés eliminado
+                });
 
+                // Agregar de nuevo los intereses eliminados al dropdown
+                interesesEliminados.forEach(id => {
+                    const interesDropdown = document.querySelector(`.interes[data-interes-id="${id}"]`);
+                    interesDropdown.classList.remove('d-none');
+                });
 
+                actualizarFiltrosYBuscar();
+            });
+        });
 
+        document.querySelectorAll('.interes').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                const interesId = item.dataset.interesId;
+                const interesNombre = item.textContent;
+                const botonInteres = document.createElement('button');
+                const color = colores[colorIndex % colores.length];
+                colorIndex++;
+                botonInteres.classList.add('btn', `btn-${color}`, 'btn-sm', 'categoria-seleccionado');
+                botonInteres.dataset.interesId = interesId;
+                botonInteres.innerHTML = `${interesNombre} <span class="eliminar">&times;</span>`;
+                document.getElementById('categoriasSeleccionadas').appendChild(botonInteres);
+                item.classList.add('d-none');
+            });
+        });
 
+        document.getElementById('categoriasSeleccionadas').addEventListener('click', event => {
+            if (event.target.classList.contains('eliminar')) {
+                const interesId = event.target.parentNode.dataset.interesId;
+                const interesBoton = event.target.parentNode;
+                const interesDropdown = document.querySelector(`.interes[data-interes-id="${interesId}"]`);
+                interesDropdown.classList.remove('d-none');
+                interesBoton.remove();
 
+                // Desmarcar el interés en el dropdown
+                interesDropdown.classList.remove('seleccionado');
+
+                // Actualizar los filtros y enviar la solicitud de búsqueda
+                actualizarFiltrosYBuscar();
+            }
+        });
+
+        function actualizarFiltrosYBuscar() {
+            const nombre = document.querySelector('#inputBuscador').value;
+            const categoriasSeleccionadas = document.querySelectorAll('.categoria-seleccionada');
+            const categorias = Array.from(categoriasSeleccionadas).map(item => item.dataset.categoriaId).join(',');
+            const interesesSeleccionados = document.querySelectorAll('.categoria-seleccionado');
+            const intereses = Array.from(interesesSeleccionados).map(item => item.dataset.interesId).join(',');
+
+            fetch(`{% url 'Buscar' %}?nombre=${nombre}&categorias=${categorias}&intereses=${intereses}`)
+                .then(response => response.json())
+                .then(data => mostrarAmigos(data));
+        }
 
 </script>
 
