@@ -5,12 +5,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 <div class="container mt-5 my-5 border" id="formulario-container">
-    <a href="{% url 'Obtener' id_amigo=amigo.id %}" style="font-size: 18px; display: block; text-align: center;">
-        Categorias e intereses
-    </a>
-    <a href="{% url 'editarHorasAmigo' id_amigo=amigo.id %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
-        <div style="text-align: center;margin: 1%;padding: 2%;"></div>
+
     <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
+    <div style="display: flex; justify-content: center; gap: 20px;">
+        <a href="{% url 'Obtener' id_amigo=amigo.id %}" style="font-size: 18px; display: block; text-align: center;">
+            Categorias e intereses
+        </a>
+        <a href="{% url 'editarHorasAmigo' id_amigo=amigo.id %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
+    </div>
+    <div style="text-align: center; margin: 1%; padding: 2%;"></div>
+   
     <p> Cambia tu foto de verfil y tu informacion personal</p>
     
     <div class="perfil_container">
