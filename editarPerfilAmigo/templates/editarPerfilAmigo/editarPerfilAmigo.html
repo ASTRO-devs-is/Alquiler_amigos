@@ -8,7 +8,9 @@
 
     <h2 class="mb-4 text-left">EDITAR PERFIL</h2>
     <div style="display: flex; justify-content: center; gap: 20px;">
-        <a href="../../../intCat/guardar-intereses-categorias/" style="font-size: 18px;">Categorias e intereses</a>
+        <a href="{% url 'Obtener' id_amigo=amigo.id %}" style="font-size: 18px; display: block; text-align: center;">
+            Categorias e intereses
+        </a>
         <a href="{% url 'editarHorasAmigo' id_amigo=amigo.id %}"  style="font-size: 18px; display: block; text-align: center;" >Disponibilidad de Tiempo</a>
     </div>
     <div style="text-align: center; margin: 1%; padding: 2%;"></div>
