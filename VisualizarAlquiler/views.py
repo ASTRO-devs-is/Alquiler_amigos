@@ -28,7 +28,7 @@ def visualizarAlquiler(request):
     else:
         amigoTieneSalida = False
     
-    return render(request, 'VisualizarAlquiler/visualizarAlquiler.html', 
+    return render(request, 'visualizarAlquiler/visualizarAlquiler.html', 
                     {'contexto': {'page_obj': page_obj, 'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
 
 
@@ -79,4 +79,4 @@ def historial(request):
     else:
         amigoTieneSalida = False
     
-    return render(request, 'VisualizarAlquiler/historial.html', {'contexto': {'page_obj': page_obj,'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
+    return render(request, 'visualizarAlquiler/historial.html', {'contexto': {'page_obj': page_obj,'salidas_con_fotos': salidas_con_fotos, 'tieneSalida': amigoTieneSalida}})
