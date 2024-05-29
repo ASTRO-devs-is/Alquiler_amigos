@@ -58,10 +58,10 @@
         <div class="row row-cols-1 row-cols-md-3 g-4" id="tarjetasAmigos">
 
         </div>
-    </div>
-
     <!--mensaje no se encontraron amigos-->
     <div id="mensajeVacio" class="text-center mt-3" style="display: none;">
+
+    </div>
 
     </div>
 </div>
@@ -106,7 +106,7 @@
             if (data.amigos.length === 0) {
                 mensajeVacio.style.display = 'block';
                 mensajeVacio.innerHTML = `<i class="fas fa-frown text-light" style="font-size: 5em"></i>
-                                          <h5 class="display-1 fw-bolder text-capitalize text-light">Lo sentimos, no se encontraron resultados</h5>`;
+                                          <h5 class="display-1 fw-bolder text-light">Lo sentimos, no se encontraron resultados</h5>`;
                 document.querySelector('#paginacion').style.display = 'none'; // Ocultar la paginación
             } else {
                 mensajeVacio.style.display = 'none'; // Ocultar el mensaje de vacío
